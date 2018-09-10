@@ -17,3 +17,11 @@ The project will have:
 - Dashboard after login: one for teachers and one for parents
 - Admin dashboard (for a employee for example to manage important issues)
 -
+
+# Meeting 1
+
+We will use:
+ 
+- AngularJS
+- GoLang
+- CSS, HTML
