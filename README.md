@@ -11,18 +11,3 @@ Team members:
 - Marwan (marwan011)
 - Ribal (ribal-aladeeb)
 
-The project will have:
-
-- A login page
-- A signup page
-- Dashboard after login: one for teachers and one for parents
-- Admin dashboard (for a employee for example to manage important issues)
--
-
-# Meeting 1
-
-We will use:
- 
-- AngularJS
-- GoLang
-- CSS, HTML
