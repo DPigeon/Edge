@@ -4,7 +4,7 @@ The goal of this project is to allow parents to communicate with teachers and vi
 
 Team members:
 
-- David (DPigeon) : Product owner
+- David (DPigeon) : Product Owner
 - Ribal (ribal-aladeeb) : Scrum Master
 - Maria (ahmedmaria)
 - Ruslan (Ruslan Sinyavsky)
