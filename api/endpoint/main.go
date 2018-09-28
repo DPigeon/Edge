@@ -1,6 +1,7 @@
 package main
 
 import (
+	"SOEN341-Project/api/implemented"
 	"SOEN341-Project/api/platform"
 	"log"
 	"net"
@@ -18,7 +19,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer()
-	platform.RegisterPlatformServer(grpcServer, &customServer{})
+	platform.RegisterPlatformServer(grpcServer, &implemented.Server{})
 
 	err = grpcServer.Serve(lis)
 	if err != nil {

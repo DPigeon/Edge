@@ -19,7 +19,7 @@ func main() {
 	}
 	defer conn.Close()
 	client := platform.NewPlatformClient(conn)
-	status, err := client.AddClass(context.Background(), nil)
+	status, err := client.AddClass(context.Background(), &platform.Class{Id: 6953, Topic: "Math"})
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
