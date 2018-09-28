@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package platform;
+
+service Platform{
+    rpc AddClass(Class) returns (Status);
+    rpc AddStudents(Student) returns(Status);
+    rpc registerParent(Parent) returns(Status);
+    rpc registerTeacher(Teacher) returns(Status);
+}
+
+message Class{
+    int32 id = 1;
+    string topic = 2;
+    Teacher instructor = 3;
+    repeated Student students = 4;
+}
+
+message Parent{
+    int32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    repeated Student children = 5;    
+}
+
+message Student{
+    int32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    Parent mother = 5;
+    Parent father = 6;
+    repeated Teacher teachers = 7;
+    repeated Class subjects = 8;
+}
+
+message Status{
+    bool success = 1;
+    string message = 2;
+}
+
+message Teacher{
+    int32 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    repeated Student students = 5;
+    repeated Class subjects = 6;
+}
