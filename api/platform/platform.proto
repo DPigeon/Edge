@@ -2,13 +2,6 @@ syntax = "proto3";
 
 package platform;
 
-service Platform{
-    rpc AddClass(Class) returns (Status);
-    rpc AddStudents(Student) returns(Status);
-    rpc registerParent(Parent) returns(Status);
-    rpc registerTeacher(Teacher) returns(Status);
-}
-
 message Class{
     int32 id = 1;
     string topic = 2;

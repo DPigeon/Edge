@@ -6,5 +6,5 @@ build: proto
 	go install ./...
 
 proto:
-	protoc --proto_path=$(PROTO_PATH) platform.proto --go_out=plugins=grpc:$(PROTO_PATH)
+	protoc --proto_path=$(PROTO_PATH) platform.proto --go_out=:$(PROTO_PATH)
 	
