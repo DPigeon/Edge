@@ -1,8 +1,7 @@
 package model
 
-// Controller represents a controller in the MVC design pattern.
-// You can see it like an in-memory version of the database
-type Controller struct {
+// Dataset an in-memory version of the database
+type Dataset struct {
 	Classes       []Class
 	Parents       []Parent
 	Relationships []Relationship
