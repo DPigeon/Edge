@@ -1,0 +1,37 @@
+<html>
+<head>
+
+<script>
+function validateForm() {
+    var x = document.forms["login-page"]["userN"].value;
+    if (x == "") { //if it is blank
+        alert("Name must be filled out.");
+        return false;
+	} 
+</script>
+
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="login-page">
+
+<div class="form" >
+<p class ="message">Please login to have full access</p>
+
+<form name="login-page" action="" onsubmit="return validateForm()" method="post"> 
+
+<input type="username" placeholder="User Name" name="userN"/>
+<input type="password" placeholder="Password" name="passW"/>
+
+<button> Login </button>
+<p class ="message">Not Registered?</p> <a href="#register">Register</a>
+</form>
+</div>
+</div>
+
+</body>
+
+</html>
