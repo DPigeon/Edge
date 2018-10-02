@@ -1,6 +1,7 @@
 <html>
 	<head>	
 		<title>Login</title>
+		<!--->Files needed for our login page<--->
 		<link rel="stylesheet" href="style.css">
 		<script src="functions.js"></script>
 	</head>
@@ -8,14 +9,16 @@
 		<div id = "log" class = "login-page">
 			<div class = "form">
 				<h2 style = "color:#4CAF50;">Welcome To Our Login Page</h2>
-				<form name = "login-page" action="#dashboard"> 
+				<form name = "login-page" action="#MarwansDashboard"> 
 					<input type="text" placeholder = "Username" onclick="validateForm()" id="uname" tabindex = "1" spellcheck = "false"> <div id="div1"></div>
 					<input type="password" placeholder = "Password" onclick="validateForm()" id="password" tabindex = "2"> <div id="div2"></div>
+					<!--->Remember Me button<--->
 					<div class="rememberMe">
 						<input type="checkbox" value="rememberMe" id="rememberMe" tabindex = "3">Remember Me<
                     </div>
 					<button id="button1" type="submit" tabindex = "4"> Login </button>
 					 <div class="alert alert-danger" role="alert">
+					 <!--->The red alert box<--->
 						<p id="userError" class="form_error"></p>
                         <p id="passError" class="form_error"></p>
                     </div>
