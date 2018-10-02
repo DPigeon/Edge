@@ -61,3 +61,8 @@ type Teacher struct {
 	Email   string
 	Classes []Class
 }
+
+func RegisterParent(parent *Parent, db *Dataset) {
+
+	db.Parents = append(db.Parents, *parent)
+}

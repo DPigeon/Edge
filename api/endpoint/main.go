@@ -1,30 +1,26 @@
 package main
 
 import (
-	"SOEN341-Project/api/implemented"
-	"SOEN341-Project/api/platform"
+	"SOEN341-Project/api/model"
 	"log"
-	"net"
-
-	"google.golang.org/grpc"
+	"net/http"
 )
 
-// implements platformserver
+var database model.Dataset
 
-const port = ":9090"
+const (
+	port = ":9090"
+)
 
 func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	grpcServer := grpc.NewServer()
-	platform.RegisterPlatformServer(grpcServer, &implemented.Server{})
+	database.Classes = make([]model.Class, 10)
+	database.Parents = make([]model.Parent, 10)
+	database.Relationships = make([]model.Relationship, 10)
+	database.Students = make([]model.Student, 10)
+	database.Teachers = make([]model.Teacher, 10)
 
-	err = grpcServer.Serve(lis)
-	if err != nil {
-		log.Printf("failed to serve: %v", err)
-		panic(err)
-	}
+	http.HandleFunc("/parent/signup", personSignUp)
+	// http.HandleFunc("")
+	log.Fatal(http.ListenAndServe(port, nil))
 
 }
