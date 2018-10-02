@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../resources/bootstrap.min.css">
+	<link rel="stylesheet" href="../resources/SignUp.css">
+
+	<title>Register</title>
+</head>
+
+<body>
+
+<form id="FormRegister" novalidate>
+		<div class="form-group">
+			<div class="input-group">
+				<label for="InputFirstName">First Name</label>
+				<div><input type="text" class="form-control" id="InputFirstName" name="firstname" placeholder="firstname" aria-describedby="HelpBlockFirstName"></div>
+				<small id="HelpBlockFirstName" class="form-text text-muted">Please enter your first name.</small>
+			</div>
+			<div class="input-error" id="ErrorMessageFirstName"></div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+				<label for="InputLastName">Last Name</label>
+				<div><input type="text" class="form-control" id="InputLastName" name="lastname" placeholder="lastname" aria-describedby="HelpBlockLastName"></div>
+				<small id="HelpBlockLastName" class="form-text text-muted">Please enter your last name.</small>
+			</div>
+			<div class="input-error" id="ErrorMessageLastName"></div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+				<label for="InputEmail">Email Address</label>
+				<div><input type="email" class="form-control" id="InputEmail" name="email" placeholder="email@example.com" aria-describedby="HelpBlockEmail"></div>
+				<small id="HelpBlockEmail" class="form-text text-muted">Please enter a valid email</small>
+			</div>
+			<div class="input-error" id="ErrorMessageEmail"></div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+				<label for="InputPassword">Password</label>
+				<div><input type="password" class="form-control" id="InputPassword" name="password" placeholder="password" aria-describedby="HelpBlockPassword"></div>
+				<small id="HelpBlockPassword" class="form-text text-muted">Please enter your password. It must be 8 to 20 characters long</small>
+			</div>
+			<div class="input-error" id="ErrorMessagePassword"></div>
+		</div>
+
+
+		<div class="form-group form-check">
+			<input class="form-check-input" type="checkbox" value="" id="CheckBoxTeacher">
+			<label class="form-check-label" for="CheckBoxTeacher">
+				Are you a teacher ?
+			</label>
+		</div>
+
+		<div class="form-group">
+			<button id="ButtonSubmit" class="btn btn-primary" type="submit">Submit</button>
+		</div>
+</form>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../resources/jquery-3.3.1.js"></script>
+<script src="../resources/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="../resources/bootstrap.min.js"></script>
+<script src="../controller/SignUp.js"></script>
+
+</body>
+
+</html>
