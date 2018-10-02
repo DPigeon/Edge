@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/goware/emailx"
 )
@@ -29,9 +30,9 @@ var personSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	fmt.Printf("firstName: %v\nlastname: %v\n email:%v\n", fname, lname, email)
 
 	newParent := model.Parent{
-		Fname: req.Form.Get("firstName"),
-		Lname: req.Form.Get("lastName"),
-		Email: req.Form.Get("email"),
+		Fname: strings.ToLower(fname),
+		Lname: strings.ToLower(lname),
+		Email: strings.ToLower(email),
 	}
 	if err := validateParent(&newParent); err != nil {
 		log.Println(err)
