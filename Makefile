@@ -1,10 +1,4 @@
-PROTO_PATH = ./api/platform/
+.PHONY: build
 
-.PHONY:  proto build
-
-build: proto
+build:
 	go install ./...
-
-proto:
-	protoc --proto_path=$(PROTO_PATH) platform.proto --go_out=:$(PROTO_PATH)
-	
