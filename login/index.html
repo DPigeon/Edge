@@ -1,38 +1,42 @@
 <html>
-<head>
+	<head>
+		<script>
+			function validateForm() {
+				var uname = document.getElementById("uname").value;
+				var password = document.getElementById("password").value;
+				if (uname === ""){
+					document.getElementById("div1").innerHTML="Enter a valid username";
+					document.getElementById("div1").style.color="Red";
+				}
+				else
+				{
+					document.getElementById("div1").innerHTML="";
+				}
+				if (password === "" || password.length <= 5){
+					document.getElementById("div2").innerHTML="Enter a valid password";
+					document.getElementById("div2").style.color="Red";
+				}
+				else
+				{
+					document.getElementById("div2").innerHTML="";
+				}
+			}
+		</script>
 
-<script>
-function validateForm() {
-    var x = document.forms["login-page"]["userN"].value;
-    if (x == "") { //if it is blank
-        alert("Name must be filled out.");
-        return false;
-	} 
-</script>
-
-<title>Login</title>
-<link rel="stylesheet" href="style.css">
-
-</head>
-<body>
-
-<div class="login-page">
-
-<div class="form" >
-<p class ="message">Please login to have full access</p>
-
-<form name="login-page" action="" onsubmit="return validateForm()" method="post"> 
-
-<input type="username" placeholder="User Name" name="userN"/>
-<input type="password" placeholder="Password" name="passW"/>
-	<h2>Hi</h2>
-
-<button> Login </button>
-<p class ="message">Not Registered?</p> <a href="#register">Register</a>
-</form>
-</div>
-</div>
-
-</body>
-
+	<title>Login</title>
+	<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class = "login-page">
+			<div class = "form">
+				<h2 style = "color:#4CAF50;">Welcome to Richy's School !</h2>
+				<form name = "login-page" action="#waitingForMarwansDashboard"> 
+					<input type="text" placeholder = "Username" id="uname" onclick="validateForm()"> <div id="div1"></div>
+					<input type="password" placeholder = "Password" onclick="validateForm()" id="password"> <div id="div2"></div>
+					<button> Login </button>
+					<p class ="message">Not Signed Up ?</p> <a href="#waitingForAnasSignUpPage">Register</a>
+				</form>
+			</div>
+		</div>
+	</body>
 </html>
