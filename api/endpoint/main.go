@@ -13,13 +13,14 @@ const (
 )
 
 func main() {
-	database.Classes = make([]model.Class, 10)
-	database.Parents = make([]model.Parent, 10)
-	database.Relationships = make([]model.Relationship, 10)
-	database.Students = make([]model.Student, 10)
-	database.Teachers = make([]model.Teacher, 10)
+	database.Classes = make([]*model.Class, 0)
+	database.Parents = make([]*model.Parent, 0)
+	database.Relationships = make([]*model.Relationship, 0)
+	database.Students = make([]*model.Student, 0)
+	database.Teachers = make([]*model.Teacher, 0)
 
-	http.HandleFunc("/parent/signup", personSignUp)
+	http.HandleFunc("/signup/parent", parentSignUp)
+	http.HandleFunc("/signup/teacher", teacherSignUp)
 	// http.HandleFunc("")
 	log.Fatal(http.ListenAndServe(port, nil))
 

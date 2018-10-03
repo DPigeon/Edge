@@ -1,12 +1,21 @@
 package model
 
-// Dataset an in-memory version of the database
+import (
+	"errors"
+	"math/rand"
+	"time"
+)
+
+// will be used to generate unique int IDs
+var iDGenerator = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+// Dataset represents an in-memory version of the database
 type Dataset struct {
-	Classes       []Class
-	Parents       []Parent
-	Relationships []Relationship
-	Students      []Student
-	Teachers      []Teacher
+	Classes       []*Class
+	Parents       []*Parent
+	Relationships []*Relationship
+	Students      []*Student
+	Teachers      []*Teacher
 }
 
 // Class represents a school class taught by a Teacher
@@ -14,8 +23,13 @@ type Dataset struct {
 type Class struct {
 	ID         int
 	Topic      string
-	Instructor Teacher
-	Students   []Student
+	Instructor *Teacher
+	Students   []*Student
+}
+
+// Account represents and account which can sign up (parent/teacher)
+type Account interface {
+	canSignUp() bool
 }
 
 // Parent represents a parent
@@ -24,7 +38,12 @@ type Parent struct {
 	Fname         string
 	Lname         string
 	Email         string
-	Relationships []Relationship
+	Password      string
+	Relationships []*Relationship
+}
+
+func (p *Parent) canSignUp() bool {
+	return true
 }
 
 // Role type is used to create an enum representing the role that a parent
@@ -39,9 +58,9 @@ const (
 
 // Relationship represents an association between a Parent and a Student
 type Relationship struct {
-	link    Role
-	parent  Parent
-	student Student
+	link    *Role
+	parent  *Parent
+	student *Student
 }
 
 // Student represents a student
@@ -49,20 +68,48 @@ type Student struct {
 	ID            int
 	Fname         string
 	Lname         string
-	Relationships []Relationship
-	Classes       []Class
+	Relationships []*Relationship
+	Classes       []*Class
 }
 
 // Teacher represents a teacher
 type Teacher struct {
-	ID      int
-	Fname   string
-	Lname   string
-	Email   string
-	Classes []Class
+	ID       int
+	Fname    string
+	Lname    string
+	Email    string
+	Password string
+	Classes  []*Class
 }
 
-func RegisterParent(parent *Parent, db *Dataset) {
+func (t *Teacher) canSignUp() bool {
+	return true
+}
 
-	db.Parents = append(db.Parents, *parent)
+// RegisterParent appends to the passed dataset
+func RegisterParent(newParent *Parent, db *Dataset) error {
+	for _, prt := range db.Parents {
+		if newParent.Email == prt.Email {
+			return errors.New("Email is already used by another Account")
+		}
+	}
+	newParent.ID = generateID()
+	db.Parents = append(db.Parents, newParent)
+	return nil
+}
+
+// RegisterTeacher appends to the passed dataset
+func RegisterTeacher(newTeacher *Teacher, db *Dataset) error {
+	for _, tch := range db.Teachers {
+		if newTeacher.Email == tch.Email {
+			return errors.New("Email is already used by another Account")
+		}
+	}
+	newTeacher.ID = generateID()
+	db.Teachers = append(db.Teachers, newTeacher)
+	return nil
+}
+
+func generateID() int {
+	return iDGenerator.Int()
 }
