@@ -1,8 +1,8 @@
+
 function validateForm() {
 	//Variables
 	var uname = document.getElementById("uname").value; 
-	var password = document.getElementById("password").value;
-	
+	var passWord = document.getElementById("password").value;
 	if (uname === ""){ //If it is blank
 		document.getElementById("div1").innerHTML="Enter a valid username"; //Message
 		document.getElementById("div1").style.color="Red"; //Color
@@ -11,7 +11,7 @@ function validateForm() {
 	{
 		document.getElementById("div1").innerHTML=""; //Otherwise write nothing
 	}
-	if (password === "" || password.length <= 5){ //If the password is blank or less (equal) than 5
+	if (passWord === "" || passWord.length <= 5){ //If the password is blank or less (equal) than 5
 		document.getElementById("div2").innerHTML="Enter a valid password"; //Message
 		document.getElementById("div2").style.color="Red"; //Color
 	}
@@ -20,10 +20,31 @@ function validateForm() {
 		document.getElementById("div2").innerHTML="";
 	}
 }
-			
 
-			
+function pushButton() { //send json request to server
+	//Variables
+	var uname = document.getElementById("uname").value; 
+	var passWord = document.getElementById("password").value;
+	var login = {user: uname, pass: passWord}; //Gets the username and password from login page for endpoint
+	var data = JSON.stringify(login);
+	$.ajax({
+			url: '',
+			type: "POST",
+			data: data,
+			dataType: "json",
+			}).done(function(data) {
+				alert("Test Succesfull");
+			}).fail(function(xhr) {
+				document.getElementById("div3").innerHTML="Username and password do not match."; //Message
+				document.getElementById("div3").style.color="red"; //Color
+	});
+	
+}
+						
 $(function() { //Function for the remember me button checkbox, uses localStorage from browser
+	var usrname = localStorage.getItem("usrname"); $('#uname').val();
+    var pass = localStorage.getItem("pass"); $('#password').val();
+    var chkbx = localStorage.getItem("chkbx"); $('#rememberMe').val();
 	if (localStorage.chkbx && localStorage.chkbx != '') {
 		$('#rememberMe').attr('checked', 'checked');
 		$('#uname').val(localStorage.usrname);

@@ -30,14 +30,11 @@ body {
 		font-size: 14px;
 		border-radius: 10 !important
 	}
-	.rememberMe {
-		display: inline-block
-		padding: 10px 0;
-	}
+	
 	.alert {
 		display: none;
 		margin-top: 10px;
-}
+	}
 	.form button {
 		font-family: "Roboto", sans-serif;
 		text-transform:uppercase;
