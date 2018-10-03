@@ -69,4 +69,22 @@ $(function() { //Function for the remember me button checkbox, uses localStorage
 			localStorage.chkbx = '';
 		}
 	});
+	
+  	//caps lock verification function
+	function isCapsLockOn(e) {
+		var keyCode = e.keyCode ? e.keyCode : e.which;
+		var shiftKey = e.shiftKey ? e.shiftKey : ((keyCode == 16) ? true : false);
+		return (((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey))
+	}
+	function showCapsLockMsg(e) {
+		var warningElement = document.getElementById('capsLockWarning');
+		if (isCapsLockOn(e))
+			warningElement.style.display = 'block';
+		else
+			warningElement.style.display = 'none';
+	}
+	document.onkeypress = function (e) {
+		e = e || window.event;
+		showCapsLockMsg(e);
+	}
 });
