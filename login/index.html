@@ -1,26 +1,31 @@
 <html>
 	<head>	
 		<title>Login</title>
-		<link rel="stylesheet" href="style.css">
-		<script src="functions.js"></script>
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<link rel="stylesheet" href = "style.css">
+		<script src = "functions.js"></script>
+		<script src = "http://code.jquery.com/jquery-1.9.1.js"></script>
 	</head>
 	<body>
 		<div id = "log" class = "login-page">
 			<div class = "form">
 				<h2 style = "color:#4CAF50;">Welcome To Our Login Page</h2>
 				<form name = "login-page" > 
-					<input type="text" placeholder = "Username" onclick="validateForm()" id="uname" tabindex = "1" spellcheck = "false"> <div id="div1"></div>
-					<input type="password" placeholder = "Password" onclick="validateForm()" id="password" tabindex = "2"> <div id="div2"></div>
-					<div class="rememberMe">
-						<input type="checkbox" value="remember-Me" id="rememberMe" tabindex = "3">Remember Me
+					<!--checks for caps lock-->
+					<div id = "capsLockWarning" color: Red; display: none;">Caps Lock is on.</div>
+											       
+					<input type="text" placeholder = "Username" onclick = "validateForm()" id = "uname" tabindex = "1" spellcheck = "false"> <div id="div1"></div>
+					<input type="password" placeholder = "Password" onclick = "validateForm()" id = "password" tabindex = "2"> <div id="div2"></div>
+					<!-- memory oprtion for username-->
+					<div class = "rememberMe">
+						<input type="checkbox" value = "remember-Me" id = "rememberMe" tabindex = "3">Remember Me
                     </div>
-					<button id="button1" type="submit" tabindex = "4"> Login </button>
-					 <div class="alert alert-danger" role="alert">
-						<p id="userError" class="form_error"></p>
-                        <p id="passError" class="form_error"></p>
+					<button id = "button1" type = "submit" tabindex = "4"> Login </button>
+					 <div class = "alert alert-danger" role = "alert">
+						<p id = "userError" class = "form_error"></p>
+                        <p id = "passError" class = "form_error"></p>
                     </div>
-					<p class ="message">Not Signed Up ?</p> <a href="#waitingForAnasSignUpPage">Register</a>
+					<!--redirect to SIGN UP page -->			
+					<p class = "message">Not Signed Up ?</p> <a href = "#waitingForAnasSignUpPage">Register</a>
 				</form>
 			</div>
 		</div>
