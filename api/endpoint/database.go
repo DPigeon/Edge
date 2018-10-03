@@ -49,9 +49,3 @@ func initDB() {
 	// "topic STRING" +
 	// "")
 }
-
-func checkIfAny(err error) {
-	if err != nil {
-		panic(err)
-	}
-}

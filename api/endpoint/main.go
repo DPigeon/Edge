@@ -24,3 +24,9 @@ func main() {
 	log.Fatal(http.ListenAndServe(port, nil))
 
 }
+
+func checkIfAny(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
