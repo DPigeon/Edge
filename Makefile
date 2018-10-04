@@ -1,4 +1,7 @@
-.PHONY: build
+.PHONY: build run
 
 build:
-	go install ./...
+	    go install ./...
+
+run: build
+    sudo enpoint

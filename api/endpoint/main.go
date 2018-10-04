@@ -9,7 +9,7 @@ import (
 var database model.Dataset
 
 const (
-	port = ":9090"
+	port = ":80"
 )
 
 func main() {
@@ -18,6 +18,8 @@ func main() {
 	database.Relationships = make([]*model.Relationship, 0)
 	database.Students = make([]*model.Student, 0)
 	database.Teachers = make([]*model.Teacher, 0)
+
+	http.HandleFunc("/", fileServerHandler)
 
 	http.HandleFunc("/signup/parent", parentSignUp)
 	http.HandleFunc("/signup/teacher", teacherSignUp)
@@ -33,4 +35,8 @@ func checkIfAny(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+var fileServerHandler = func(writer http.ResponseWriter, req *http.Request) {
+	http.ServeFile(writer, req, "web/src/view"+req.URL.Path)
 }
