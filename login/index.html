@@ -8,12 +8,18 @@
 	<body>
 		<div id = "log" class = "login-page">
 			<div class = "form">
-
-				<h2 style = "color:#4CAF50;">Welcome to Richy's School !!!</h2>
-				<form name = "login-page" action="#waitingForMarwansDashboard"> 
-					<input type="text" placeholder = "Username" id="uname" onclick="validateForm()"> <div id="div1"></div>
-					<input type="password" placeholder = "Password" onclick="validateForm()" id="password"> <div id="div2"></div>
-					<button> Login </button>
+				<h2 style = "color:#4CAF50;">Welcome To Our Login Page</h2>
+				<form name = "login-page" action="#"> 
+					<!--checks for caps lock-->
+					<input type="text" placeholder = "Username" onclick="validateForm()" id="uname" tabindex = "1" spellcheck = "false"><div id="div1"></div>
+					<input type="password" placeholder = "Password" onclick="validateForm()" id="password" tabindex = "2"><div id="div2"></div><div id ="caps"></div>
+					<!-- memory oprtion for username-->
+					<div class="rememberMe">
+						<input type="checkbox" value="remember-Me" id="rememberMe" tabindex = "3">
+                    </div> <font color="#4CAF50">Remember Me</font>
+					<button id="button1" type="submit" tabindex = "4" onclick="pushButton()"> Login </button>
+					<div id ="div3"></div>
+					<!--redirect to SIGN UP page -->
 					<p class ="message">Not Signed Up ?</p> <a href="#waitingForAnasSignUpPage">Register</a>
 					<p class ="message">Forgot Your Password ?</p> <a href="#retrievePassword">Forgot Password</a>
 			</div>

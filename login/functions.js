@@ -27,8 +27,12 @@ function pushButton() { //send json request to server
 	var passWord = document.getElementById("password").value;
 	var login = {user: uname, pass: passWord}; //Gets the username and password from login page for endpoint
 	var data = JSON.stringify(login);
+	if(uname === "" && passWord === ""){
+		document.getElementById("div4").innerHTML="Fill in the fields please"; //Message
+		document.getElementById("div4").style.color="Red"; //Color
+	}
 	$.ajax({
-			url: '',
+			url: 'http://localhost:9090/login/khh',
 			type: "POST",
 			data: data,
 			dataType: "json",
@@ -85,3 +89,4 @@ $(function() { //Function for the remember me button checkbox, uses localStorage
 		e = e || window.event;
 		showCapsLockMsg(e);
 	}
+
