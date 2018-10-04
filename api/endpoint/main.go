@@ -21,6 +21,9 @@ func main() {
 
 	http.HandleFunc("/signup/parent", parentSignUp)
 	http.HandleFunc("/signup/teacher", teacherSignUp)
+	http.HandleFunc("/login/parent", parentLogin)
+	http.HandleFunc("/login/teacher", teacherLogin)
+
 	// http.HandleFunc("")
 	log.Fatal(http.ListenAndServe(port, nil))
 

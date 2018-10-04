@@ -7,29 +7,32 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/goware/emailx"
 )
 
 var parentSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
-		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
-		log.Println("wrong request method")
+		errMsg := fmt.Sprintf("%v: wrong request method", http.StatusText(http.StatusNotAcceptable))
+		http.Error(writer, errMsg, http.StatusNotAcceptable)
+		log.Println(errMsg)
 		return
 	}
-	fmt.Printf("***\nRequest for parent sign up\n")
+	log.Printf("******************\nRequest for parent sign up\n")
 
 	err := req.ParseForm()
 	if err != nil {
-		http.Error(writer, err.Error(), http.StatusExpectationFailed)
-		log.Printf("error: %v", err)
+		errMsg := fmt.Sprintf("%v: %v", http.StatusText(http.StatusExpectationFailed), err.Error())
+		http.Error(writer, errMsg, http.StatusExpectationFailed)
+		log.Println(errMsg)
 		return
 	}
 	fname := req.Form.Get("firstName")
 	lname := req.Form.Get("lastName")
 	email := req.Form.Get("email")
 	password := req.Form.Get("password")
-	fmt.Printf("firstName: %v\nlastName: %v\nemail: %v\n", fname, lname, email)
+	log.Printf("firstName: %v\nlastName: %v\nemail: %v\n", fname, lname, email)
 
 	newParent := model.Parent{
 		Fname:    strings.ToLower(fname),
@@ -38,19 +41,22 @@ var parentSignUp = func(writer http.ResponseWriter, req *http.Request) {
 		Password: password,
 	}
 	err = validateParent(&newParent)
+
 	if err != nil {
-		log.Println(err)
-		http.Error(writer, err.Error(), http.StatusBadRequest)
+		errMsg := fmt.Sprintf("%v: %v", http.StatusText(http.StatusPreconditionFailed), err.Error())
+		http.Error(writer, errMsg, http.StatusPreconditionFailed)
+		log.Println(errMsg)
 		return
 	}
 
 	err = model.RegisterParent(&newParent, &database)
-	fmt.Printf("parent: %v\n", newParent)
-	fmt.Printf("database: %v\n", database)
+	log.Printf("parent: %v\n", newParent)
+	log.Printf("database: %v\n", database)
 
 	if err != nil {
-		http.Error(writer, err.Error(), http.StatusPreconditionFailed)
-		log.Printf("error: %v", err)
+		errMsg := fmt.Sprintf("%v: %v", http.StatusText(http.StatusPreconditionFailed), err.Error())
+		http.Error(writer, errMsg, http.StatusPreconditionFailed)
+		log.Println(errMsg)
 		return
 	}
 
@@ -68,7 +74,7 @@ var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 		log.Println("wrong request method")
 		return
 	}
-	fmt.Printf("***\nRequest for teacher sign up\n")
+	log.Printf("***\nRequest for teacher sign up\n")
 	err := req.ParseForm()
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusExpectationFailed)
@@ -81,7 +87,7 @@ var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 		Email:    strings.ToLower(req.Form.Get("email")),
 		Password: req.Form.Get("password"),
 	}
-	fmt.Printf("firstName: %v\nlastName: %v\nemail: %v\n", newTeacher.Fname, newTeacher.Lname, newTeacher.Email)
+	log.Printf("firstName: %v\nlastName: %v\nemail: %v\npassword: %v", newTeacher.Fname, newTeacher.Lname, newTeacher.Email, newTeacher.Password)
 
 	err = validateTeacher(&newTeacher)
 	if err != nil {
@@ -91,8 +97,8 @@ var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	}
 
 	err = model.RegisterTeacher(&newTeacher, &database)
-	fmt.Printf("teacher: %v\n", newTeacher)
-	fmt.Printf("database: %v\n", database)
+	log.Printf("teacher: %v\n", newTeacher)
+	log.Printf("database: %v\n", database)
 
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusExpectationFailed)
@@ -108,32 +114,77 @@ var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	return
 }
 
-// var parentLogin = func(writer http.ResponseWriter, req *http.Request) {
-// if req.Method != http.MethodPost {
-// http.Error(writer, "wrong request method", http.StatusNotAcceptable)
-// log.Println("wrong request method")
-// return
-// }
-//
-// err := req.ParseForm()
-// if err != nil {
-// http.Error(writer, err.Error(), http.StatusExpectationFailed)
-// log.Printf("error: %v", err)
-// return
-// }
-//
-// // **************** TODO ***************************//
-// //finish the processs for parent login
-// //return a cookie to track the session
-// // ***********************************************  //
-//
-// }
+var parentLogin = func(writer http.ResponseWriter, req *http.Request) {
+	if req.Method != http.MethodPost {
+		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
+		log.Println("wrong request method")
+		return
+	}
+	log.Println("******************\nA parent has requested to log in")
+
+	err := req.ParseForm()
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusExpectationFailed)
+		log.Printf("error: %v", err)
+		return
+	}
+
+	email := strings.ToLower(req.Form.Get("email"))
+	password := req.Form.Get("password")
+
+	foundParent, err := model.FindParent(email, &database)
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusPreconditionFailed)
+		log.Printf("error: %v", err)
+		return
+	}
+	if password == foundParent.Password {
+		expiration := time.Now().Add(time.Hour * 24 * 7)
+		http.SetCookie(writer, &http.Cookie{
+			Name:     "email",
+			Value:    foundParent.Email,
+			Expires:  expiration,
+			Unparsed: []string{"active"},
+		})
+		log.Println("Parent is logged in")
+		return
+	}
+	log.Println("Unsuccessful login attempt")
+	return
+
+}
+
+var teacherLogin = func(writer http.ResponseWriter, req *http.Request) {
+	if req.Method != http.MethodPost {
+		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
+		log.Println("wrong request method")
+		return
+	}
+	log.Println("******************\nA teacher has requested to log in")
+
+	err := req.ParseForm()
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusExpectationFailed)
+		log.Printf("error: %v", err)
+		return
+	}
+
+	// email := strings.ToLower(req.Form.Get("email"))
+	// password := req.Form.Get("password")
+	//
+	// foundTe
+
+}
 
 func validateParent(newParent *model.Parent) error {
 	if len(newParent.Fname) < 2 || len(newParent.Lname) < 2 {
 		return errors.New("Wrong name format")
 	}
 	err := emailx.Validate(newParent.Email)
+
+	if len(newParent.Password) < 6 {
+		return errors.New("Password should be at least 6 characters")
+	}
 
 	switch err {
 	case emailx.ErrInvalidFormat:
@@ -149,6 +200,10 @@ func validateTeacher(newTeacher *model.Teacher) error {
 		return errors.New("Wrong name format")
 	}
 	err := emailx.Validate(newTeacher.Email)
+
+	if len(newTeacher.Password) < 6 {
+		return errors.New("Password should at least 6 characters")
+	}
 
 	switch err {
 	case emailx.ErrInvalidFormat:

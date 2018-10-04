@@ -28,9 +28,6 @@ type Class struct {
 }
 
 // Account represents and account which can sign up (parent/teacher)
-type Account interface {
-	canSignUp() bool
-}
 
 // Parent represents a parent
 type Parent struct {
@@ -40,10 +37,6 @@ type Parent struct {
 	Email         string
 	Password      string
 	Relationships []*Relationship
-}
-
-func (p *Parent) canSignUp() bool {
-	return true
 }
 
 // Role type is used to create an enum representing the role that a parent
@@ -82,8 +75,13 @@ type Teacher struct {
 	Classes  []*Class
 }
 
-func (t *Teacher) canSignUp() bool {
-	return true
+// FindParent returns a parent object upon matching an email string with
+// one in the database
+func FindParent(email string, db *Dataset) (Parent, error) {
+	for _, parent := range db.Parents {
+		return *parent, nil
+	}
+	return Parent{}, errors.New("This email is not associated with an account")
 }
 
 // RegisterParent appends to the passed dataset
