@@ -1,0 +1,22 @@
+<html>
+	<head>	
+		<title>Login</title>
+		<link rel="stylesheet" href = "style.css">
+		<script src = "functions.js"></script>
+		<script src = "http://code.jquery.com/jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<div id = "log" class = "login-page">
+			<div class = "form">
+
+				<h2 style = "color:#4CAF50;">Welcome to Richy's School !!!</h2>
+				<form name = "login-page" action="#waitingForMarwansDashboard"> 
+					<input type="text" placeholder = "Username" id="uname" onclick="validateForm()"> <div id="div1"></div>
+					<input type="password" placeholder = "Password" onclick="validateForm()" id="password"> <div id="div2"></div>
+					<button> Login </button>
+					<p class ="message">Not Signed Up ?</p> <a href="#waitingForAnasSignUpPage">Register</a>
+					<p class ="message">Forgot Your Password ?</p> <a href="#retrievePassword">Forgot Password</a>
+			</div>
+		</div>
+	</body>
+</html>
