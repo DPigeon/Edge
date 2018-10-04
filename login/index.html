@@ -1,41 +1,21 @@
 <html>
-	<head>
-		<script>
-			function validateForm() {
-				var uname = document.getElementById("uname").value;
-				var password = document.getElementById("password").value;
-				if (uname === ""){
-					document.getElementById("div1").innerHTML="Enter a valid username";
-					document.getElementById("div1").style.color="Red";
-				}
-				else
-				{
-					document.getElementById("div1").innerHTML="";
-				}
-				if (password === "" || password.length <= 5){
-					document.getElementById("div2").innerHTML="Enter a valid password";
-					document.getElementById("div2").style.color="Red";
-				}
-				else
-				{
-					document.getElementById("div2").innerHTML="";
-				}
-			}
-		</script>
-
-	<title>Login</title>
-	<link rel="stylesheet" href="style.css">
+	<head>	
+		<title>Login</title>
+		<link rel="stylesheet" href = "style.css">
+		<script src = "functions.js"></script>
+		<script src = "http://code.jquery.com/jquery-1.9.1.js"></script>
 	</head>
 	<body>
-		<div class = "login-page">
+		<div id = "log" class = "login-page">
 			<div class = "form">
+
 				<h2 style = "color:#4CAF50;">Welcome to Richy's School !!!</h2>
 				<form name = "login-page" action="#waitingForMarwansDashboard"> 
 					<input type="text" placeholder = "Username" id="uname" onclick="validateForm()"> <div id="div1"></div>
 					<input type="password" placeholder = "Password" onclick="validateForm()" id="password"> <div id="div2"></div>
 					<button> Login </button>
 					<p class ="message">Not Signed Up ?</p> <a href="#waitingForAnasSignUpPage">Register</a>
-				</form>
+					<p class ="message">Forgot Your Password ?</p> <a href="#retrievePassword">Forgot Password</a>
 			</div>
 		</div>
 	</body>
