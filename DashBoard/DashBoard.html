@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html {
+
+  box-sizing: border-box;
+}
+.img1 {
+    width: 50%;
+border-radius:50%;
+}
+.img2 {
+  width: 50%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+.new {
+color:red;
+
+}
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  text-align: center;
+}
+.column2 {
+  float: left;
+  width:50%;
+  margin-bottom: 16px;
+  padding: 10px 8px;
+}
+.column3 {
+  float: left;
+  width:20%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
+  .column2 {
+    width: 100%;
+    display: block;
+  }
+}
+@media screen and (max-width: 650px) {
+  .column3 {
+    width: 100%;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+
+  
+}
+.containernode {
+  padding: 0 16px;
+  padding-bottom: 10 px;
+}
+
+.containernode::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container {
+  padding: 0 16px;
+  padding-bottom: 10 px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.block {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 7px 14px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin: 5px;
+    margin-bottom: 7px;
+}
+
+.block:hover {
+    background-color: #ddd;
+    color: black;
+}
+.post {
+    width: 100%;
+    height:80px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align:center;
+
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #009999;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: gray;
+}
+body {margin:0;}
+
+.icon-bar {
+    width: 100%;
+    background-color: #555;
+    overflow: auto;
+}
+
+.icon-bar a {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: #000;
+}
+
+.active {
+    background-color: blue;
+}
+</style>
+<body>
+
+<div class="icon-bar">
+  <a class="active" href="#"><i class="fa fa-home"></i></a> 
+  <a href="#"><i class="fa fa-search"></i></a> 
+  <a href="#"><i class="fa fa-envelope"></i></a> 
+  <a href="#"><i class="fa fa-globe"></i></a>
+  <a href="#"><i class="fa fa-trash"></i></a> 
+</div>
+
+<br>
+
+
+  <div class="column">
+  
+    <div class="card">
+      <img class="img1" src="profile1.png" alt="prof"">
+      <div class="container">
+        <h2>Marwan Ayadi</h2>
+        <p class="title">Parent A</p>
+        <p>Some text that describes</p>
+        <p>example@example.com</p>
+      </div>
+    </div>
+    
+        <div class="card">
+          <img class="img1" src="cal.jpg" alt="prof"">
+          <div class="container">
+            <h2>Name Name</h2>
+            <p class="title">Parent A</p>
+            <p>Some text that describes</p>
+            <p>example@example.com</p>
+          </div>
+      </div>
+  </div>
+
+<div class="column2">
+      <div class="card">
+      
+                          <div id="con" class="containernode">
+                             <form id="ex" class="example">
+                                  <input id="ppp" class="post"  placeholder="Post something here..">
+                                  <button  class="block" onclick="myh()" type="button" >Post</button>
+                             </form>
+                          </div>
+                            
+      </div>
+      <div id="co"></div>
+    <script>
+        
+        function myh() {
+   
+
+          var div = document.createElement('div');
+          var y = document.getElementById("ppp").value;
+            var x = document.createTextNode(y);
+            div.appendChild(x);
+
+            document.getElementById("co").appendChild(div);
+            
+            div.innerHTML = "<div class=\"card\"><div class=\"container\">"+y+"<br><br><form><button>Comment</button><br><br></div></div>";
+            
+            
+         
+        
+          }
+
+           function myh() {
+
+   var div = document.createElement('INPUT');
+
+   }
+    </script>
+
+
+            <div class="card">
+              <img class="img2" src="image.jpg" alt="prof"">
+                    <div class="container">
+                            <h2>Name Name</h2>
+                            <p class="title">Parent A</p>
+                            <p>Some text that describes</p>
+                            <p>example@example.com</p>
+                    </div>
+             </div>
+
+  <div class="card">
+      <img class="img2" src="image.jpg" alt="prof"">
+            <div class="container">
+                  <h2>Name Name</h2>
+                  <p class="title">Parent A</p>
+                  <p>Some text that describes</p>
+                  <p>example@example.com</p>
+            </div>
+  </div>
+  
+  
+</div>
+  
+<div class="column3">
+      <div class="card">
+        <img class="img1" src="profile.png" alt="prof"">
+        <div class="container">
+          <h2>Namevv Name</h2>
+          <p class="title">Parent A</p>
+          <p>Some text that describes</p>
+          <p>example@example.com</p>
+        </div>
+      </div>
+      <div class="card">
+          <img class="img1" src="profile1.png" alt="prof"">
+          <div class="container">
+            <h2>Name Name</h2>
+            <p class="title">Parent A</p>
+            <p>Some text that describes</p>
+            <p>example@example.com</p>
+          </div>
+        </div>
+      </div>
+    
+  
+  
+
+
+
+  
+
+  
+
+</body>
+</html> 
