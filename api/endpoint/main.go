@@ -6,6 +6,12 @@ import (
 	"net/http"
 )
 
+// Status Represents a REST json status response
+type Status struct {
+	Success string `json:"success,ommitempty"`
+	Message string `json:"message,omitempty"`
+}
+
 var database model.Dataset
 
 const (

@@ -12,7 +12,9 @@ import (
 	"github.com/goware/emailx"
 )
 
+// handler for signup/parent
 var parentSignUp = func(writer http.ResponseWriter, req *http.Request) {
+
 	if req.Method != http.MethodPost {
 		errMsg := fmt.Sprintf("%v: wrong request method", http.StatusText(http.StatusNotAcceptable))
 		http.Error(writer, errMsg, http.StatusNotAcceptable)
@@ -20,16 +22,18 @@ var parentSignUp = func(writer http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Printf("******************\nRequest for parent sign up\n")
+	fmt.Println(req.Body)
 
 	err := req.ParseForm()
+
 	if err != nil {
-		errMsg := fmt.Sprintf("%v: %v", http.StatusText(http.StatusExpectationFailed), err.Error())
+		errMsg := fmt.Sprintf("%v: %v", http.StatusText(http.StatusExpectationFailed), err)
 		http.Error(writer, errMsg, http.StatusExpectationFailed)
 		log.Println(errMsg)
 		return
 	}
-	fname := req.Form.Get("firstName")
-	lname := req.Form.Get("lastName")
+	fname := req.Form.Get("first_name")
+	lname := req.Form.Get("last_name")
 	email := req.Form.Get("email")
 	password := req.Form.Get("password")
 	log.Printf("firstName: %v\nlastName: %v\nemail: %v\n", fname, lname, email)
@@ -68,6 +72,7 @@ var parentSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	return
 }
 
+// handler for /signup/teacher
 var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
@@ -114,6 +119,7 @@ var teacherSignUp = func(writer http.ResponseWriter, req *http.Request) {
 	return
 }
 
+// handler for /login/parent
 var parentLogin = func(writer http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
@@ -149,11 +155,11 @@ var parentLogin = func(writer http.ResponseWriter, req *http.Request) {
 		log.Println("Parent is logged in")
 		return
 	}
-	log.Println("Unsuccessful login attempt")
+	log.Println("Unsuccessful parent login attempt")
 	return
-
 }
 
+//handler for /login/teacher
 var teacherLogin = func(writer http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(writer, "wrong request method", http.StatusNotAcceptable)
@@ -169,11 +175,29 @@ var teacherLogin = func(writer http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// email := strings.ToLower(req.Form.Get("email"))
-	// password := req.Form.Get("password")
-	//
-	// foundTe
+	email := strings.ToLower(req.Form.Get("email"))
+	password := req.Form.Get("password")
 
+	foundTeacher, err := model.FindTeacher(email, &database)
+
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusPreconditionFailed)
+		log.Printf("error: %v", err)
+		return
+	}
+
+	if password == foundTeacher.Password {
+		expiration := time.Now().Add(time.Hour * 24 * 7)
+		http.SetCookie(writer, &http.Cookie{
+			Name:     "email",
+			Value:    foundTeacher.Email,
+			Expires:  expiration,
+			Unparsed: []string{"active"},
+		})
+		log.Println("Teacher is logged in")
+		return
+	}
+	log.Println("Unsuccessful teacher login attempt")
 }
 
 func validateParent(newParent *model.Parent) error {
@@ -182,16 +206,17 @@ func validateParent(newParent *model.Parent) error {
 	}
 	err := emailx.Validate(newParent.Email)
 
-	if len(newParent.Password) < 6 {
-		return errors.New("Password should be at least 6 characters")
-	}
-
 	switch err {
 	case emailx.ErrInvalidFormat:
 		return errors.New("Invalid email format")
 	case emailx.ErrUnresolvableHost:
 		return errors.New("Unreachable email host")
 	}
+
+	if len(newParent.Password) < 6 {
+		return errors.New("Password should be at least 6 characters")
+	}
+
 	return nil
 }
 
@@ -201,15 +226,15 @@ func validateTeacher(newTeacher *model.Teacher) error {
 	}
 	err := emailx.Validate(newTeacher.Email)
 
-	if len(newTeacher.Password) < 6 {
-		return errors.New("Password should at least 6 characters")
-	}
-
 	switch err {
 	case emailx.ErrInvalidFormat:
 		return errors.New("Invalid email format")
 	case emailx.ErrUnresolvableHost:
 		return errors.New("Unreachable email host")
+	}
+
+	if len(newTeacher.Password) < 6 {
+		return errors.New("Password should at least 6 characters")
 	}
 	return nil
 }

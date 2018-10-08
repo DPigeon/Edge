@@ -10,7 +10,7 @@
 		<div id = "log" class = "login-page">
 			<div class = "form">
 				<h2 style = "color:#4CAF50;">Welcome To Our Login Page</h2>
-				<form name = "login-page" action="#">
+				<form name = "login-page" method="POST" action="/login/parent" >
 					<!--checks for caps lock-->
 					<input type="text" placeholder = "Username" onclick="validateForm()" id="uname" tabindex = "1" spellcheck = "false"><div id="div1"></div>
 					<input type="password" placeholder = "Password" onclick="validateForm()" id="password" tabindex = "2"><div id="div2"></div><div id ="caps"></div>

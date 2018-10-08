@@ -74,11 +74,15 @@ $("#FormRegister").validate({
 			teacher: $("#CheckBoxTeacher").is(":checked")
 		};
 
+    console.log("Data " + $(form).serialize());
+
 		request = $.ajax({
 			type: "POST",
 			cache: false,
-			url: "https://5e0ec07f-8ef7-44f7-8c6a-678421ac3f08.mock.pstmn.io/user",
-			data: JSON.stringify(data),
+      url: "/signup/parent", // signup/parent || /signup/teacher
+      dataType: "json",
+      data: $(form).serialize(),
+//			data: JSON.stringify(data),
 			timeout: 3000
 		});
 

@@ -79,9 +79,11 @@ type Teacher struct {
 // one in the database
 func FindParent(email string, db *Dataset) (Parent, error) {
 	for _, parent := range db.Parents {
-		return *parent, nil
+		if parent.Email == email {
+			return *parent, nil
+		}
 	}
-	return Parent{}, errors.New("This email is not associated with an account")
+	return Parent{}, errors.New("This email is not associated with a parent account")
 }
 
 // RegisterParent appends to the passed dataset
@@ -94,6 +96,17 @@ func RegisterParent(newParent *Parent, db *Dataset) error {
 	newParent.ID = generateID()
 	db.Parents = append(db.Parents, newParent)
 	return nil
+}
+
+// FindTeacher returns a teacher object upon matching an email string with
+// one in the database
+func FindTeacher(email string, db *Dataset) (Teacher, error) {
+	for _, teacher := range db.Teachers {
+		if teacher.Email == email {
+			return *teacher, nil
+		}
+	}
+	return Teacher{}, errors.New("This email is not associated with a teacher account")
 }
 
 // RegisterTeacher appends to the passed dataset
