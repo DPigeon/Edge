@@ -7,25 +7,7 @@ import "./App.css";
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      isLoaded: false
-    }
-  }
-
-  componentDidMount() { //request data from  server
-    fetch('http://localhost:3001/messages')
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          isLoaded: true,
-          items: json,
-        })
-
-      });
-  }
+  componentDidMount() {}
 
   render() {
 
