@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import Messager from "./messager.jsx";
 
 class Reply extends Component {
   state = {

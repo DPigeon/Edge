@@ -1,21 +1,51 @@
 {
   "messages": [{
-      "id": 1,
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
-      "messageId": 1
+      "messageId": 1,
+      "id": 1,
+      "pp": "ppic.png"
     },
     {
-      "id": 2,
       "from": "David",
       "msg": "Yes I will check it, alright bye.",
-      "messageId": 1
+      "messageId": 1,
+      "id": 2
     },
     {
-      "id": 3,
       "from": "Marwan",
       "msg": "Hey so today is the new meeting. Please go see the teacher and TA. Ok now let me test your output with ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-      "messageId": 1
+      "messageId": 1,
+      "id": 3
+    },
+    {
+      "from": "David",
+      "msg": "f",
+      "id": 4
+    },
+    {
+      "from": "David",
+      "msg": "youuuuu",
+      "id": 5
+    }
+  ],
+  "threads": [{
+      "from": "David",
+      "subject": "Assignment #7",
+      "threadId": "1",
+      "profilePic": "ppic.png"
+    },
+    {
+      "from": "Ribal",
+      "subject": "Project341",
+      "threadId": "2",
+      "profilePic": "ppic.png"
+    },
+    {
+      "from": "Maria",
+      "subject": "Profile View",
+      "threadId": "3",
+      "profilePic": "ppic.png"
     }
   ],
   "profile": {

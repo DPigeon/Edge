@@ -3,6 +3,7 @@ import React, {
 } from "react";
 import Reply from "./components/reply.jsx";
 import Messager from "./components/messager.jsx";
+import ListThreads from "./components/listThreads.jsx";
 import "./App.css";
 
 class App extends Component {
@@ -15,6 +16,8 @@ class App extends Component {
       React.Fragment >
       <
       main className = "container" / >
+      <
+      ListThreads / >
       <
       Messager / >
       <
