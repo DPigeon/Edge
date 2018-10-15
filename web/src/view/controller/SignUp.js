@@ -90,12 +90,14 @@ $("#FormRegister").validate({
 			console.log("Request good");
 			console.log("Answer : " + data, textStatus);
 			console.log(jqXHR);
+			alert("You have been registered !");
 		});
 
 		request.fail((jqXHR, textStatus, errorThrown) => {
 			console.log("Request fail");
 			console.log("Answer : " + textStatus, errorThrown);
 			console.log(jqXHR);
-		});
+      alert("An error occurred, please try again or input valid information");
+    });
 	}
 });

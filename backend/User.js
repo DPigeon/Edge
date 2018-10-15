@@ -8,3 +8,5 @@ class User{
         this.isteacher = isteacher
     }
 }
+
+module.exports = User
