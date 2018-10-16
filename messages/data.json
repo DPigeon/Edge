@@ -17,16 +17,6 @@
       "msg": "Hey so today is the new meeting. Please go see the teacher and TA. Ok now let me test your output with ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
       "messageId": 1,
       "id": 3
-    },
-    {
-      "from": "David",
-      "msg": "f",
-      "id": 4
-    },
-    {
-      "from": "David",
-      "msg": "youuuuu",
-      "id": 5
     }
   ],
   "threads": [{
@@ -48,7 +38,7 @@
       "profilePic": "ppic.png"
     }
   ],
-  "profile": {
+  "profiles": {
     "name": "David"
   }
 }

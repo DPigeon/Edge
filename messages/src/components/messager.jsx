@@ -3,10 +3,9 @@ import React, { Component } from "react";
 class Messager extends Component {
   constructor(props) {
     super(props);
-    //this.addMessage = this.addMessage.bind(this);
-    //this.handleMessageEditorInputChange = this.handleMessageEditorInputChange.bind(this);
     this.state = {
       items: [],
+      from: [],
       newMessageBody: [],
       isLoaded: false
     };
@@ -23,30 +22,6 @@ class Messager extends Component {
       });
   }
 
-  /*static handleMessageEditorInputChange = event => {
-    this.setState({
-      // newMessageBody: event.target.value
-    });
-  };*/
-
-  //static addMessage = message => {
-  /*const newState = Object.assign({}, this.state);
-    newState.items.push(this.state.newMessageBody);
-    newState.newMessageBody = "";
-    this.setState(newState);*/
-  /*fetch("http://localhost:3001/messages", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        msg: message,
-        from: "David"
-      })
-    });
-  };*/
-
   render() {
     var { isLoaded, items } = this.state;
     if (!isLoaded) {
@@ -56,7 +31,7 @@ class Messager extends Component {
       return (
         <div>
           <div className="navbar navbar-toggler badge-dark navbar-collapse">
-            Inbox Messages
+            Conversation
           </div>
           <ul>
             {items.map(item => (
@@ -70,6 +45,7 @@ class Messager extends Component {
               </div>
             ))}
           </ul>
+          );
         </div>
       );
     }

@@ -14,15 +14,10 @@ class Reply extends Component {
     });
   };
 
-  refreshMessages = res => {
-    this.setState({ message: res.data.message });
-  };
-
   addMessage = message => {
     /*const newState = Object.assign({}, this.state);
     newState.items.push(this.state.newMessageBody);
-    newState.newMessageBody = "";
-    this.setState(newState);*/
+    newState.newMessageBody = "";*/
     fetch("http://localhost:3001/messages", {
       method: "POST",
       headers: {
@@ -34,6 +29,7 @@ class Reply extends Component {
         msg: message
       })
     });
+    window.location.reload(); //refreshes page
   };
 
   render() {
