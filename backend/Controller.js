@@ -28,7 +28,24 @@ app.post('/login',(req,res)=>{
     res.json({firstname,lastname,email,password, isteacher})
 })
 
+const MessageController = require('./controllers/Message');
+const messageController = new MessageController;
 
+app.post('/messages', messageController.create);
+app.get('/messages/:messageId', messageController.getById);
+app.put('/messages/:messageId', messageController.updateById);
+app.delete('/messages/:messageId', messageController.deleteById);
+//const messageRouter = require('./routes/Message');
+//app.use('/messages', messageRouter);
+
+const ThreadController = require('./controllers/Thread');
+const threadController = new ThreadController;
+
+app.get('/threads', threadController.getAll);
+app.post('/threads', threadController.create);
+app.get('/threads/:threadId', threadController.getById);
+app.put('/threads/:threadId', threadController.updateById);
+app.get('/threads/:threadId/messages', threadController.getAllMessagesById);
 
 let port = 8000
 app.listen(port, () => {
