@@ -25,7 +25,7 @@ class Persistence {
         // Try to enter a new record in the database.
         try {
             const queryResult = dbConn.query(
-                `INSERT INTO user VALUES( ${this.queryStringify(user)} )`)
+                `INSERT INTO user VALUES( ${this.userToQuery(user)} )`)
             console.log(queryResult);
         } catch (error) {
             console.log("error => \n"+error);
@@ -37,8 +37,8 @@ class Persistence {
 
     // Return a string representing the query format of the object's values.
     // This string should be passed in the values() of an sql query.
-    static queryStringify(anyObject) {
-        return Object.values(anyObject).map(x => "'" + x + "'").join(',');
+    static userToQuery(user){
+        return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${user.isteacher}`
     }
 }
 
