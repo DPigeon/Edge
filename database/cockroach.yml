@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  db:
+    image: 'cockroachdb/cockroach:v2.0.6'
+    command: "cockroach start --insecure"
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: volume
+        source: roach_data
+        target: /cockroach/cockroach-data
+
+  gui:
+    image: "adminer:4"
+    ports:
+      - target: 8080
+        published: 8090
+        protocol: tcp
+        mode: host
+
+volumes:
+  roach_data:
+    external: true
