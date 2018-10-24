@@ -61,7 +61,7 @@ export default class Login extends Component {
   };
 
   addAccount = (fname, lname, e, pass, teach) => {
-    fetch("http://localhost:3001/login", {
+    fetch("http://localhost:3001/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -75,7 +75,7 @@ export default class Login extends Component {
         isTeacher: teach
       })
     });
-    //window.location.reload();
+    this.props.history.replace("/"); //redirects to home page
     alert("REGISTERED");
   };
 

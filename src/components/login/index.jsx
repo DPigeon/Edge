@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import AuthService from "./authService";
 import "./index.css";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    this.Auth = new AuthService("http://localhost:3001"); // Our authentification for unique logins
     this.state = {
       accounts: [],
       email: "",
@@ -11,7 +13,12 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.Auth.loggedIn()) {
+      //if the user is already logged in
+      this.props.history.replace("/"); //go home
+    }
+  }
 
   validateForm() {
     return this.state.email.length > 0 && this.state.password.length > 0;
@@ -29,30 +36,23 @@ export default class Login extends Component {
     });
   };
 
-  handleSubmit = event => {
+  handleAccountForm = event => {
     event.preventDefault();
-  };
 
-  lookForAccounts = (e, pass) => {
-    fetch("http://localhost:3001/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: e,
-        password: pass
+    this.Auth.login(this.state.email, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
       })
-    });
-    window.location.reload();
+      .catch(err => {
+        alert(err);
+      });
   };
 
   render() {
     return (
       <div className="modal-login">
         <h1>Login</h1>
-        <form id="FormLogin" onSubmit={this.handleSubmit} novalidate>
+        <form id="FormLogin" onSubmit={this.handleAccountForm} noValidate>
           <div class="form-group">
             <input
               type="email"
@@ -76,7 +76,7 @@ export default class Login extends Component {
               value=""
               id="CheckBoxTeacher"
             />
-            <label class="form-check-label" for="CheckBoxTeacher">
+            <label class="form-check-label" htmlFor="CheckBoxTeacher">
               Remember Me
             </label>
           </div>
@@ -84,9 +84,7 @@ export default class Login extends Component {
             className="btn btn-success"
             disabled={!this.validateForm()}
             type="submit"
-            onClick={() =>
-              this.lookForAccounts(this.state.email, this.state.password)
-            }
+            onClick={() => this.handleAccountForm}
           >
             Login
           </button>
@@ -94,7 +92,7 @@ export default class Login extends Component {
         <p className="message">Not Signed Up ?</p>
         <a href="/signup">Register</a>
         <p className="message">Forgot Your Password ?</p>
-        <a href="#">Retrieve Password</a>
+        <a href="/">Retrieve Password</a>
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./App.css";
 import Routes from "./Routes";
 
@@ -8,7 +7,7 @@ class App extends Component {
     return (
       <div className="App container">
         <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-          <a class="navbar-brand" href="/">
+          <a className="navbar-brand" href="/">
             Edge
           </a>
           <button
@@ -20,13 +19,13 @@ class App extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
                 <a class="nav-link" href="/">
-                  Home <span class="sr-only">(current)</span>
+                  Home <span className="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -39,7 +38,6 @@ class App extends Component {
                   Signup
                 </a>
               </li>
-              <li class="nav-item" />
             </ul>
           </div>
         </nav>
