@@ -41,6 +41,7 @@ export default class Login extends Component {
 
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
+        localStorage.setItem("email", this.state.email);
         this.props.history.replace("/");
       })
       .catch(err => {

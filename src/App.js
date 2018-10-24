@@ -49,6 +49,9 @@ class App extends Component {
                 </a>
               </li>
             </ul>
+            <span class="navbar-text float-xs-right ml-auto">
+              Welcome back, {localStorage.getItem("email")}
+            </span>
           </div>
         </nav>
         <p>Making your life better</p>

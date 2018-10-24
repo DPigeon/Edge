@@ -5,7 +5,7 @@ export default class Profile extends Component {
   state = {
     firstName: "",
     lastName: "",
-    email: "",
+    email: localStorage.getItem("email"),
     password: ""
   };
   change = e => {
