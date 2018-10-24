@@ -38,6 +38,16 @@ class App extends Component {
                   Signup
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                  Profile
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/threads">
+                  Messages
+                </a>
+              </li>
             </ul>
           </div>
         </nav>

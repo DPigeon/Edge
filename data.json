@@ -1,6 +1,5 @@
 {
-  "signup": [
-    {
+  "signup": [{
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "lol@lol.ca",
@@ -17,8 +16,7 @@
       "id": 2
     }
   ],
-  "login": [
-    {
+  "login": [{
       "username": "lol@lol.ca",
       "password": "hello",
       "id": 1
@@ -27,20 +25,9 @@
       "username": "lol1@lol.ca",
       "password": "hello1",
       "id": 2
-    },
-    {
-      "username": "ddd@ddd.co",
-      "password": "cccc",
-      "id": 3
-    },
-    {
-      "username": "ddd@ddd.com",
-      "password": "gg",
-      "id": 4
     }
   ],
-  "messages": [
-    {
+  "messages": [{
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
       "messageId": 1,
@@ -60,8 +47,7 @@
       "id": 3
     }
   ],
-  "threads": [
-    {
+  "threads": [{
       "from": "David",
       "subject": "Assignment #7",
       "threadId": "1",

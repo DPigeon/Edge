@@ -2,31 +2,6 @@
   text-align: center;
 }
 
-.listThread-editor {
-  margin: 1em 30%;
-}
-
-.messager-editor {
-  margin: 3em 15%;
-}
-
-.messager-editor-button {
-  float: right;
-  margin-top: 1em;
-}
-
-@media(max-width: 1000px) {
-  .listThread-editor {
-    margin: 1em;
-  }
-}
-
-@media(max-width: 900px) {
-  .messager-editor {
-    margin: 3em;
-  }
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;

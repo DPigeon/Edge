@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AuthService from "./login/authService";
 import withAuth from "./login/withAuth";
-import "./Home.css";
+import "./css/Home.css";
 
 const Auth = new AuthService("http://localhost:3001");
 

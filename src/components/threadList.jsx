@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./css/messages.css";
 
 class ThreadList extends Component {
   constructor(props) {

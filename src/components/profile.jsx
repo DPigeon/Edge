@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./css/profile.css";
 
 export default class Profile extends Component {
   state = {
@@ -49,7 +50,7 @@ export default class Profile extends Component {
         <br />
         <input
           name="email"
-          placeholder="email"
+          placeholder="Email"
           value={this.state.email}
           onChange={e => this.change(e)}
         />
@@ -57,7 +58,7 @@ export default class Profile extends Component {
         <input
           name="password"
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={this.state.password}
           onChange={e => this.change(e)}
         />

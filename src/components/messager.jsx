@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Reply from "./reply";
+import "./css/messages.css";
 
 class Messager extends Component {
   constructor(props) {
@@ -45,7 +47,7 @@ class Messager extends Component {
               </div>
             ))}
           </ul>
-          );
+          <Reply />
         </div>
       );
     }
