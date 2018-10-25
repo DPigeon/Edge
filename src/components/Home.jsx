@@ -9,9 +9,7 @@ const Auth = new AuthService("http://localhost:3001");
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      posts: []
-    };
+    this.state = {};
   }
 
   componentDidMount() {
