@@ -91,9 +91,13 @@ export default class Login extends Component {
           </button>
         </form>
         <p className="message">Not Signed Up ?</p>
-        <a href="/signup">Register</a>
+        <center>
+          <a href="/signup">Register</a>
+        </center>
         <p className="message">Forgot Your Password ?</p>
-        <a href="/">Retrieve Password</a>
+        <center>
+          <a href="/">Retrieve Password</a>
+        </center>
       </div>
     );
   }

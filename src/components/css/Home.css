@@ -6,8 +6,33 @@ Home .lander {
 .Home .lander h1 {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
+    text-align: center;
 }
 
 .Home .lander p {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    text-align: center;
     color: #999;
+}
+
+.post {
+    width: 70%;
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.postEditor {
+    text-align: center;
+}
+
+.postButton {
+    margin: 0.1em 80%;
+}
+
+.logoutButton {
+    margin: 2em 0%;
+    text-align: right;
 }

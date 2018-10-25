@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import AuthService from "../login/authService";
 import "./index.css";
+
+const Auth = new AuthService("http://localhost:3001");
 
 export default class Login extends Component {
   constructor(props) {
@@ -14,7 +17,12 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (Auth.loggedIn()) {
+      //if the user is logged in
+      this.props.history.replace("/"); //go login
+    }
+  }
 
   validateForm() {
     //sees if all the inputs has something inside

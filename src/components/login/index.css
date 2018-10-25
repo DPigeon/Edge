@@ -15,10 +15,12 @@
     margin: 15px 0 0;
     color: #000000;
     font-size: 12px;
+    text-align: center;
 
 }
 
 .message a {
     color: #000000;
     text-decoration: none;
+    text-align: center;
 }

@@ -1,8 +1,77 @@
 import React, { Component } from "react";
 import "./App.css";
 import Routes from "./Routes";
+import Home from "./components/Home";
 
 class App extends Component {
+  constructor(props) {
+    super();
+    this.infos = new Home();
+  }
+
+  showNavBarInfoWhenLoggedOutLogin() {
+    if (localStorage.getItem("email") === null) {
+      //if the user is logged in, show infos
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href="/login">
+            Login
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showNavBarInfoWhenLoggedOutSignup() {
+    if (localStorage.getItem("email") === null) {
+      //if the user is logged in, show infos
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">
+            Signup
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showNavBarInfoWhenLoggedInProfile() {
+    if (localStorage.getItem("email") !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            Profile
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showNavBarInfoWhenLoggedInMessages() {
+    if (localStorage.getItem("email") !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href="/threads">
+            Messages
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showUserInfo() {
+    if (localStorage.getItem("email") !== null) {
+      //if the user is logged in, show infos
+      return (
+        <span class="navbar-text float-xs-right ml-auto">
+          Welcome back, {localStorage.getItem("email")}
+        </span>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="App container">
@@ -28,33 +97,18 @@ class App extends Component {
                   Home <span className="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">
-                  Login
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/signup">
-                  Signup
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/profile">
-                  Profile
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/threads">
-                  Messages
-                </a>
-              </li>
+              {this.showNavBarInfoWhenLoggedOutSignup()}
+              {this.showNavBarInfoWhenLoggedOutLogin()}
+              {this.showNavBarInfoWhenLoggedInProfile()}
+              {this.showNavBarInfoWhenLoggedInMessages()}
+              {}
             </ul>
-            <span class="navbar-text float-xs-right ml-auto">
-              Welcome back, {localStorage.getItem("email")}
-            </span>
+            {this.showUserInfo()}
           </div>
         </nav>
-        <p>Making your life better</p>
+        <center>
+          <p>Making your life better</p>
+        </center>
         <Routes />
       </div>
     );
