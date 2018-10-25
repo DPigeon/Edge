@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import AuthService from "./login/authService";
+import PostDisplay from "./post/postDisplay";
 import withAuth from "./login/withAuth";
 import "./css/Home.css";
 
 const Auth = new AuthService("http://localhost:3001");
 
 class Home extends Component {
-  state = {
-    post: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: []
+    };
+  }
 
   componentDidMount() {
     if (!Auth.loggedIn()) {
@@ -37,12 +41,6 @@ class Home extends Component {
     this.props.history.replace("/login");
   };
 
-  handlePostChange = event => {
-    this.setState({
-      post: event.target.value
-    });
-  };
-
   render() {
     return (
       <div className="Home">
@@ -50,14 +48,7 @@ class Home extends Component {
           <h1>Edge</h1>
           <p>A simple parent-teacher communication</p>
         </div>
-        <div className="postEditor">
-          <form id="ex" class="example" onChange={this.handlePostChange}>
-            <input id="ppp" class="post" placeholder="Post something here.." />
-            <button class="btn btn-dark postButton" onClick="" type="button">
-              Post
-            </button>
-          </form>
-        </div>
+        <PostDisplay />
         {this.showLogoutButton()}
       </div>
     );

@@ -1,0 +1,15 @@
+.post {
+    width: 70%;
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.postEditor {
+    text-align: center;
+}
+
+.postButton {
+    margin: 0.1em 70%;
+}
