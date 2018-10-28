@@ -42,9 +42,14 @@
     },
     {
       "from": "Marwan",
-      "msg": "Hey so today is the new meeting. Please go see the teacher and TA. Ok now let me test your output with ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "msg": "Hey so today is the new meeting. Please go see the teacher and TA. Ok now let me test your output with ccccccccc cccccccccccccccc cccccccccc ccccccccc ",
       "messageId": 1,
       "id": 3
+    },
+    {
+      "from": "David",
+      "msg": "hi",
+      "id": 4
     }
   ],
   "threads": [{
@@ -66,6 +71,10 @@
       "profilePic": "ppic.png"
     }
   ],
+  "posts": [{
+    "from": "Marwan@Okay.com",
+    "msg": "Hey"
+  }],
   "profiles": {
     "name": "David"
   }
