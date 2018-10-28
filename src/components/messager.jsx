@@ -10,7 +10,7 @@ class Messager extends Component {
     super(props);
     this.state = {
       items: [],
-      from: [],
+      from: "",
       newMessageBody: [],
       isLoaded: false
     };
@@ -38,24 +38,27 @@ class Messager extends Component {
     } else {
       //Data has been loaded
       return (
-        <div>
-          <div className="navbar navbar-toggler badge-dark navbar-collapse">
-            Conversation
+        <React.Fragment>
+          <div>
+            <ul>
+              {items.map(item => (
+                <div className="cardmessage">
+                  <li key={item.id}>
+                    <h5>
+                      <div className="messagefrom">
+                        Message from {item.from}
+                      </div>
+                    </h5>
+                    <div className="itemmsg">
+                      <p className="mess">{item.msg}</p>
+                    </div>
+                  </li>
+                </div>
+              ))}
+            </ul>
+            <Reply />
           </div>
-          <ul>
-            {items.map(item => (
-              <div className="card messager-editor messager-body">
-                <li key={item.id}>
-                  <h3>
-                    <div className="card-title">Message from {item.from}</div>
-                  </h3>
-                  <div className="card-block">{item.msg}</div>
-                </li>
-              </div>
-            ))}
-          </ul>
-          <Reply />
-        </div>
+        </React.Fragment>
       );
     }
   }

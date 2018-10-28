@@ -9,6 +9,17 @@ class PostDisplay extends Component {
       posts: []
     };
   }
+
+  /*componentDidMount() {
+    fetch("http://localhost:3001/posts")
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          posts: json
+        });
+      });
+  }*/
+
   addPost = newPostBody => {
     const newState = Object.assign({}, this.state);
     newState.posts.push(newPostBody);

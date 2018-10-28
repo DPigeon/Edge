@@ -41,7 +41,7 @@ class Reply extends Component {
               onChange={this.handleMessageEditorInputChange}
             />
             <button
-              className="btn btn-success messager-editor-button"
+              className="buttonmessage"
               onClick={() => this.addMessage(this.state.message)}
             >
               Reply
