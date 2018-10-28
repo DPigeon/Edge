@@ -74,7 +74,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App container">
+      <div className="App cotainer">
         <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
           <a className="navbar-brand" href="/">
             Edge
@@ -107,7 +107,8 @@ class App extends Component {
           </div>
         </nav>
         <center>
-          <p>Making your life better</p>
+          <h1>Edge</h1>
+          <p>A simple parent-teacher communication</p>
         </center>
         <Routes />
       </div>
