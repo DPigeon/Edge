@@ -7,20 +7,41 @@ class LikeDislike extends Component {
     this.state = {
       liked: false,
       disliked: false,
-      counter: 0
+      counterLike: 0,
+      counterDislike: 0,
+      isLikeButtonDisabled: false,
+      isDislikeButtonDisabled: false
     };
   }
 
   handleLike = () => {
     this.setState({
-      liked: !this.state.liked
+      liked: !this.state.liked,
+      counterLike: this.state.counterLike + 1,
+      isDislikeButtonDisabled: true
     });
+    if (this.state.counterLike >= 1) {
+      this.setState({
+        liked: !this.state.liked,
+        counterLike: this.state.counterLike - 1,
+        isDislikeButtonDisabled: false
+      });
+    }
   };
 
   handleDislike = () => {
     this.setState({
-      disliked: !this.state.disliked
+      disliked: !this.state.disliked,
+      counterDislike: this.state.counterDislike + 1,
+      isLikeButtonDisabled: true
     });
+    if (this.state.counterDislike >= 1) {
+      this.setState({
+        disliked: !this.state.disliked,
+        counterDislike: this.state.counterDislike - 1,
+        isLikeButtonDisabled: false
+      });
+    }
   };
 
   render() {
@@ -30,14 +51,26 @@ class LikeDislike extends Component {
     const label2 = this.state.disliked ? "Undislike" : "Dislike";
     return (
       <div className="box">
-        <button className="btn btn-primary" onClick={() => this.handleLike()}>
+        <span className="badge m-2 badge-primary">
+          {this.state.counterLike}
+        </span>
+        <button
+          className="btn btn-primary"
+          onClick={() => this.handleLike()}
+          disabled={this.state.isLikeButtonDisabled}
+        >
           {label}
         </button>
-        <button className="btn badge-dark" onClick={() => this.handleDislike()}>
+        <span className="badge m-2 badge-dark">
+          {this.state.counterDislike}
+        </span>
+        <button
+          className="btn badge-dark"
+          onClick={() => this.handleDislike()}
+          disabled={this.state.isDislikeButtonDisabled}
+        >
           {label2}
         </button>
-        <p>you {textLike} this.</p>
-        <p>you {textDislike} this.</p>
       </div>
     );
   }
