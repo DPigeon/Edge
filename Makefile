@@ -1,10 +1,7 @@
-PROTO_PATH = ./api/platform/
+.PHONY: build run
 
-.PHONY:  proto build
+build:
+	    go install ./...
 
-build: proto
-	go install ./...
-
-proto:
-	protoc --proto_path=$(PROTO_PATH) platform.proto --go_out=plugins=grpc:$(PROTO_PATH)
-	
+run: build
+    sudo enpoint

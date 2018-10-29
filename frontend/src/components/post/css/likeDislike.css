@@ -1,0 +1,13 @@
+.btn-primary {
+    background-color: #23aa4e;
+    border-color: #177d37;
+    margin: 0.5em;
+}
+
+#example {
+    margin: 3rem;
+}
+
+.boxContainer {
+    border: 1px solid black;
+}

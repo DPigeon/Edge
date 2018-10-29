@@ -1,0 +1,105 @@
+.col1 {
+    width: 10%;
+    float: left;
+    background-color: #3ea4f8;
+    height: 500px;
+    padding: 15px 20px 15px 20px;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.col2 {
+    width: 30%;
+    float: left;
+    overflow: auto;
+    height: 500px;
+    padding: 15px 20px 15px 20px;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.col3 {
+    width: 60%;
+    float: left;
+    margin-bottom: 16px;
+    padding: 15px 20px 15px 20px;
+    overflow: auto;
+    height: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.itemmsg {
+
+
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.containerbox {
+    width: 100%;
+
+    background-color: #979797fd;
+}
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+}
+
+li {
+
+    text-align: center;
+}
+
+li a {
+
+
+    text-align: center;
+    display: block;
+    color: #000000;
+    padding: 20px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+
+
+
+
+
+.listThread-editor {
+    margin: 1em 30%;
+}
+
+.messager-editor {
+    margin: 3em 15%;
+}
+
+.messager-editor-button {
+    float: right;
+    margin-top: 1em;
+}
+
+@media(max-width: 1000px) {
+    .listThread-editor {
+        margin: 1em;
+    }
+}
+
+@media(max-width: 900px) {
+    .messager-editor {
+        margin: 3em;
+    }
+}
