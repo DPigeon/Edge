@@ -10,8 +10,20 @@ class LikeDislike extends Component {
       counterLike: 0,
       counterDislike: 0,
       isLikeButtonDisabled: false,
-      isDislikeButtonDisabled: false
+      isDislikeButtonDisabled: false,
+      items: []
     };
+  }
+
+  componentDidMount() {
+    //GET Likes/Dislikes
+    fetch("http://localhost:3001/likes")
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          items: json
+        });
+      });
   }
 
   handleLike = () => {
