@@ -44,27 +44,23 @@ app.post('/login',(req,res)=>{
 })
 
 const MessageController = require('./controllers/Message');
-const messageController = new MessageController;
 
-app.post('/messages', messageController.create);
-app.get('/messages/:messageId', messageController.getById);
-app.put('/messages/:messageId', messageController.updateById);
-app.delete('/messages/:messageId', messageController.deleteById);
-//const messageRouter = require('./routes/Message');
-//app.use('/messages', messageRouter);
+app.post('/messages', MessageController.create);
+app.get('/messages/:messageId', MessageController.getById);
+//app.put('/messages/:messageId', messageController.updateById); NOT NEEDED FOR NOW
+//app.delete('/messages/:messageId', messageController.deleteById); NOT NEEDED FOR NOW
 
 const ThreadController = require('./controllers/Thread');
-const threadController = new ThreadController;
 
-app.get('/threads', threadController.getAll);
-app.post('/threads', threadController.create);
-app.get('/threads/:threadId', threadController.getById);
-app.put('/threads/:threadId', threadController.updateById);
-app.get('/threads/:threadId/messages', threadController.getAllMessagesById);
+app.get('/threads', ThreadController.getAll);
+app.post('/threads', ThreadController.create);
+app.get('/threads/:threadId', ThreadController.getById);
+//app.put('/threads/:threadId', threadController.updateById); NOT NEEDED FOR NOW
+app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
 
-let port = 8000
+let port = 8000;
 app.listen(port, () => {
     console.log('backend started on port', port)
-})
+});
 
 module.exports = app;

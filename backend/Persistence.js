@@ -1,29 +1,20 @@
-const User = require('./User')
-const mysql = require('mysql')
-const syncMysql = require('sync-mysql')
+const User = require('./User');
+const syncMySQL = require('sync-mysql');
 
 // ----------------------------------------------------------------------------------------
 // PLEASE DO NOT TOUCH THESE CONSTANTS
 // THEY ARE USED TO CONNECT TO THE HOSTED DATABASE
-const dbIp = '18.221.83.136'
-const dbRootUser = 'root'
-const dbUser = 'soen341'
-const dbName = 'platform341'
-const dbRootPass = 'ribalestbeau'
-const dbUserPass = 'ilovedocker'
+const dbHost = '18.221.83.136';
+const dbRootUser = 'root';
+const dbName = 'platform341';
+const dbRootPass = 'ribalestbeau';
 
-const dbConn = mysql.createConnection({
-    host: dbIp,
-    user: 'root',
-    password: 'ribalestbeau',
-    database: 'platform341'
-});
-
-const dbSyncConn = syncMysql.createConnection({
+const dbSyncConn = new syncMySQL({
+    host: dbHost,
     user: dbRootUser,
     password: dbRootPass,
     database: dbName
-})
+});
 // ----------------------------------------------------------------------------------------
 
 class Persistence {
@@ -48,4 +39,5 @@ class Persistence {
     }
 }
 
-module.exports = Persistence
+module.exports = Persistence;
+module.exports = dbSyncConn;
