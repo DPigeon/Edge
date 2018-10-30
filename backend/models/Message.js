@@ -1,4 +1,4 @@
-const db = require('../Persistence');
+const db = require('../db');
 
 class Message {
 
