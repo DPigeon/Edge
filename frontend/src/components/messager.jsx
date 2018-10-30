@@ -11,7 +11,6 @@ class Messager extends Component {
     this.state = {
       items: [],
       from: "",
-      newMessageBody: [],
       isLoaded: false
     };
   }

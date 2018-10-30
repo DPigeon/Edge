@@ -1,5 +1,6 @@
 import React from "react";
 import CommentDisplay from "./commentDisplay";
+import LikeDislike from "./likeDislike";
 import "./css/post.css";
 
 const Post = props => (
@@ -10,7 +11,7 @@ const Post = props => (
       <br />
       <br />
       <CommentDisplay />
-      <a href="/">Like Dislike</a>
+      <LikeDislike />
     </div>
   </div>
 );
