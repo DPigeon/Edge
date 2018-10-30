@@ -30,12 +30,14 @@ class LikeDislike extends Component {
     this.setState({
       liked: !this.state.liked,
       counterLike: this.state.counterLike + 1,
+      //must POST here for json
       isDislikeButtonDisabled: true
     });
     if (this.state.counterLike >= 1) {
       this.setState({
         liked: !this.state.liked,
         counterLike: this.state.counterLike - 1,
+        //must POST here for json
         isDislikeButtonDisabled: false
       });
     }
