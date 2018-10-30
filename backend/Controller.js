@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const User = require('./User')
 const Persistence = require('./Persistence')
+const Auth = require('./Auth')
 
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
@@ -37,8 +38,8 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body
+    const result = Auth.AuthenticateUser(email,password)
     console.log("Attempt at login:", { email, password })
-    result = Persistence.retrieveUser({ email, password })
     res.json(result)
 })
 

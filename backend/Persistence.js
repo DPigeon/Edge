@@ -39,13 +39,14 @@ class Persistence {
         try {
             // returns an array. We know that there will only be a single element
             // because the email is unique
+            console.log("Query, ", `SELECT * FROM user WHERE email='${email}' AND password='${password}'`);
             storedUser = dbConn.query(
                 `SELECT * FROM user WHERE email='${email}' AND password='${password}'`
             )
-            console.log("storedUser[0] =>", storedUser[0])
+            console.log("storedUser =>", storedUser)
         } catch (error) {
             console.log(error)
-            return error
+            return {error}
         }
         if (storedUser[0] == null) {
             return { success: false, message: "The email/password combination is incorrect" }
