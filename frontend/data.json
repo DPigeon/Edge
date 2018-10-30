@@ -1,5 +1,6 @@
 {
-  "signup": [{
+  "signup": [
+    {
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "lol@lol.ca",
@@ -16,7 +17,8 @@
       "id": 2
     }
   ],
-  "login": [{
+  "login": [
+    {
       "username": "lol@lol.ca",
       "password": "hello",
       "id": 1
@@ -25,9 +27,35 @@
       "username": "lol1@lol.ca",
       "password": "hello1",
       "id": 2
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 3
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 4
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 5
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 6
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 7
     }
   ],
-  "messages": [{
+  "messages": [
+    {
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
       "messageId": 1,
@@ -50,9 +78,20 @@
       "from": "David",
       "msg": "hi",
       "id": 4
+    },
+    {
+      "from": "David",
+      "msg": "jjkln",
+      "id": 5
+    },
+    {
+      "from": "David",
+      "msg": "jvbjmb",
+      "id": 6
     }
   ],
-  "threads": [{
+  "threads": [
+    {
       "from": "David",
       "subject": "Assignment #7",
       "threadId": "1",
@@ -71,10 +110,12 @@
       "profilePic": "ppic.png"
     }
   ],
-  "posts": [{
-    "from": "Marwan@Okay.com",
-    "msg": "Hey"
-  }],
+  "posts": [
+    {
+      "from": "Marwan@Okay.com",
+      "msg": "Hey"
+    }
+  ],
   "profiles": {
     "name": "David"
   }
