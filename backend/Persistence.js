@@ -1,21 +1,6 @@
 const User = require('./User');
-const syncMySQL = require('sync-mysql');
+const dbSyncConn = require('./db')
 
-// ----------------------------------------------------------------------------------------
-// PLEASE DO NOT TOUCH THESE CONSTANTS
-// THEY ARE USED TO CONNECT TO THE HOSTED DATABASE
-const dbHost = '18.221.83.136';
-const dbRootUser = 'root';
-const dbName = 'platform341';
-const dbRootPass = 'ribalestbeau';
-
-const dbSyncConn = new syncMySQL({
-    host: dbHost,
-    user: dbRootUser,
-    password: dbRootPass,
-    database: dbName
-});
-// ----------------------------------------------------------------------------------------
 
 class Persistence {
     static RegisterUser(user) {
@@ -37,7 +22,7 @@ class Persistence {
             // returns an array. We know that there will only be a single element
             // because the email is unique
             console.log("Query, ", `SELECT * FROM user WHERE email='${email}' AND password='${password}'`);
-            storedUser = dbConn.query(
+            storedUser = dbSyncConn.query(
                 `SELECT * FROM user WHERE email='${email}' AND password='${password}'`
             )
             console.log("storedUser =>", storedUser)
@@ -61,4 +46,3 @@ class Persistence {
 }
 
 module.exports = Persistence;
-module.exports = dbSyncConn;
