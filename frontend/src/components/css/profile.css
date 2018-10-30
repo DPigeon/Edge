@@ -1,35 +1,3 @@
 .profile {
-  text-align: center;
-}
-
-.profilecontainer {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-.banner {
-  width: 100%;
-  height: 350px;
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.pp {
-  border: 5px solid white;
-  width: 17%;
-  border-radius: 50%;
-  position: absolute;
-  top: 175px;
-  left: 190px;
-}
-.editpic {
-  position: absolute;
-  top: 300px;
-  right: 60px;
-}
-h3 {
-  position: absolute;
-  left: 475px;
-  color: red;
+    text-align: center;
 }

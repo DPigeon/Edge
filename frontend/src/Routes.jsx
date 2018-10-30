@@ -6,6 +6,7 @@ import Signup from "./components/signup/index";
 import Messager from "./components/messager";
 import ThreadList from "./components/threadList";
 import Profile from "./components/profile";
+import Groups from "./components/groups/index";
 import NotFound from "./components/notfound";
 
 export default () => (
@@ -16,6 +17,7 @@ export default () => (
     <Route path="/messages" component={Messager} />
     <Route path="/threads" component={ThreadList} />
     <Route path="/profile" component={Profile} />
+    <Route path="/groups" component={Groups} />
     <Route component={NotFound} />
   </Switch>
 );

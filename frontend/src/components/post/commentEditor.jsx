@@ -25,15 +25,15 @@ class CommentEditor extends Component {
   render() {
     return (
       <div className="commentEditor">
-        <form id="ex" class="exaple" onChange={this.handleCommentChange}>
+        <form id="ex" class="example" onChange={this.handleCommentChange}>
           <input
             id="ppp"
-            class="commenttt"
+            class="post"
             value={this.state.newCommentBody}
             placeholder="Comment something here.."
           />
           <button
-            class="commbtn"
+            class="btn btn-dark postButton"
             onClick={() => this.createComment()}
             type="button"
           >

@@ -30,8 +30,18 @@ class LikeDislike extends Component {
     this.setState({
       liked: !this.state.liked,
       counterLike: this.state.counterLike + 1,
-      //must POST here for json
       isDislikeButtonDisabled: true
+    });
+    fetch("http://localhost:3001/posts", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        //get the post id
+        likes: this.state.counterLike
+      })
     });
     if (this.state.counterLike >= 1) {
       this.setState({
@@ -39,6 +49,17 @@ class LikeDislike extends Component {
         counterLike: this.state.counterLike - 1,
         //must POST here for json
         isDislikeButtonDisabled: false
+      });
+      fetch("http://localhost:3001/posts", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          //get the post id
+          dislikes: this.state.counterDislike
+        })
       });
     }
   };

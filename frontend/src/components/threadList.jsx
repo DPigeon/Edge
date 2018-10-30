@@ -32,19 +32,11 @@ class ThreadList extends Component {
   showColumn1() {
     return (
       <div className="col1">
-        <ul className="leftopt">
-          <li>
-            <a href="#">Compose</a>
-          </li>
-          <li>
-            <a href="/">Inbox</a>
-          </li>
-          <li>
-            <a href="/">Sent</a>
-          </li>
-          <li>
-            <a href="/">Contacts</a>
-          </li>
+        <ul>
+          <li>Compose</li>
+          <li>Inbox</li>
+          <li>Sent</li>
+          <li>Contacts</li>
         </ul>
       </div>
     );
@@ -62,21 +54,21 @@ class ThreadList extends Component {
               <div className="containermessage">
                 <h10>
                   <div className="boxmessage" key={item.id}>
-                    <ul>
-                      <li>
-                        <a href="messages/id">
-                          {item.subject}
-                          <br />
-                          Message from {item.from}
-                          <br />
-                          03/06/18
-                        </a>
-                      </li>
-                    </ul>
+                    <a href="messages/id">
+                      Message from {item.from} - Subject: {item.subject}
+                    </a>
                   </div>
                 </h10>
               </div>
             ))}
+            <center>
+              <button
+                className="newm"
+                onClick={() => this.createThread(this.state.id)}
+              >
+                New Message
+              </button>
+            </center>
           </div>
         </div>
       );
@@ -86,11 +78,6 @@ class ThreadList extends Component {
   showColumn3() {
     return (
       <div className="col3">
-        <ul className="rightsend">
-          <li>
-            <a href="#">Send</a>
-          </li>
-        </ul>
         <Messager />
       </div>
     );

@@ -18,7 +18,7 @@ class PostDisplay extends Component {
 
   render() {
     return (
-      <div className="postEditor">
+      <div className="post-body">
         {this.state.posts.map((postBody, idx) => {
           return <Post key={idx} postBody={postBody} />;
         })}

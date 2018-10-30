@@ -61,6 +61,19 @@ class App extends Component {
     }
   }
 
+  showNavBarInfoWhenLoggedInGroups() {
+    if (localStorage.getItem("email") !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li class="nav-item">
+          <a class="nav-link" href="/groups">
+            Groups
+          </a>
+        </li>
+      );
+    }
+  }
+
   showUserInfo() {
     if (localStorage.getItem("email") !== null) {
       //if the user is logged in, show infos
@@ -101,6 +114,7 @@ class App extends Component {
               {this.showNavBarInfoWhenLoggedOutLogin()}
               {this.showNavBarInfoWhenLoggedInProfile()}
               {this.showNavBarInfoWhenLoggedInMessages()}
+              {this.showNavBarInfoWhenLoggedInGroups()}
               {}
             </ul>
             {this.showUserInfo()}
