@@ -28,20 +28,24 @@ class Persistence {
             console.log("storedUser =>", storedUser)
         } catch (error) {
             console.log(error)
-            return {error}
+            return {error,success:false}
         }
         if (storedUser[0] == null) {
             return { success: false, message: "The email/password combination is incorrect" }
         }
         // else, the user must exist
-        return{succes: true, user : storedUser[0]}
+        return{success: true, user : storedUser[0]}
 
     }
 
     // Return a string representing the query format of the object's values.
     // This string should be passed in the values() of an sql query.
     static userToQuery(user) {
-        return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${user.isteacher}`
+        let isTeacher = 0
+        if (user.is_teacher == true){
+            isTeacher = 1
+        }
+        return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${isTeacher}`
     }
 }
 

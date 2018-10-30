@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-    const { firstname, lastname, email, password, isteacher } = req.body
-    const user = new User({ firstname, lastname, email, password, isteacher })
+    const { firstname, lastname, email, password, is_teacher } = req.body
+    const user = new User({ firstname, lastname, email, password, is_teacher })
     console.log('Attempt at signup:\n', );
     console.log(user);
     const { success, message } = Persistence.RegisterUser(user)
