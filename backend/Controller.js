@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const User = require('./User')
 const Persistence = require('./Persistence')
+const Auth = require('./Auth')
 
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
@@ -23,24 +24,23 @@ app.get('/', (req, res) => {
     console.log("Get request at path '/'")
 })
 
-app.post('/signup', (req,res)=>{
-    const{firstname,lastname,email,password,isteacher} = req.body
-    const user = new User({firstname,lastname,email,password,isteacher})
-    console.log('Attemp at signup:\n',);
+app.post('/signup', (req, res) => {
+    const { firstname, lastname, email, password, isteacher } = req.body
+    const user = new User({ firstname, lastname, email, password, isteacher })
+    console.log('Attempt at signup:\n', );
     console.log(user);
-    const {success, message} = Persistence.RegisterUser(user)
-    const status = {success,message}
+    const { success, message } = Persistence.RegisterUser(user)
+    const status = { success, message }
     console.log(status);
     res.json(status)
     res.end()
 })
 
-app.post('/login',(req,res)=>{
-    const{firstname,lastname,email,password, isteacher} = req.body
-    const user = new User({firstname,lastname,email,password, isteacher})
-    console.log(user)
-    res.contentType('application/json')
-    res.send(Persistence.queryStringify(user))
+app.post('/login', (req, res) => {
+    const { email, password } = req.body
+    const result = Auth.AuthenticateUser(email,password)
+    console.log("Attempt at login:", { email, password })
+    res.json(result)
 })
 
 const MessageController = require('./controllers/Message');
