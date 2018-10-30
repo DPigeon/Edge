@@ -1,0 +1,56 @@
+.post {
+    width: 70%;
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.postEditor {
+    text-align: center;
+}
+
+.postButton {
+    margin: 0.1em 80%;
+}
+
+.logoutButton {
+    text-align: center;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+    text-align: center;
+}
+
+.column2 {
+    float: left;
+    width: 50%;
+    margin-bottom: 16px;
+    padding: 10px 8px;
+}
+
+.column3 {
+    float: left;
+    width: 20%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.img1 {
+    width: 50%;
+    border-radius: 50%;
+}
+
+.img2 {
+    width: 50%;
+}

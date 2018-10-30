@@ -1,30 +1,27 @@
-const User = require('./User')
-const mysql = require('sync-mysql')
+const User = require('./User');
+const syncMySQL = require('sync-mysql');
 
 // ----------------------------------------------------------------------------------------
 // PLEASE DO NOT TOUCH THESE CONSTANTS
 // THEY ARE USED TO CONNECT TO THE HOSTED DATABASE
-const dbIp = '18.221.83.136'
-const dbRootUser = 'root'
-const dbUser = 'soen341'
-const dbName = 'platform341'
-const dbRootPass = 'ribalestbeau'
-const dbUserPass = 'ilovedocker'
+const dbHost = '18.221.83.136';
+const dbRootUser = 'root';
+const dbName = 'platform341';
+const dbRootPass = 'ribalestbeau';
 
-const dbConn = new mysql({
-    host: dbIp,
+const dbSyncConn = new syncMySQL({
+    host: dbHost,
     user: dbRootUser,
     password: dbRootPass,
     database: dbName
-})
-
+});
 // ----------------------------------------------------------------------------------------
 
 class Persistence {
     static RegisterUser(user) {
         // Try to enter a new record in the database.
         try {
-            const queryResult = dbConn.query(
+            const queryResult = dbSyncConn.query(
                 `INSERT INTO user VALUES( ${this.userToQuery(user)} )`)
             console.log(queryResult);
         } catch (error) {
@@ -63,4 +60,5 @@ class Persistence {
     }
 }
 
-module.exports = Persistence
+module.exports = Persistence;
+module.exports = dbSyncConn;

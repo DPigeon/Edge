@@ -43,11 +43,24 @@ app.post('/login', (req, res) => {
     res.json(result)
 })
 
+const MessageController = require('./controllers/Message');
 
+app.post('/messages', MessageController.create);
+app.get('/messages/:messageId', MessageController.getById);
+//app.put('/messages/:messageId', messageController.updateById); NOT NEEDED FOR NOW
+//app.delete('/messages/:messageId', messageController.deleteById); NOT NEEDED FOR NOW
 
-let port = 8000
+const ThreadController = require('./controllers/Thread');
+
+app.get('/threads', ThreadController.getAll);
+app.post('/threads', ThreadController.create);
+app.get('/threads/:threadId', ThreadController.getById);
+//app.put('/threads/:threadId', threadController.updateById); NOT NEEDED FOR NOW
+app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
+
+let port = 8000;
 app.listen(port, () => {
     console.log('backend started on port', port)
-})
+});
 
 module.exports = app;
