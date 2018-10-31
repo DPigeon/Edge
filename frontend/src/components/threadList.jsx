@@ -27,9 +27,14 @@ class ThreadList extends Component {
       .then(json => {
         this.setState({
           isLoaded: true,
-          threads: json
+          threads: json,
+          currentId: null
         });
       });
+  }
+
+  handleClickItem(id){
+    this.setState({currentId: id})
   }
 
   showColumn1() {
@@ -51,7 +56,7 @@ class ThreadList extends Component {
         </ul>
       </div>
     );
-  }
+  }// /thread/5
 
   showColumn2() {
     var { isLoaded, threads } = this.state;
@@ -67,13 +72,14 @@ class ThreadList extends Component {
                   <div className="boxmessage" key={item.id}>
                     <ul>
                       <li>
-                        <a href="messages/id">
-                          {item.name}
+                        <button onClick={() => this.handleClickItem(item.id)}>
+                        {item.name}
                           <br />
                           Message from {item.sender}
                           <br />
                           03/06/18
-                        </a>
+                        </button>
+
                       </li>
                     </ul>
                   </div>
@@ -87,6 +93,7 @@ class ThreadList extends Component {
   }
 
   showColumn3() {
+    const { currentId } = this.state
     return (
       <div className="col3">
         <ul className="rightsend">
@@ -94,7 +101,7 @@ class ThreadList extends Component {
             <a href="#">Send</a>
           </li>
         </ul>
-        <Messager />
+        <Messager id={currentId} />
       </div>
     );
   }
