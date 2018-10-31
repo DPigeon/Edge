@@ -15,11 +15,14 @@ class ThreadList extends Component {
   }
 
   componentDidMount() {
-    if (!Auth.loggedIn()) {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt == undefined || jwt == null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
-    fetch("http://localhost:3001/threads")
+    fetch("http://localhost:8000/threads", {
+      method: "GET"
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -65,9 +68,9 @@ class ThreadList extends Component {
                     <ul>
                       <li>
                         <a href="messages/id">
-                          {item.subject}
+                          {item.name}
                           <br />
-                          Message from {item.from}
+                          Message from {item.sender}
                           <br />
                           03/06/18
                         </a>
