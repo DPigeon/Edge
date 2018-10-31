@@ -59,8 +59,8 @@ app.get('/threads/:threadId', ThreadController.getById);
 app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
 
 let port = 8000;
-app.listen(port, () => {
+const api = app.listen(port, () => {
     console.log('backend started on port', port)
 });
 
-module.exports = app;
+module.exports = api;
