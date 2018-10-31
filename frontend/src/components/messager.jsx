@@ -15,12 +15,10 @@ class Messager extends Component {
     };
   }
 
-  componentDidMount() {
-    if (!Auth.loggedIn()) {
-      //if the user not logged in
-      this.props.history.replace("/login"); //go login
-    }
-    fetch("http://localhost:3001/messages")
+  componentWillReceiveProps(){
+    const {id} = this.props
+    if (id !== undefined) {
+      fetch(`http://localhost:8000/threads/${id}/messages`)
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -28,6 +26,17 @@ class Messager extends Component {
           items: json
         });
       });
+    }
+
+  }
+
+  componentDidMount() {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt == undefined || jwt == null) {
+      //if the user not logged in
+      this.props.history.replace("/login"); //go login
+    }
+
   }
 
   render() {
@@ -45,11 +54,11 @@ class Messager extends Component {
                   <li key={item.id}>
                     <h5>
                       <div className="messagefrom">
-                        Message from {item.from}
+                        Message from {item.receiver}
                       </div>
                     </h5>
                     <div className="itemmsg">
-                      <p className="mess">{item.msg}</p>
+                      <p className="mess">{item.data}</p>
                     </div>
                   </li>
                 </div>

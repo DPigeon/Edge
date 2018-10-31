@@ -69,7 +69,8 @@ export default class Login extends Component {
   };
 
   addAccount = (fname, lname, e, pass, teach) => {
-    fetch("http://localhost:3001/signup", {
+
+    fetch("http://localhost:8000/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -80,11 +81,19 @@ export default class Login extends Component {
         lastname: lname,
         email: e,
         password: pass,
-        isTeacher: teach
+        is_teacher: teach
       })
+    }).then(res => {
+      return res.json();
+    }).then(json => {
+      if (json.success) {
+        this.props.history.replace("/login"); //redirects to home page
+        alert("REGISTERED");
+      } else {
+        console.log(json);
+      }
     });
-    this.props.history.replace("/"); //redirects to home page
-    alert("REGISTERED");
+
   };
 
   render() {

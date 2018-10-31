@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/likeDislike.css";
 
 class LikeDislike extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +44,7 @@ class LikeDislike extends Component {
         likes: this.state.counterLike
       })
     });
+
     if (this.state.counterLike >= 1) {
       this.setState({
         liked: !this.state.liked,
@@ -62,7 +64,6 @@ class LikeDislike extends Component {
       });
     }
   };
-
   handleDislike = id => {
     this.setState({
       disliked: !this.state.disliked,
@@ -90,6 +91,7 @@ class LikeDislike extends Component {
         </span>
         <button
           className="btn btn-primary"
+
           onClick={() => this.handleLike(this.state.postID)}
           disabled={this.state.isLikeButtonDisabled}
         >
@@ -100,7 +102,7 @@ class LikeDislike extends Component {
         </span>
         <button
           className="btn badge-dark"
-          onClick={() => this.handleDislike(this.state.postID)}
+          onClick={() => this.handleDislike(this.state.postID)}   
           disabled={this.state.isDislikeButtonDisabled}
         >
           {label2}
