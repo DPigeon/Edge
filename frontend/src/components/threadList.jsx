@@ -40,7 +40,7 @@ class ThreadList extends Component {
   showColumn1() {
     return (
       <div className="col1">
-        <ul className="leftopt">
+       <ul className="leftopt">
           <li>
             <a href="#">Compose</a>
           </li>
@@ -79,13 +79,20 @@ class ThreadList extends Component {
                           <br />
                           03/06/18
                         </button>
-
                       </li>
                     </ul>
                   </div>
                 </h10>
               </div>
             ))}
+            <center>
+              <button
+                className="newm"
+                onClick={() => this.createThread(this.state.id)}
+              >
+                New Message
+              </button>
+            </center>
           </div>
         </div>
       );

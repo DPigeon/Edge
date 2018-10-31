@@ -1,48 +1,4 @@
-import React, { Component } from "react";
-import AuthService from "./login/authService";
-import "./css/profile.css";
-
-const Auth = new AuthService("http://localhost:3001");
-
-export default class Profile extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    email: localStorage.getItem("email"),
-    password: ""
-  };
-
-  componentDidMount() {
-    if (!Auth.loggedIn()) {
-      //if the user not logged in
-      this.props.history.replace("/login"); //go login
-    }
-  }
-
-  change = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    console.log(this.state);
-  };
-
-  onEdit = e => {
-    this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-    });
-    //e.preventDefault();
-    //this.props.onEdit(this.state);
-    //console.log(this.state);
-  };
-
-  render() {
+render() {
     return (
       <React.Fragment>
         <div className="profilecontainer">
@@ -50,7 +6,7 @@ export default class Profile extends Component {
             src={require("./images/banner.jpg")}
             alt="Welcome"
             className="banner"
-          />
+			/>
           <center>
             {" "}
             <img
@@ -65,11 +21,8 @@ export default class Profile extends Component {
           <br />
           <br />
           <br />
-          <br />
-          <br />
         </div>
-
-        <div className="profile">
+         <div className="profile">
           <form>
             <input
               className=""

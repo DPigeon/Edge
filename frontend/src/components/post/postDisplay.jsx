@@ -6,8 +6,19 @@ class PostDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      items: []
     };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:3001/posts")
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          items: json //posts get into a stack/array
+        });
+      });
   }
 
   addPost = newPostBody => {
@@ -21,6 +32,16 @@ class PostDisplay extends Component {
       <div className="postEditor">
         {this.state.posts.map((postBody, idx) => {
           return <Post key={idx} postBody={postBody} />;
+        })}
+        {this.state.items.map((item, id) => {
+          return (
+            <Post
+              key={id}
+              postBody={item.msg}
+              from={item.from}
+              postId={item.id}
+            />
+          );
         })}
         <PostEditor addPost={this.addPost} />
       </div>

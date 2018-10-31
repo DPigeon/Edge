@@ -6,12 +6,12 @@ import "./css/post.css";
 const Post = props => (
   <div className="aPost">
     <div className="card">
-      <h5>Post by {localStorage.getItem("email")}</h5>
+      <h5>Post by {props.from}</h5>
       {props.postBody}
       <br />
       <br />
       <CommentDisplay />
-      <LikeDislike />
+      <LikeDislike postId={props.postId} />
     </div>
   </div>
 );
