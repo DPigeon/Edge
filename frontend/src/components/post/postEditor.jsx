@@ -20,6 +20,19 @@ class PostEditor extends Component {
     this.setState({
       newPostBody: ""
     });
+    fetch("http://localhost:3001/posts", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "",
+        msg: this.state.newPostBody,
+        likes: 0,
+        dislikes: 0
+      })
+    });
   };
 
   render() {
