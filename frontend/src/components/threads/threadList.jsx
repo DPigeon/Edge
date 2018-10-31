@@ -13,7 +13,7 @@ class ThreadList extends Component {
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
-    if (jwt == undefined || jwt == null) {
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
@@ -39,7 +39,7 @@ class ThreadList extends Component {
       <div className="col1">
         <ul className="leftopt">
           <li>
-            <a href="#">Compose</a>
+            <a href="/">Compose</a>
           </li>
           <li>
             <a href="/">Inbox</a>
@@ -53,7 +53,7 @@ class ThreadList extends Component {
         </ul>
       </div>
     );
-  } // /thread/5
+  }
 
   showColumn2() {
     var { isLoaded, threads } = this.state;
@@ -102,7 +102,7 @@ class ThreadList extends Component {
       <div className="col3">
         <ul className="rightsend">
           <li>
-            <a href="#">Send</a>
+            <a href="/">Send</a>
           </li>
         </ul>
         <Messager id={currentId} />

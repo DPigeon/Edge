@@ -28,7 +28,7 @@ class Messager extends Component {
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
-    if (jwt == undefined || jwt == null) {
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }

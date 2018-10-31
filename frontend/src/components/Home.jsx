@@ -39,7 +39,7 @@ class Home extends Component {
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
-    if (jwt == undefined || jwt == null) {
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     } else {
@@ -94,7 +94,7 @@ class Home extends Component {
       <div class="column2">
         <div class="card">
           <div id="con" class="containernode">
-            <PostDisplay />
+            <PostDisplay email={this.state.userProfile.email} />
           </div>
         </div>
         <div class="card">

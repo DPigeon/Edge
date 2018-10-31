@@ -6,6 +6,7 @@ class PostDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: this.props.email,
       posts: [],
       items: []
     };
@@ -40,10 +41,11 @@ class PostDisplay extends Component {
               postBody={item.msg}
               from={item.from}
               postId={item.id}
+              by={this.state.email}
             />
           );
         })}
-        <PostEditor addPost={this.addPost} />
+        <PostEditor addPost={this.addPost} email />
       </div>
     );
   }

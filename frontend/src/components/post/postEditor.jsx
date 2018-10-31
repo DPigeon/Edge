@@ -38,12 +38,13 @@ class PostEditor extends Component {
   render() {
     return (
       <div className="postEditor">
-        <form id="ex" class="example" onChange={this.handlePostChange}>
+        <form id="ex" class="example">
           <input
             id="ppp"
             class="post"
             value={this.state.newPostBody}
             placeholder="Post something here.."
+            onChange={this.handlePostChange}
           />
           <button class="btnn" onClick={() => this.createPost()} type="button">
             Post

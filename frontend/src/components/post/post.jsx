@@ -6,7 +6,7 @@ import "./styles/post.css";
 const Post = props => (
   <div className="aPost">
     <div className="card">
-      <h5>Post by {props.from}</h5>
+      <h5>Post {props.by}</h5>
       {props.postBody}
       <br />
       <br />

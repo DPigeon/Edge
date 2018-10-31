@@ -92,12 +92,12 @@ class App extends Component {
   render() {
     return (
       <div className="App cotainer">
-        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
           <a className="navbar-brand" href="/">
             Edge
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarNav"

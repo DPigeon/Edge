@@ -79,9 +79,9 @@ class LikeDislike extends Component {
   };
 
   render() {
-    const textLike = this.state.liked ? "liked" : "haven't liked";
+    //const textLike = this.state.liked ? "liked" : "haven't liked";
     const label = this.state.liked ? "Unlike" : "Like";
-    const textDislike = this.state.disliked ? "disliked" : "haven't disliked";
+    //const textDislike = this.state.disliked ? "disliked" : "haven't disliked";
     const label2 = this.state.disliked ? "Undislike" : "Dislike";
     return (
       <div className="box">
