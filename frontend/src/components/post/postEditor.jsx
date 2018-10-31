@@ -46,7 +46,7 @@ class PostEditor extends Component {
             placeholder="Post something here.."
           />
           <button
-            class="btn btn-dark postButton"
+            class="btnn"
             onClick={() => this.createPost()}
             type="button"
           >
