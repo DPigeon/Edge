@@ -40,11 +40,19 @@ class ThreadList extends Component {
   showColumn1() {
     return (
       <div className="col1">
-        <ul>
-          <li>Compose</li>
-          <li>Inbox</li>
-          <li>Sent</li>
-          <li>Contacts</li>
+       <ul className="leftopt">
+          <li>
+            <a href="#">Compose</a>
+          </li>
+          <li>
+            <a href="/">Inbox</a>
+          </li>
+          <li>
+            <a href="/">Sent</a>
+          </li>
+          <li>
+            <a href="/">Contacts</a>
+          </li>
         </ul>
       </div>
     );
