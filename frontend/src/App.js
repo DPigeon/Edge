@@ -10,7 +10,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutLogin() {
-    if (localStorage.getItem("email") === null) {
+    let token = localStorage.getItem("jwt")
+    if (token === undefined && token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -23,7 +24,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutSignup() {
-    if (localStorage.getItem("email") === null) {
+    let token = localStorage.getItem("jwt")
+    if (token === undefined && token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -36,7 +38,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInProfile() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -49,7 +52,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInMessages() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -62,7 +66,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInGroups() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -75,11 +80,12 @@ class App extends Component {
   }
 
   showUserInfo() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <span class="navbar-text float-xs-right ml-auto">
-          Welcome back, {localStorage.getItem("email")}
+          Welcome back !
         </span>
       );
     }

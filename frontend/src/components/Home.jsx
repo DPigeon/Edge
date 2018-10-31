@@ -1,15 +1,24 @@
 import React, { Component } from "react";
-import AuthService from "./login/authService";
 import PostDisplay from "./post/postDisplay";
-import withAuth from "./login/withAuth";
+import decode from "jwt-decode";
 import "./css/Home.css";
-
-const Auth = new AuthService("http://localhost:3001");
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+		userProfile: []
+	};
+  }
+  
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+  
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
   }
 
   componentDidMount() {
@@ -17,7 +26,17 @@ class Home extends Component {
     if (jwt == undefined || jwt == null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
-    }
+    } else { // if is logged in, get user profile
+		try {
+			const profile = this.getProfile();
+			this.setState({
+				userProfile: profile
+			});
+		} catch (err) {
+          localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+          this.props.history.replace("/login");
+        }
+	}
   }
 
   showLeftColumn() {
@@ -32,10 +51,10 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>Parent name</h2>
+            <h2>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2>
             <p class="title">Parent A</p>
-            <p>Some text that describes</p>
-            <p>example@example.com</p>
+            <p>Successfully decoded the JWT Token</p>
+            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
 
@@ -75,10 +94,10 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>Name Name</h2>
+            <h2>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2>
             <p class="title">Parent A</p>
             <p>Some text that describes</p>
-            <p>example@example.com</p>
+            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
       </div>
@@ -116,7 +135,8 @@ class Home extends Component {
   }
 
   showLogoutButton() {
-    if (Auth.loggedIn()) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       return (
         <div className="logoutButton">
           <button
@@ -131,7 +151,7 @@ class Home extends Component {
   }
 
   handleLogout = () => {
-    Auth.logout();
+    localStorage.removeItem("jwt");
     this.props.history.replace("/login");
   };
 
@@ -150,5 +170,4 @@ class Home extends Component {
   }
 }
 
-//export default withAuth(Home);
 export default Home;

@@ -12,8 +12,8 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    let token = localStorage.getItem("token")
-    if (token!== undefined && token !== null) {
+    let token = localStorage.getItem("jwt")
+    if (token !== undefined && token !== null) {
       //if the user is already logged in
       this.props.history.replace("/"); //go home
     }
