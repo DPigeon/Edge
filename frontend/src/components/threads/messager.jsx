@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Reply from "./reply";
-import AuthService from "./login/authService";
-import "./css/messages.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/messages.css";
 
 class Messager extends Component {
   constructor(props) {
@@ -15,19 +12,18 @@ class Messager extends Component {
     };
   }
 
-  componentWillReceiveProps(){
-    const {id} = this.props
+  componentWillReceiveProps() {
+    const { id } = this.props;
     if (id !== undefined) {
       fetch(`http://localhost:8000/threads/${id}/messages`)
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          isLoaded: true,
-          items: json
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
         });
-      });
     }
-
   }
 
   componentDidMount() {
@@ -36,7 +32,6 @@ class Messager extends Component {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
-
   }
 
   render() {

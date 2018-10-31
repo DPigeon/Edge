@@ -1,7 +1,7 @@
 import React from "react";
-import CommentDisplay from "./commentDisplay";
-import LikeDislike from "./likeDislike";
-import "./css/post.css";
+import CommentDisplay from "./comments/commentDisplay";
+import LikeDislike from "./likesDislikes/likeDislike";
+import "./styles/post.css";
 
 const Post = props => (
   <div className="aPost">

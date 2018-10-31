@@ -10,8 +10,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutLogin() {
-    let token = localStorage.getItem("jwt")
-    if (token === undefined && token === null) {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -24,8 +24,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutSignup() {
-    let token = localStorage.getItem("jwt")
-    if (token === undefined && token === null) {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInProfile() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInMessages() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInGroups() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
@@ -80,13 +80,11 @@ class App extends Component {
   }
 
   showUserInfo() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <span class="navbar-text float-xs-right ml-auto">
-          Welcome back !
-        </span>
+        <span class="navbar-text float-xs-right ml-auto">Welcome back !</span>
       );
     }
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/post.css";
+import "../styles/post.css";
 
 class CommentEditor extends Component {
   constructor(props) {

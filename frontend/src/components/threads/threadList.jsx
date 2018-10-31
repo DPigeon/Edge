@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import AuthService from "./login/authService";
 import Messager from "./messager";
-import "./css/messages.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/messages.css";
 
 class ThreadList extends Component {
   constructor(props) {
@@ -33,14 +30,14 @@ class ThreadList extends Component {
       });
   }
 
-  handleClickItem(id){
-    this.setState({currentId: id})
+  handleClickItem(id) {
+    this.setState({ currentId: id });
   }
 
   showColumn1() {
     return (
       <div className="col1">
-       <ul className="leftopt">
+        <ul className="leftopt">
           <li>
             <a href="#">Compose</a>
           </li>
@@ -56,7 +53,7 @@ class ThreadList extends Component {
         </ul>
       </div>
     );
-  }// /thread/5
+  } // /thread/5
 
   showColumn2() {
     var { isLoaded, threads } = this.state;
@@ -73,7 +70,7 @@ class ThreadList extends Component {
                     <ul>
                       <li>
                         <button onClick={() => this.handleClickItem(item.id)}>
-                        {item.name}
+                          {item.name}
                           <br />
                           Message from {item.sender}
                           <br />
@@ -100,7 +97,7 @@ class ThreadList extends Component {
   }
 
   showColumn3() {
-    const { currentId } = this.state
+    const { currentId } = this.state;
     return (
       <div className="col3">
         <ul className="rightsend">

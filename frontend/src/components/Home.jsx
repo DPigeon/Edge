@@ -1,21 +1,37 @@
 import React, { Component } from "react";
 import PostDisplay from "./post/postDisplay";
 import decode from "jwt-decode";
-import "./css/Home.css";
+import "./Home.css";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-		userProfile: []
-	};
+      userProfile: []
+    };
   }
-  
+
+  decodeJwtToken() {
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      this.props.history.replace("/login");
+    }
+  }
+
+  getJwtInfoFirstname() {
+    return this.state.userProfile.firstname;
+  }
+
   getToken() {
     // Retrieves the user token jwt from localStorage
     return localStorage.getItem("jwt");
   }
-  
+
   getProfile() {
     // Using jwt-decode npm package to decode the token
     return decode(this.getToken());
@@ -26,17 +42,10 @@ class Home extends Component {
     if (jwt == undefined || jwt == null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
-    } else { // if is logged in, get user profile
-		try {
-			const profile = this.getProfile();
-			this.setState({
-				userProfile: profile
-			});
-		} catch (err) {
-          localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
-          this.props.history.replace("/login");
-        }
-	}
+    } else {
+      // if is logged in, get user profile
+      this.decodeJwtToken();
+    }
   }
 
   showLeftColumn() {
@@ -51,7 +60,10 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2>
+            <h2>
+              {this.state.userProfile.firstname}{" "}
+              {this.state.userProfile.lastname}
+            </h2>
             <p class="title">Parent A</p>
             <p>Successfully decoded the JWT Token</p>
             <p>{this.state.userProfile.email}</p>
@@ -94,7 +106,10 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>{this.state.userProfile.firstname} {this.state.userProfile.lastname}</h2>
+            <h2>
+              {this.state.userProfile.firstname}{" "}
+              {this.state.userProfile.lastname}
+            </h2>
             <p class="title">Parent A</p>
             <p>Some text that describes</p>
             <p>{this.state.userProfile.email}</p>
@@ -135,7 +150,7 @@ class Home extends Component {
   }
 
   showLogoutButton() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       return (
         <div className="logoutButton">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./styles.css";
+import "./styles/groups.css";
 
 class Groups extends Component {
   state = {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./index.css";
+import "./styles/index.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     if (token !== undefined && token !== null) {
       //if the user is already logged in
       this.props.history.replace("/"); //go home
@@ -48,9 +48,11 @@ export default class Login extends Component {
         email: this.state.email,
         password: this.state.password
       })
-    }).then(res => {
-      return res.json();
-      }).then(json => {
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(json => {
         if (json.success) {
           console.log("token : ", json.token);
           localStorage.setItem("jwt", json.token);
@@ -59,7 +61,7 @@ export default class Login extends Component {
           console.log(json);
         }
       });
-};
+  };
 
   render() {
     return (

@@ -3,11 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/login/index";
 import Signup from "./components/signup/index";
-import Messager from "./components/messager";
-import ThreadList from "./components/threadList";
-import Profile from "./components/profile";
+import Messager from "./components/threads/messager";
+import ThreadList from "./components/threads/threadList";
+import Profile from "./components/profile/index";
 import Groups from "./components/groups/index";
-import NotFound from "./components/notfound";
+import NotFound from "./components/other/notfound";
 
 export default () => (
   <Switch>
