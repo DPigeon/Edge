@@ -7,6 +7,7 @@ import Messager from "./components/threads/messager";
 import ThreadList from "./components/threads/threadList";
 import Profile from "./components/profile/index";
 import Groups from "./components/groups/index";
+import CreateGroup from "./components/groups/createGroup";
 import NotFound from "./components/other/notfound";
 
 export default () => (
@@ -19,6 +20,7 @@ export default () => (
       <Route path="/threads" component={ThreadList} />
       <Route path="/profile" component={Profile} />
       <Route path="/groups" component={Groups} />
+      <Route path="/creategroup" component={CreateGroup} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
