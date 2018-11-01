@@ -23,7 +23,7 @@ class AuthService {
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-                isAdmin: user.isAdmin
+                is_teacher: user.is_teacher
             },
                 superSecret,
                 { expiresIn: 60 * 60 })

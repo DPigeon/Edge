@@ -1,7 +1,11 @@
-.PHONY: build run
+.PHONY: install-dep
 
-build:
-	    go install ./...
+install-dep:
+	cd ./backend && npm i --save
+	cd ./frontend && npm i --save
 
-run: build
-    sudo enpoint
+test: install-dep
+	cd ./backend && npm test
+	cd ./frontend && npm test
+
+

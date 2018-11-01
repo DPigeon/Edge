@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-    const { firstname, lastname, email, password, isteacher } = req.body
-    const user = new User({ firstname, lastname, email, password, isteacher })
+    const { firstname, lastname, email, password, is_teacher } = req.body
+    const user = new User({ firstname, lastname, email, password, is_teacher })
     console.log('Attempt at signup:\n', );
     console.log(user);
     const { success, message } = Persistence.RegisterUser(user)
@@ -59,8 +59,8 @@ app.get('/threads/:threadId', ThreadController.getById);
 app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
 
 let port = 8000;
-app.listen(port, () => {
+const api = app.listen(port, () => {
     console.log('backend started on port', port)
 });
 
-module.exports = app;
+module.exports = api;

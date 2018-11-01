@@ -10,7 +10,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutLogin() {
-    if (localStorage.getItem("email") === null) {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -23,7 +24,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedOutSignup() {
-    if (localStorage.getItem("email") === null) {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -36,7 +38,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInProfile() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -49,7 +52,8 @@ class App extends Component {
   }
 
   showNavBarInfoWhenLoggedInMessages() {
-    if (localStorage.getItem("email") !== null) {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
         <li class="nav-item">
@@ -61,13 +65,26 @@ class App extends Component {
     }
   }
 
-  showUserInfo() {
-    if (localStorage.getItem("email") !== null) {
+  showNavBarInfoWhenLoggedInGroups() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <span class="navbar-text float-xs-right ml-auto">
-          Welcome back, {localStorage.getItem("email")}
-        </span>
+        <li class="nav-item">
+          <a class="nav-link" href="/groups">
+            Groups
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showUserInfo() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
+      //if the user is logged in, show infos
+      return (
+        <span class="navbar-text float-xs-right ml-auto">Welcome back !</span>
       );
     }
   }
@@ -75,12 +92,12 @@ class App extends Component {
   render() {
     return (
       <div className="App cotainer">
-        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
           <a className="navbar-brand" href="/">
             Edge
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarNav"
@@ -101,6 +118,7 @@ class App extends Component {
               {this.showNavBarInfoWhenLoggedOutLogin()}
               {this.showNavBarInfoWhenLoggedInProfile()}
               {this.showNavBarInfoWhenLoggedInMessages()}
+              {this.showNavBarInfoWhenLoggedInGroups()}
               {}
             </ul>
             {this.showUserInfo()}

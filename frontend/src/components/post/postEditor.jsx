@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/post.css";
+import "./styles/post.css";
 
 class PostEditor extends Component {
   constructor(props) {
@@ -20,23 +20,33 @@ class PostEditor extends Component {
     this.setState({
       newPostBody: ""
     });
+    fetch("http://localhost:3001/posts", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "",
+        msg: this.state.newPostBody,
+        likes: 0,
+        dislikes: 0
+      })
+    });
   };
 
   render() {
     return (
       <div className="postEditor">
-        <form id="ex" class="example" onChange={this.handlePostChange}>
+        <form id="ex" class="example">
           <input
             id="ppp"
             class="post"
             value={this.state.newPostBody}
             placeholder="Post something here.."
+            onChange={this.handlePostChange}
           />
-          <button
-            class="btn btn-dark postButton"
-            onClick={() => this.createPost()}
-            type="button"
-          >
+          <button class="btnn" onClick={() => this.createPost()} type="button">
             Post
           </button>
         </form>

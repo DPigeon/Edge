@@ -1,21 +1,50 @@
 import React, { Component } from "react";
-import AuthService from "./login/authService";
 import PostDisplay from "./post/postDisplay";
-import withAuth from "./login/withAuth";
-import "./css/Home.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import decode from "jwt-decode";
+import "./Home.css";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userProfile: []
+    };
+  }
+
+  decodeJwtToken() {
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      this.props.history.replace("/login");
+    }
+  }
+
+  getJwtInfoFirstname() {
+    return this.state.userProfile.firstname;
+  }
+
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
   }
 
   componentDidMount() {
-    if (!Auth.loggedIn()) {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
+    } else {
+      // if is logged in, get user profile
+      this.decodeJwtToken();
     }
   }
 
@@ -31,10 +60,13 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>Parent name</h2>
+            <h2>
+              {this.state.userProfile.firstname}{" "}
+              {this.state.userProfile.lastname}
+            </h2>
             <p class="title">Parent A</p>
-            <p>Some text that describes</p>
-            <p>example@example.com</p>
+            <p>Successfully decoded the JWT Token</p>
+            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
 
@@ -62,7 +94,7 @@ class Home extends Component {
       <div class="column2">
         <div class="card">
           <div id="con" class="containernode">
-            <PostDisplay />
+            <PostDisplay email={this.state.userProfile.email} />
           </div>
         </div>
         <div class="card">
@@ -74,10 +106,13 @@ class Home extends Component {
             />
           </center>
           <div class="container">
-            <h2>Name Name</h2>
+            <h2>
+              {this.state.userProfile.firstname}{" "}
+              {this.state.userProfile.lastname}
+            </h2>
             <p class="title">Parent A</p>
             <p>Some text that describes</p>
-            <p>example@example.com</p>
+            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
       </div>
@@ -115,7 +150,8 @@ class Home extends Component {
   }
 
   showLogoutButton() {
-    if (Auth.loggedIn()) {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       return (
         <div className="logoutButton">
           <button
@@ -130,7 +166,7 @@ class Home extends Component {
   }
 
   handleLogout = () => {
-    Auth.logout();
+    localStorage.removeItem("jwt");
     this.props.history.replace("/login");
   };
 
@@ -149,5 +185,4 @@ class Home extends Component {
   }
 }
 
-//export default withAuth(Home);
 export default Home;

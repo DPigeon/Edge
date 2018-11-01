@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import AuthService from "../login/authService";
-import "./index.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/index.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -18,7 +15,8 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    if (Auth.loggedIn()) {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       //if the user is logged in
       this.props.history.replace("/"); //go login
     }
@@ -69,7 +67,7 @@ export default class Login extends Component {
   };
 
   addAccount = (fname, lname, e, pass, teach) => {
-    fetch("http://localhost:3001/signup", {
+    fetch("http://localhost:8000/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -80,11 +78,20 @@ export default class Login extends Component {
         lastname: lname,
         email: e,
         password: pass,
-        isTeacher: teach
+        is_teacher: teach
       })
-    });
-    this.props.history.replace("/"); //redirects to home page
-    alert("REGISTERED");
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(json => {
+        if (json.success) {
+          this.props.history.replace("/login"); //redirects to home page
+          alert("You have been registered successfully. You may now login.");
+        } else {
+          console.log(json);
+        }
+      });
   };
 
   render() {

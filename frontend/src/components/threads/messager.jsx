@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Reply from "./reply";
-import AuthService from "./login/authService";
-import "./css/messages.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/messages.css";
 
 class Messager extends Component {
   constructor(props) {
@@ -15,19 +12,26 @@ class Messager extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    const { id } = this.props;
+    if (id !== undefined) {
+      fetch(`http://localhost:8000/threads/${id}/messages`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
+        });
+    }
+  }
+
   componentDidMount() {
-    if (!Auth.loggedIn()) {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
-    fetch("http://localhost:3001/messages")
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          isLoaded: true,
-          items: json
-        });
-      });
   }
 
   render() {
@@ -45,11 +49,11 @@ class Messager extends Component {
                   <li key={item.id}>
                     <h5>
                       <div className="messagefrom">
-                        Message from {item.from}
+                        Message from {item.receiver}
                       </div>
                     </h5>
                     <div className="itemmsg">
-                      <p className="mess">{item.msg}</p>
+                      <p className="mess">{item.data}</p>
                     </div>
                   </li>
                 </div>

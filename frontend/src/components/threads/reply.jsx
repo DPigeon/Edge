@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/messages.css";
+import "./styles/messages.css";
 
 class Reply extends Component {
   state = {

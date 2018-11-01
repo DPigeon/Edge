@@ -1,35 +1,69 @@
 import React, { Component } from "react";
-import "./css/likeDislike.css";
+import "./styles/likeDislike.css";
 
 class LikeDislike extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      postID: props.postId,
       liked: false,
       disliked: false,
       counterLike: 0,
       counterDislike: 0,
       isLikeButtonDisabled: false,
-      isDislikeButtonDisabled: false
+      isDislikeButtonDisabled: false,
+      items: []
     };
   }
 
-  handleLike = () => {
+  componentDidMount() {
+    //GET Likes/Dislikes
+    fetch("http://localhost:3001/likes")
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          items: json
+        });
+      });
+  }
+
+  handleLike = id => {
     this.setState({
       liked: !this.state.liked,
       counterLike: this.state.counterLike + 1,
       isDislikeButtonDisabled: true
     });
+    fetch("http://localhost:3001/posts/" + id, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        likes: this.state.counterLike
+      })
+    });
+
     if (this.state.counterLike >= 1) {
       this.setState({
         liked: !this.state.liked,
         counterLike: this.state.counterLike - 1,
         isDislikeButtonDisabled: false
       });
+      fetch("http://localhost:3001/posts" + id, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          //get the post id
+          likes: this.state.counterLike
+        })
+      });
     }
   };
-
-  handleDislike = () => {
+  handleDislike = id => {
     this.setState({
       disliked: !this.state.disliked,
       counterDislike: this.state.counterDislike + 1,
@@ -45,9 +79,9 @@ class LikeDislike extends Component {
   };
 
   render() {
-    const textLike = this.state.liked ? "liked" : "haven't liked";
+    //const textLike = this.state.liked ? "liked" : "haven't liked";
     const label = this.state.liked ? "Unlike" : "Like";
-    const textDislike = this.state.disliked ? "disliked" : "haven't disliked";
+    //const textDislike = this.state.disliked ? "disliked" : "haven't disliked";
     const label2 = this.state.disliked ? "Undislike" : "Dislike";
     return (
       <div className="box">
@@ -56,7 +90,7 @@ class LikeDislike extends Component {
         </span>
         <button
           className="btn btn-primary"
-          onClick={() => this.handleLike()}
+          onClick={() => this.handleLike(this.state.postID)}
           disabled={this.state.isLikeButtonDisabled}
         >
           {label}
@@ -66,7 +100,7 @@ class LikeDislike extends Component {
         </span>
         <button
           className="btn badge-dark"
-          onClick={() => this.handleDislike()}
+          onClick={() => this.handleDislike(this.state.postID)}
           disabled={this.state.isDislikeButtonDisabled}
         >
           {label2}
