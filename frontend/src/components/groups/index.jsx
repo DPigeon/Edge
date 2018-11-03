@@ -8,7 +8,22 @@ class Groups extends Component {
 
   //TESTING THE GROUPS, NOT OFFICIAL FOR NOW
   render() {
-    return (
+    return (<React.Fragment>
+       <div className="profilecontainer">
+          <img
+            src={require("../profile/images/banner.jpg")}
+            alt="Welcome"
+            className="banner"
+          />
+
+          <h1>Group Name</h1>
+          <button className="editpic">Update Info</button>
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+
       <div className="groups">
         <div className="aGroup">
           <ul>
@@ -50,6 +65,7 @@ class Groups extends Component {
           <button>Create Group</button>
         </a>
       </div>
+      </React.Fragment>
     );
   }
 }
