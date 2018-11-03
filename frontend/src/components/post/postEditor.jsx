@@ -16,11 +16,12 @@ class PostEditor extends Component {
   };
 
   createPost = () => {
+    //gets all posts
     this.props.addPost(this.state.newPostBody);
     this.setState({
       newPostBody: ""
     });
-    fetch("http://localhost:3001/posts", {
+    fetch("http://localhost:8000/posts", {
       method: "POST",
       headers: {
         Accept: "application/json",

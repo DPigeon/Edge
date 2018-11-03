@@ -41,7 +41,7 @@ class PostDisplay extends Component {
               postBody={item.msg}
               from={item.from}
               postId={item.id}
-              by={this.state.email}
+              by={item.name}
             />
           );
         })}

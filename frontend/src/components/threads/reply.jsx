@@ -15,16 +15,18 @@ class Reply extends Component {
     });
   };
 
-  addMessage = message => {
-    fetch("http://localhost:3001/messages", {
+  addMessage = (id, from, to, message) => {
+    fetch(`http://localhost:8000/threads/${id}/messages`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "David",
-        msg: message
+        thread_id: id,
+        sender: from,
+        receiver: to,
+        data: message
       })
     });
     window.location.reload(); //refreshes page
@@ -42,7 +44,14 @@ class Reply extends Component {
             />
             <button
               className="buttonmessage"
-              onClick={() => this.addMessage(this.state.message)}
+              onClick={() =>
+                this.addMessage(
+                  this.props.id,
+                  this.props.from,
+                  this.props.to,
+                  this.state.message
+                )
+              }
             >
               Reply
             </button>

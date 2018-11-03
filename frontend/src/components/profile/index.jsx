@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles/profile.css";
 import Home from "../Home";
+import UploadImages from "./uploadImages";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -47,6 +48,10 @@ export default class Profile extends Component {
   render() {
     return (
       <React.Fragment>
+        <center>
+          <UploadImages />
+        </center>
+        <br />
         <div className="profilecontainer">
           <img
             src={require("./images/banner.jpg")}

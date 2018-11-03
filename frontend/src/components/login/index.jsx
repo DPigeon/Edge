@@ -110,7 +110,7 @@ export default class Login extends Component {
         </center>
         <p className="message">Forgot Your Password ?</p>
         <center>
-          <a href="/">Retrieve Password</a>
+          <a href="/forgotpassword">Retrieve Password</a>
         </center>
       </div>
     );

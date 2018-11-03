@@ -122,5 +122,39 @@
       "password": "hello1",
       "isTeacher": false
     }
-  ]
+  ],
+  "groups": [{
+      "title": "The NHLs",
+      "description": "We like NHL, join us!",
+      "members": ["David, ", "Marwan, "]
+    },
+    {
+      "title": "The Gamers",
+      "description": "We like gaming, join us!",
+      "members": ["Ribal, ", "David, ", "Ruslan, ", "Maria"]
+    },
+    {
+      "title": "Software Group",
+      "description": "We are in SOEN !",
+      "members": ["Ribal, ", "Marwan, ", "Anas"]
+    },
+    {
+      "title": "Computer Group",
+      "description": "We are in COEN !",
+      "members": ["David, ", "Maria, ", "Ruslan"]
+    },
+    {
+      "title": "Test Group",
+      "description": "whatsup!",
+      "members": ["Maria, ", "Anas, "]
+    },
+    {
+      "title": "Bonjour",
+      "description": "Come say hi!",
+      "members": ["David, ", "Ribal, "]
+    }
+  ],
+  "pictures": [{
+    "pictureInfo": ""
+  }]
 }
