@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import Routes from "./Routes";
 import Home from "./components/Home";
+import Notify from "./components/notifications/notify";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.infos = new Home();
   }
 
@@ -84,10 +85,20 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <span class="navbar-text float-xs-right ml-auto">Welcome back !</span>
+        <span class="navbar-text float-xs-right ml-auto">
+          <Notify />
+          <button className="btn btn-dark" onClick={() => this.handleLogout()}>
+            Logout
+          </button>
+        </span>
       );
     }
   }
+
+  handleLogout = () => {
+    localStorage.removeItem("jwt");
+    window.location.reload();
+  };
 
   render() {
     return (

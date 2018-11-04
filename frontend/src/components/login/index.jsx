@@ -56,7 +56,7 @@ export default class Login extends Component {
         if (json.success) {
           console.log("token : ", json.token);
           localStorage.setItem("jwt", json.token);
-          this.props.history.replace("/"); //Go back to dashboard
+          window.location.reload(); //Go back to dashboard
         } else {
           console.log(json);
         }

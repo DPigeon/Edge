@@ -149,31 +149,9 @@ class Home extends Component {
     );
   }
 
-  showLogoutButton() {
-    let token = localStorage.getItem("jwt");
-    if (token !== undefined && token !== null) {
-      return (
-        <div className="logoutButton">
-          <button
-            className="btn btn-success"
-            onClick={() => this.handleLogout()}
-          >
-            Logout
-          </button>
-        </div>
-      );
-    }
-  }
-
-  handleLogout = () => {
-    localStorage.removeItem("jwt");
-    this.props.history.replace("/login");
-  };
-
   render() {
     return (
       <React.Fragment>
-        {this.showLogoutButton()}
         {this.showLeftColumn()}
         {this.showMiddleColumn()}
         {this.showRightColumn()}
