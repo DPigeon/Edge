@@ -1,8 +1,9 @@
 const User = require('./User');
-const dbSyncConn = require('./db')
+const db = require('../db')
 
 
-class Persistence {
+class UserController {
+
     static RegisterUser(user) {
         // Try to enter a new record in the database.
         try {
@@ -16,13 +17,14 @@ class Persistence {
         }
         return { success: true }
     }
+
     static retrieveUser({ email, password }) {
         let storedUser = null
         try {
             // returns an array. We know that there will only be a single element
             // because the email is unique
             console.log("Query, ", `SELECT * FROM user WHERE email='${email}' AND password='${password}'`);
-            storedUser = dbSyncConn.query(
+            storedUser = db.SyncConn.query(
                 `SELECT * FROM user WHERE email='${email}' AND password='${password}'`
             )
             console.log("storedUser =>", storedUser)
@@ -38,6 +40,7 @@ class Persistence {
 
     }
 
+
     // Return a string representing the query format of the object's values.
     // This string should be passed in the values() of an sql query.
     static userToQuery(user) {
@@ -47,6 +50,7 @@ class Persistence {
         }
         return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${isTeacher}`
     }
+
 }
 
-module.exports = Persistence;
+module.exports = UserController;

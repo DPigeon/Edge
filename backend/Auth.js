@@ -1,4 +1,4 @@
-const Persistence = require('./Persistence')
+const UserController = require('./controllers/User')
 // const User = require('./User')
 const jwt = require('jsonwebtoken')
 
@@ -10,7 +10,7 @@ class AuthService {
     // If success == true, then check the token field
     // else
     static AuthenticateUser(email, password) {
-        const { success, error, user } = Persistence.retrieveUser({email, password})
+        const { success, error, user } = UserController.retrieveUser({email, password})
         const result = { success, error, user }
         console.log("result from 'AuthenticateUser => ", result);
         if (error != undefined) {

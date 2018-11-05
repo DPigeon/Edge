@@ -14,14 +14,16 @@ class Messager extends Component {
 
   componentWillReceiveProps() {
     let id = this.props.id;
-    if (id !== undefined) {
+    if (id !== undefined && id!=0 && id !==null) {
       fetch(`http://localhost:8000/threads/${id}/messages`)
-        .then(res => res.json())
+      .then(res => {
+        return res.json()})
         .then(json => {
           this.setState({
             isLoaded: true,
             items: json
           });
+          this.forceUpdate();
         });
     }
   }

@@ -8,7 +8,7 @@ const dbRootUser = 'root';
 const dbName = 'platform341';
 const dbRootPass = 'ribalestbeau';
 
-const dbSyncConn = new syncMySQL({
+module.exports.SyncConn = new syncMySQL({
     host: dbHost,
     user: dbRootUser,
     password: dbRootPass,
@@ -16,4 +16,6 @@ const dbSyncConn = new syncMySQL({
 });
 // ----------------------------------------------------------------------------------------
 
-module.exports = dbSyncConn;
+module.exports.ObjectToQuery = (object) => {
+    return Object.values(object).map(x => "'" + x + "'").join(',')
+}
