@@ -9,6 +9,7 @@ import Profile from "./components/profile/index";
 import Groups from "./components/groups/index";
 import CreateGroup from "./components/groups/createGroup";
 import ForgotPassword from "./components/login/forgotPassword/forgotPass";
+import IndividualGroup from "./components/groups/individualGroup";
 import NotFound from "./components/other/notfound";
 
 export default () => (
@@ -23,6 +24,7 @@ export default () => (
       <Route path="/groups" component={Groups} />
       <Route path="/creategroup" component={CreateGroup} />
       <Route path="/forgotpassword" component={ForgotPassword} />
+      <Route path="/singlegroup" component={IndividualGroup} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
