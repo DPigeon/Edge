@@ -23,7 +23,8 @@ class Notify extends Component {
 
   render() {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
-    //this is an example of the notifications
+    //this is a simple notification example
+    return (
       <span class="navbar-text float-xs-right ml-auto">
         <div class="dropdown">
           <button class="btn btn-success dropdown-toggle dropbtn">
