@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./styles/notify.css";
 
 class Notify extends Component {
   constructor(props) {
@@ -21,18 +22,27 @@ class Notify extends Component {
   render() {
     return (
       <span class="navbar-text float-xs-right ml-auto">
-        <button className="btn btn-dark" onClick={() => this.showPopupHandler}>
-          {this.state.notificationCounter}
-        </button>
-        {this.state.showPopup ? (
-          <div className="menu">
-            <button> New message from David</button>
-            <br />
-            <button> David posted on your wall </button>
-            <br />
-            <button> New message from Ruslan</button>
-          </div>
-        ) : null}
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+          >
+            {this.state.notificationCounter}
+            <span class="caret" />
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/">Test1</a>
+            </li>
+            <li>
+              <a href="/">Test2</a>
+            </li>
+            <li>
+              <a href="/">Test3</a>
+            </li>
+          </ul>
+        </div>
       </span>
     );
   }
