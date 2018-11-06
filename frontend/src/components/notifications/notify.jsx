@@ -6,9 +6,11 @@ class Notify extends Component {
     super(props);
     this.state = {
       showPopup: false,
-      notificationCounter: 0
+      notificationCounter: 3
     };
   }
+
+  //
 
   showPopupHandler = event => {
     event.preventDefault();
@@ -20,28 +22,24 @@ class Notify extends Component {
   }
 
   render() {
-    return (
+    //we can map an array of notifications coming from the backend so that we see all of them on hover
+    //this is an example of the notifications
       <span class="navbar-text float-xs-right ml-auto">
         <div class="dropdown">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-          >
+          <button class="btn btn-success dropdown-toggle dropbtn">
             {this.state.notificationCounter}
-            <span class="caret" />
           </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="/">Test1</a>
-            </li>
-            <li>
-              <a href="/">Test2</a>
-            </li>
-            <li>
-              <a href="/">Test3</a>
-            </li>
-          </ul>
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="/threads">
+              Message from David
+            </a>
+            <a class="dropdown-item" href="/">
+              New post from Ruslan
+            </a>
+            <a class="dropdown-item" href="/threads">
+              Message from Maria
+            </a>
+          </div>
         </div>
       </span>
     );
