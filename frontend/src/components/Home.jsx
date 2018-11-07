@@ -11,6 +11,16 @@ class Home extends Component {
     };
   }
 
+  decodeJwtTokenOther(user) {
+    try {
+      const profile = this.getProfile();
+      user = profile;
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      this.props.history.replace("/login");
+    }
+  }
+
   decodeJwtToken() {
     try {
       const profile = this.getProfile();

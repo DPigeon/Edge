@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import IndividualGroup from "../groups/individualGroup";
 import "./styles/notify.css";
 
 class Notify extends Component {
@@ -20,11 +21,20 @@ class Notify extends Component {
       });
   }
 
-  showNotifications(type, name) {
-    //either of type message or post
+  incrementNotificationHandler = () => {
     this.setState({
       notificationCounter: this.state.notificationCounter + 1
     });
+  };
+
+  decrementNotificationHandler = () => {
+    this.setState({
+      notificationCounter: this.state.notificationCounter - 1
+    });
+  };
+
+  showNotifications(type, name, groupName) {
+    //either of type message, post or group request
     switch (type) {
       case "message":
         return (
@@ -32,10 +42,23 @@ class Notify extends Component {
             Message from {name}
           </a>
         );
-      case "post":
+      case "postWall":
         return (
           <a className="dropdown-item" href="/">
-            Post from {name}
+            Post in your wall from {name}
+          </a>
+        );
+      case "groupRequest":
+        return (
+          <a className="dropdown-item" href="/groups">
+            {name} wants to join your group {groupName}
+            <br />
+            <button className="btn btn-success" onClick={IndividualGroup}>
+              Accept
+            </button>
+            <button className="btn btn-danger" onClick={IndividualGroup}>
+              Reject
+            </button>
           </a>
         );
       default:
@@ -45,7 +68,7 @@ class Notify extends Component {
 
   render() {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
-    //this is a simple notification example
+    //this is a simple notification example with messages, wall posts and group request
     return (
       <span className="navbar-text float-xs-right ml-auto">
         <div className="dropdown">
@@ -57,10 +80,20 @@ class Notify extends Component {
               Message from David
             </a>
             <a className="dropdown-item" href="/">
-              New post from Ruslan
+              New post on your wall from Anas
             </a>
-            <a className="dropdown-item" href="/threads">
-              Message from Maria
+            <a className="dropdown-item">
+              Maria wants to join your group SOEN
+              <br />
+              <button
+                className="btn btn-success"
+                onClick={() => this.incrementNotificationHandler()}
+              >
+                Accept
+              </button>
+              <button className="btn btn-danger" onClick={IndividualGroup}>
+                Reject
+              </button>
             </a>
           </div>
         </div>

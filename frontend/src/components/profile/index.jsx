@@ -1,18 +1,55 @@
 import React, { Component } from "react";
-import "./styles/profile.css";
 import Home from "../Home";
 import UploadImages from "./uploadImages";
+import decode from "jwt-decode";
+import "./styles/profile.css";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.infos = new Home();
     this.state = {
+      userProfile: [],
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      isTeacher: false
     };
+  }
+
+  decodeJwtToken() {
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      this.props.history.replace("/login");
+    }
+  }
+
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
+  }
+
+  getTeacher() {
+    if (this.state.userProfile.is_teacher === 0)
+      //if it is not a teacher
+      this.setState({
+        isTeacher: false
+      });
+    else
+      this.setState({
+        isTeacher: true
+      });
   }
 
   componentDidMount() {
@@ -22,7 +59,7 @@ export default class Profile extends Component {
       this.props.history.replace("/login"); //go login
     } else {
       // if is logged in, get user profile
-      this.infos.decodeJwtToken();
+      this.decodeJwtToken();
     }
   }
 
@@ -38,7 +75,7 @@ export default class Profile extends Component {
   };
   onEdit = e => {
     this.setState({
-      firstName: "",
+      firstName: e.target.value,
       lastName: "",
       email: "",
       password: ""
@@ -46,6 +83,7 @@ export default class Profile extends Component {
   };
 
   render() {
+    const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
     return (
       <React.Fragment>
         <center>
@@ -65,47 +103,58 @@ export default class Profile extends Component {
               className="pp"
             />
           </center>
-          <h3>Name Name</h3>
+          <h3>
+            {this.state.userProfile.firstname} {this.state.userProfile.lastname}
+          </h3>
           <button className="editpic">Update Info</button>
           <br />
           <br />
           <br />
           <br />
         </div>
+        <h6> This user is a {labelTeacher}</h6>
         <div className="profile">
           <form>
+            <p>First Name</p>
             <input
               className=""
               name="firstName"
               placeholder="First Name"
-              value={this.state.firstName}
+              value={this.state.userProfile.firstname}
               onChange={e => this.change(e)}
             />
             <br />
+            <br />
+            <p>Last Name</p>
             <input
               className=""
               name="lastName"
               placeholder="Last Name"
-              value={this.state.lastName}
+              value={this.state.userProfile.lastname}
               onChange={e => this.change(e)}
             />
             <br />
+            <br />
+            <p>Email</p>
             <input
               className=""
               name="email"
               placeholder="Email"
-              value={this.state.email}
+              value={this.state.userProfile.email}
               onChange={e => this.change(e)}
             />
             <br />
+            <br />
+            <p>Password</p>
             <input
               className=""
               name="password"
               type="password"
               placeholder="Password"
-              value={this.state.password}
+              value={this.state.userProfile.password}
               onChange={e => this.change(e)}
             />
+            <br />
             <br />
             <button onClick={e => this.onEdit(e)}> Edit </button>
             <button onClick={e => this.onSubmit(e)}> Save </button>
