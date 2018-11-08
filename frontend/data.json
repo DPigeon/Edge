@@ -1,5 +1,6 @@
 {
-  "signup": [{
+  "signup": [
+    {
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "lol@lol.ca",
@@ -16,7 +17,8 @@
       "id": 2
     }
   ],
-  "login": [{
+  "login": [
+    {
       "username": "lol@lol.ca",
       "password": "hello",
       "id": 1
@@ -32,7 +34,8 @@
       "id": 3
     }
   ],
-  "messages": [{
+  "messages": [
+    {
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
       "messageId": 1,
@@ -61,7 +64,8 @@
       "id": 5
     }
   ],
-  "threads": [{
+  "threads": [
+    {
       "from": "David",
       "subject": "Assignment #7",
       "threadId": "1",
@@ -80,7 +84,8 @@
       "profilePic": "ppic.png"
     }
   ],
-  "posts": [{
+  "posts": [
+    {
       "from": "d_pig@encs.concordia.ca",
       "msg": "I'm first post",
       "likes": 0,
@@ -95,7 +100,8 @@
       "id": 2
     }
   ],
-  "postComments": [{
+  "postComments": [
+    {
       "id": 1,
       "from": "lol@lol.com",
       "msg": "Hey I'm comment one",
@@ -108,7 +114,8 @@
       "postId": 1
     }
   ],
-  "profiles": [{
+  "profiles": [
+    {
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "d_pig@encs.concordia.ca",
@@ -123,38 +130,47 @@
       "isTeacher": false
     }
   ],
-  "groups": [{
+  "groups": [
+    {
       "title": "The NHLs",
       "description": "We like NHL, join us!",
-      "members": ["David, ", "Marwan, "]
+      "groupAdmin": "David",
+      "members": ["David ", "Marwan "]
     },
     {
       "title": "The Gamers",
       "description": "We like gaming, join us!",
-      "members": ["Ribal, ", "David, ", "Ruslan, ", "Maria"]
+      "groupAdmin": "Maria",
+      "members": ["Ribal ", "David ", "Ruslan ", "Maria "]
     },
     {
       "title": "Software Group",
       "description": "We are in SOEN !",
-      "members": ["Ribal, ", "Marwan, ", "Anas"]
+      "groupAdmin": "Ribal",
+      "members": ["Ribal ", "Marwan ", "Anas "]
     },
     {
       "title": "Computer Group",
       "description": "We are in COEN !",
-      "members": ["David, ", "Maria, ", "Ruslan"]
+      "groupAdmin": "David",
+      "members": ["David ", "Maria ", "Ruslan "]
     },
     {
       "title": "Test Group",
       "description": "whatsup!",
-      "members": ["Maria, ", "Anas, "]
+      "groupAdmin": "Anas",
+      "members": ["Maria ", "Anas "]
     },
     {
       "title": "Bonjour",
       "description": "Come say hi!",
-      "members": ["David, ", "Ribal, "]
+      "groupAdmin": "Ribal",
+      "members": ["David ", "Ribal "]
     }
   ],
-  "pictures": [{
-    "pictureInfo": ""
-  }]
+  "pictures": [
+    {
+      "pictureInfo": ""
+    }
+  ]
 }
