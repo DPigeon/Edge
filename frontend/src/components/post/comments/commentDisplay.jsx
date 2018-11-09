@@ -11,17 +11,17 @@ class CommentDisplay extends Component {
   }
   addComment = newCommentBody => {
     const newState = Object.assign({}, this.state);
-    newState.comments.push(newCommentBody);
+    newState.comments.unshift(newCommentBody);
     this.setState(newState);
   };
 
   render() {
     return (
       <div className="comment-body">
+        <CommentEditor addComment={this.addComment} />
         {this.state.comments.map((commentBody, idx) => {
           return <Comment key={idx} commentBody={commentBody} />;
         })}
-        <CommentEditor addComment={this.addComment} />
       </div>
     );
   }

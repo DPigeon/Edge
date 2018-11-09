@@ -1,11 +1,11 @@
 {
-  "signup": [
-    {
+  "signup": [{
       "firstname": "David",
       "lastname": "Pigeon",
-      "email": "lol@lol.ca",
+      "email": "d_pig@encs.concordia.ca",
       "password": "hello",
       "isTeacher": false,
+      "notifications": 0,
       "id": 1
     },
     {
@@ -14,11 +14,11 @@
       "email": "lol1@lol.ca",
       "password": "hello1",
       "isTeacher": true,
+      "notifications": 0,
       "id": 2
     }
   ],
-  "login": [
-    {
+  "login": [{
       "username": "lol@lol.ca",
       "password": "hello",
       "id": 1
@@ -34,8 +34,7 @@
       "id": 3
     }
   ],
-  "messages": [
-    {
+  "messages": [{
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
       "messageId": 1,
@@ -64,8 +63,7 @@
       "id": 5
     }
   ],
-  "threads": [
-    {
+  "threads": [{
       "from": "David",
       "subject": "Assignment #7",
       "threadId": "1",
@@ -84,8 +82,7 @@
       "profilePic": "ppic.png"
     }
   ],
-  "posts": [
-    {
+  "posts": [{
       "from": "d_pig@encs.concordia.ca",
       "msg": "I'm first post",
       "likes": 1,
@@ -100,8 +97,7 @@
       "id": 2
     }
   ],
-  "postComments": [
-    {
+  "postComments": [{
       "id": 1,
       "from": "lol@lol.com",
       "msg": "Hey I'm comment one",
@@ -114,8 +110,7 @@
       "postId": 1
     }
   ],
-  "profiles": [
-    {
+  "profiles": [{
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "d_pig@encs.concordia.ca",
@@ -130,8 +125,7 @@
       "isTeacher": false
     }
   ],
-  "groups": [
-    {
+  "groups": [{
       "title": "The NHLs",
       "description": "We like NHL, join us!",
       "members": [
@@ -184,9 +178,7 @@
       ]
     }
   ],
-  "pictures": [
-    {
-      "pictureInfo": ""
-    }
-  ]
+  "pictures": [{
+    "pictureInfo": ""
+  }]
 }

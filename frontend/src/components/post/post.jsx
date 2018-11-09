@@ -19,8 +19,8 @@ class Post extends Component {
           {this.props.postBody}
           <br />
           <br />
-          <CommentDisplay />
           <LikeDislike postId={this.props.postId} />
+          <CommentDisplay />
         </div>
       </div>
     );

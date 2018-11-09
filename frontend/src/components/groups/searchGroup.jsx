@@ -42,14 +42,13 @@ class SearchGroup extends Component {
               <div className="cardmessage">
                 <li key={item.id}>
                   <h5>
-                    <div className="title">{item.title}</div>
+                    <div className="title">
+                      <a href={"/singlegroup/" + item.title}>{item.title}</a>
+                    </div>
                   </h5>
                   <h10>
                     <div className="description">{item.description}</div>
                   </h10>
-                  <div className="members">
-                    <p className="mems">{item.members}</p>
-                  </div>
                 </li>
               </div>
             ))}

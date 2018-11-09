@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchGroup from "./searchGroup";
+import UserGroup from "./searchUser";
 import "./styles/groups.css";
 
 class Groups extends Component {
@@ -11,6 +12,7 @@ class Groups extends Component {
   render() {
     return (
       <React.Fragment>
+        <UserGroup />
         <div className="profilecontainer">
           <img
             src={require("../profile/images/banner.jpg")}

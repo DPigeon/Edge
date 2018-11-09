@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Profile from "./index";
+import PostDisplay from "../post/postDisplay";
 
 class User extends Component {
   //fetches any users from database
@@ -25,6 +27,8 @@ class User extends Component {
     return (
       <div className="users">
         This is the profile of {this.props.match.params.email}.
+        <Profile />
+        <PostDisplay />
       </div>
     );
   }
