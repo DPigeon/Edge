@@ -1,25 +1,29 @@
 import React, { Component } from "react";
-import AuthService from "./login/authService";
 import Messager from "./messager";
-import "./css/messages.css";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/messages.css";
 
 class ThreadList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       threads: [],
-      isLoaded: false
+      isLoaded: false,
+      currentId: "",
+      from: "",
+      to: "",
+      name: ""
     };
   }
 
   componentDidMount() {
-    if (!Auth.loggedIn()) {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
-    fetch("http://localhost:3001/threads")
+    fetch("http://localhost:8000/threads", {
+      method: "GET"
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -29,12 +33,21 @@ class ThreadList extends Component {
       });
   }
 
+  handleClickItem(id, sender, receiver, n) {
+    this.setState({
+      currentId: id,
+      from: sender,
+      to: receiver,
+      name: n
+    });
+  }
+
   showColumn1() {
     return (
       <div className="col1">
         <ul className="leftopt">
           <li>
-            <a href="#">Compose</a>
+            <a href="/">Compose</a>
           </li>
           <li>
             <a href="/">Inbox</a>
@@ -64,19 +77,36 @@ class ThreadList extends Component {
                   <div className="boxmessage" key={item.id}>
                     <ul>
                       <li>
-                        <a href="messages/id">
-                          {item.subject}
+                        <button
+                          onClick={() =>
+                            this.handleClickItem(
+                              item.id,
+                              item.sender,
+                              item.receiver,
+                              item.name
+                            )
+                          }
+                        >
+                          {item.name}
                           <br />
-                          Message from {item.from}
+                          Message from {item.sender}
                           <br />
                           03/06/18
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
                 </h10>
               </div>
             ))}
+            <center>
+              <button
+                className="newm"
+                onClick={() => this.createThread(this.state.id)}
+              >
+                New Message
+              </button>
+            </center>
           </div>
         </div>
       );
@@ -84,14 +114,15 @@ class ThreadList extends Component {
   }
 
   showColumn3() {
+    var { currentId, from, to, name } = this.state;
     return (
       <div className="col3">
         <ul className="rightsend">
           <li>
-            <a href="#">Send</a>
+            <a href="/">Send</a>
           </li>
         </ul>
-        <Messager />
+        <Messager id={currentId} sender={from} receiver={to} name={name} />
       </div>
     );
   }

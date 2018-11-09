@@ -1,77 +1,62 @@
-const db = require('../Persistence');
+const db = require('../db');
 
 class Message {
 
-    constructor(thread_id, from, to, data) {
+    constructor(thread_id, sender, receiver, data) {
         this.thread_id = thread_id;
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
+        this.receiver = receiver;
         this.data = data;
     }
 
-    static create(message, result) {
-
-        db.query('INSERT INTO messages SET ?', message,
-
-            function (err, res) {
-            if (err) {
-                console.log("Error => ", err);
-                result(err, null);
-            } else {
-                console.log("Created message with ID => " + res.insertId);
-                message.id = res.insertId;
-                console.log(message);
-                console.log("-----------------------------------------");
-                result(null, message);
-            }});
+    static messageToQuery(message) {
+        return `${message.thread_id}, '${message.sender}', '${message.receiver}', '${message.data}'`;
     }
 
-    static getById(messageId, result) {
+    static create(message) {
 
-        db.query('SELECT * FROM messages WHERE id = ?', messageId,
+        console.log('Creating message with values : ', message);
 
-            function(err, res) {
-            if (err) {
-                console.log("Error => ", err);
-                result(err, null);
-            } else {
-                console.log("Got message with ID => ", messageId);
-                console.log(res[0]);
-                console.log("-----------------------------------------");
-                result(null, res[0]);
-            }});
+        try {
+            const queryResult = db.SyncConn.query(`INSERT INTO messages (thread_id, sender, receiver, data) VALUES(${this.messageToQuery(message)})`);
+            message.id = queryResult.insertId;
+        } catch (error) {
+            console.log('Error : ', error);
+            console.log('Error code : ', error.code);
+            return { success: false, error: error };
+        }
+
+        console.log(message);
+        console.log('---------------------------------------');
+        return { success: true, message: message };
+    }
+
+    static getById(messageId) {
+
+        let message = null;
+
+        console.log('Getting message with id : ', messageId);
+
+        try {
+            const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE id = ${messageId}`);
+            message = queryResult[0];
+        } catch (error) {
+            console.log('Error : ', error);
+            console.log('Error code : ', error.code);
+            return { success: false, error: error };
+        }
+
+        console.log(message);
+        console.log('---------------------------------------');
+        return { success: true, message: message };
     }
 
     static updateById(messageId, message, result) {
-
-        db.query("UPDATE messages SET data = ? WHERE id = ?", [message.data, messageId],
-
-            function(err, res) {
-            if (err) {
-                console.log("Error => ", err);
-                result(err, null);
-            } else {
-                console.log("Updated message with ID => ", messageId);
-                console.log(message);
-                console.log("-----------------------------------------");
-                result(null, res);
-            }});
+        // NOT NEEDED FOR NOW
     }
 
     static deleteById(messageId, result) {
-
-        // TODO DELETE INSIDE THREAD
-
-        db.query("DELETE FROM messages WHERE id = ?", [messageId],
-
-            function(err, res) {
-            if (err) {
-                console.log("error: ", err);
-                result(err, null);
-            } else {
-                result(null, res);
-            }
-        });
+        // NOT NEEDED FOR NOW
     }
 
 }

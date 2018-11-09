@@ -14,20 +14,17 @@
 .commentEditor {
   padding: 15px;
 }
-
-.commbtn {
+ .commbtn {
   padding: 8px;
   color: white;
   background-color: #27ec62;
   text-align: center;
   cursor: pointer;
 }
-
-.commbtn:hover {
+ .commbtn:hover {
   background-color: gray;
-}
-
-.postButton {
+ }
+ .postButton {
   margin: 0.1em 80%;
 }
 .btnn {
@@ -41,49 +38,41 @@
   cursor: pointer;
   text-align: center;
 }
-
-.btnn:hover {
+ .btnn:hover {
   background-color: #ddd;
   color: black;
 }
-
-.logoutButton {
+ .logoutButton {
   text-align: center;
 }
-
-.column {
+ .column {
   float: left;
   width: 25%;
   margin-bottom: 16px;
   padding: 0 8px;
   text-align: center;
 }
-
-.column2 {
+ .column2 {
   float: left;
   width: 50%;
   margin-bottom: 16px;
   padding: 10px 8px;
 }
-
-.column3 {
+ .column3 {
   float: left;
   width: 20%;
   margin-bottom: 16px;
   padding: 0 8px;
 }
-
-.row:after {
+ .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
-.img1 {
+ .img1 {
   width: 50%;
   border-radius: 50%;
 }
-
-.img2 {
+ .img2 {
   width: 50%;
 }

@@ -2,83 +2,66 @@ const Thread = require('../models/Thread');
 
 class ThreadController {
 
-    create(req, res) {
-        let thread = new Thread(req.body.from, req.body.to, req.body.name);
+    static create(req, res) {
 
-        if (!thread.from || !thread.to || !thread.name) {
+        let thread = new Thread(req.body.sender, req.body.receiver, req.body.name);
+
+        if (!thread.sender || !thread.receiver || !thread.name) {
             return res.status(400).json({error: "Please provide valid data"});
         }
 
-        console.log("from : " + thread.from);
-        console.log("to : " + thread.to);
-        console.log("data : " + thread.name);
+        let query = Thread.create(thread);
 
-        Thread.create(thread, (err, thread) => {
-            if (err) {
-                return res.send(err);
-            }
-
-            res.status(201).json(thread);
-        });
-
-    }
-
-    getById(req, res) {
-        if (!req.params.threadId) {
-            return res.status(400).json({error: "Please provide a thread Id"});
+        if (!query.success) {
+            return res.send(query.error);
         }
 
-        Thread.getById(req.params.threadId, (err, threads) => {
-            if (err) {
-                return res.send(err);
-            }
-
-            res.json(threads);
-        });
+        res.status(201).json(query.thread);
     }
 
-    getAll(req, res) {
-        Thread.getAll((err, threads) => {
-            if (err) {
-                return res.send(err);
-            }
+    static getById(req, res) {
+        if (!req.params.threadId) {
+            return res.status(400).json({error: "Please provide a valid thread id in the route"});
+        }
 
-            res.json(threads);
-        });
+        let query = Thread.getById(req.params.threadId);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json(query.thread);
+    }
+
+    static getAll(req, res) {
+
+        // TODO :: Filter by user id/email im headers
+
+        let query = Thread.getAll();
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json(query.threads);
     }
 
     updateById(req, res) {
-        let thread = new Thread(req.body.from, req.body.to, req.body.name);
-
-        if (!thread.name) {
-            return res.status(400).json({error: "Please provide valid data"});
-        }
-
-        if (!req.params.threadId) {
-            return res.status(400).json({error: "Please provide a thread id"});
-        }
-
-        Thread.updateById(req.params.threadId, thread, (err, thread) => {
-            if (err) {
-                return res.send(err);
-            }
-
-            res.json({message: "Thread successfully updated"});
-        });
+        // NOT NEEDED FOR NOW
     }
 
-    getAllMessagesById(req, res) {
+    static getAllMessagesById(req, res) {
         if (!req.params.threadId) {
-            return res.status(400).json({error: "Please provide a thread id"});
+            return res.status(400).json({error: "Please provide a valid thread id in the route"});
         }
 
-        Thread.getAllMessagesById(req.params.threadId, (err, messageList) => {
-            if (err) {
-                return res.send(err);
-            }
+        let query = Thread.getAllMessagesById(req.params.threadId);
 
-            res.json(messageList);
-        });
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json(query.messages);
     }
 
 }

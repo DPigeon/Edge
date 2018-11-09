@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/post.css";
+import "../styles/post.css";
 
 const Comments = props => (
   <div className="aComment">
@@ -8,7 +8,6 @@ const Comments = props => (
       {props.commentBody}
       <br />
       <br />
-      <a href="/">Like Dislike</a>
     </div>
   </div>
 );

@@ -1,25 +1,28 @@
 import React, { Component } from "react";
-import AuthService from "./login/authService";
-import "./css/profile.css";
-import PostDisplay from "./post/postDisplay";
-import Drop from "./drop";
-
-const Auth = new AuthService("http://localhost:3001");
+import "./styles/profile.css";
+import Home from "../Home";
+import UploadImages from "./uploadImages";
 
 export default class Profile extends Component {
-  state = {
-    selectedFile: null,
-    loaded: 0,
-    firstName: "",
-    lastName: "",
-    email: localStorage.getItem("email"),
-    password: ""
-  };
+  constructor(props) {
+    super(props);
+    this.infos = new Home();
+    this.state = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: ""
+    };
+  }
 
   componentDidMount() {
-    if (!Auth.loggedIn()) {
+    let jwt = localStorage.getItem("jwt");
+    if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
+    } else {
+      // if is logged in, get user profile
+      this.infos.decodeJwtToken();
     }
   }
 
@@ -33,7 +36,6 @@ export default class Profile extends Component {
     this.props.onSubmit(this.state);
     console.log(this.state);
   };
-
   onEdit = e => {
     this.setState({
       firstName: "",
@@ -41,14 +43,15 @@ export default class Profile extends Component {
       email: "",
       password: ""
     });
-    //e.preventDefault();
-    //this.props.onEdit(this.state);
-    //console.log(this.state);
   };
 
   render() {
     return (
       <React.Fragment>
+        <center>
+          <UploadImages />
+        </center>
+        <br />
         <div className="profilecontainer">
           <img
             src={require("./images/banner.jpg")}
@@ -56,7 +59,6 @@ export default class Profile extends Component {
             className="banner"
           />
           <center>
-            {" "}
             <img
               src={require("./images/profile.png")}
               alt="profile"
@@ -69,12 +71,7 @@ export default class Profile extends Component {
           <br />
           <br />
           <br />
-          <br />
-          <br />
         </div>
-
-        <PostDisplay />
-
         <div className="profile">
           <form>
             <input

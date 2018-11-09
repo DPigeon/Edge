@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import "./css/messages.css";
+import "./styles/messages.css";
+import Messager from "./messager";
 
 class Reply extends Component {
-  state = {
-    to: "",
-    message: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      to: "",
+      message: ""
+    };
+  }
 
   componentDidMount() {}
 
@@ -15,19 +19,21 @@ class Reply extends Component {
     });
   };
 
-  addMessage = message => {
-    fetch("http://localhost:3001/messages", {
+  addMessage = (id, from, to, message) => {
+    fetch(`http://localhost:8000/messages`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "David",
-        msg: message
+        thread_id: id,
+        sender: from,
+        receiver: to,
+        data: message
       })
     });
-    window.location.reload(); //refreshes page
+    window.location.reload();
   };
 
   render() {
@@ -42,7 +48,14 @@ class Reply extends Component {
             />
             <button
               className="buttonmessage"
-              onClick={() => this.addMessage(this.state.message)}
+              onClick={() =>
+                this.addMessage(
+                  this.props.id,
+                  this.props.sender,
+                  this.props.receiver,
+                  this.state.message
+                )
+              }
             >
               Reply
             </button>

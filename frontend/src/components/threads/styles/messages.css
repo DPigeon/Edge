@@ -6,8 +6,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
 }
-
-.col2 {
+ .col2 {
   width: 30%;
   float: left;
   overflow: auto;
@@ -16,56 +15,46 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
 }
-
-.col3 {
+ .col3 {
   width: 60%;
   float: left;
   margin-bottom: 16px;
   padding: 0px 20px 15px 20px;
   overflow: auto;
   height: 500px;
-
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
 
-.itemmsg {
+}
+ .itemmsg {
   text-align: justify;
   text-justify: inter-word;
 }
-
-.containerbox {
+ .containerbox {
   width: 100%;
   background-color: #979797fd;
 }
-
-ul {
+ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-
-li a {
+ li a {
   display: block;
   color: #000000;
   padding: 20px 16px;
   text-decoration: none;
 }
-
-li a:hover {
-  text-decoration: none;
-  background-color: #555;
-  color: white;
+ li a:hover {
+    background-color: #555;
+    color: white;
 }
-
-.listThread-editor {
+ .listThread-editor {
   margin: 1em 30%;
 }
-
-.messager-editor {
+ .messager-editor {
   margin: 3em 15%;
 }
-
-.messager-editor-button {
+ .messager-editor-button {
   float: right;
   margin-top: 1em;
 }
@@ -78,14 +67,12 @@ li a:hover {
 .rightsend {
   background-color: aquamarine;
 }
-
-@media (max-width: 1000px) {
+ @media (max-width: 1000px) {
   .listThread-editor {
     margin: 1em;
   }
 }
-
-@media (max-width: 900px) {
+ @media (max-width: 900px) {
   .messager-editor {
     margin: 3em;
   }

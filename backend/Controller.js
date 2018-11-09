@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const User = require('./User')
-const Persistence = require('./Persistence')
+const User = require('./models/User')
+const UserController= require('./controllers/User')
+const Auth = require('./Auth')
 
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
@@ -23,48 +24,43 @@ app.get('/', (req, res) => {
     console.log("Get request at path '/'")
 })
 
-app.post('/signup', (req,res)=>{
-    const{firstname,lastname,email,password,isteacher} = req.body
-    const user = new User({firstname,lastname,email,password,isteacher})
-    console.log('Attemp at signup:\n',);
+app.post('/signup', (req, res) => {
+    const { firstname, lastname, email, password, is_teacher } = req.body
+    const user = new User({ firstname, lastname, email, password, is_teacher })
+    console.log('Attempt at signup:\n', );
     console.log(user);
-    const {success, message} = Persistence.RegisterUser(user)
-    const status = {success,message}
+    const { success, message } = UserController.RegisterUser(user)
+    const status = { success, message }
     console.log(status);
     res.json(status)
     res.end()
 })
 
-app.post('/login',(req,res)=>{
-    const{firstname,lastname,email,password, isteacher} = req.body
-    const user = new User({firstname,lastname,email,password, isteacher})
-    console.log(user)
-    res.contentType('application/json')
-    res.send(Persistence.queryStringify(user))
+app.post('/login', (req, res) => {
+    const { email, password } = req.body
+    const result = Auth.AuthenticateUser(email,password)
+    console.log("Attempt at login:", { email, password })
+    res.json(result)
 })
 
 const MessageController = require('./controllers/Message');
-const messageController = new MessageController;
 
-app.post('/messages', messageController.create);
-app.get('/messages/:messageId', messageController.getById);
-app.put('/messages/:messageId', messageController.updateById);
-app.delete('/messages/:messageId', messageController.deleteById);
-//const messageRouter = require('./routes/Message');
-//app.use('/messages', messageRouter);
+app.post('/messages', MessageController.create);
+app.get('/messages/:messageId', MessageController.getById);
+//app.put('/messages/:messageId', messageController.updateById); NOT NEEDED FOR NOW
+//app.delete('/messages/:messageId', messageController.deleteById); NOT NEEDED FOR NOW
 
 const ThreadController = require('./controllers/Thread');
-const threadController = new ThreadController;
 
-app.get('/threads', threadController.getAll);
-app.post('/threads', threadController.create);
-app.get('/threads/:threadId', threadController.getById);
-app.put('/threads/:threadId', threadController.updateById);
-app.get('/threads/:threadId/messages', threadController.getAllMessagesById);
+app.get('/threads', ThreadController.getAll);
+app.post('/threads', ThreadController.create);
+app.get('/threads/:threadId', ThreadController.getById);
+//app.put('/threads/:threadId', threadController.updateById); NOT NEEDED FOR NOW
+app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
 
-let port = 8000
-app.listen(port, () => {
+let port = 8000;
+const api = app.listen(port, () => {
     console.log('backend started on port', port)
-})
+});
 
-module.exports = app;
+module.exports = api;

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import AuthService from "./authService";
-import "./index.css";
+import "./styles/index.css";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.Auth = new AuthService("http://localhost:3001"); // Our authentification for unique logins
     this.state = {
       accounts: [],
       email: "",
@@ -14,7 +12,8 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.Auth.loggedIn()) {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
       //if the user is already logged in
       this.props.history.replace("/"); //go home
     }
@@ -39,13 +38,28 @@ export default class Login extends Component {
   handleAccountForm = event => {
     event.preventDefault();
 
-    this.Auth.login(this.state.email, this.state.password)
-      .then(res => {
-        localStorage.setItem("email", this.state.email);
-        this.props.history.replace("/");
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
       })
-      .catch(err => {
-        alert(err);
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(json => {
+        if (json.success) {
+          console.log("token : ", json.token);
+          localStorage.setItem("jwt", json.token);
+          window.location.reload(); //Go back to dashboard
+        } else {
+          console.log(json);
+        }
       });
   };
 
@@ -96,7 +110,7 @@ export default class Login extends Component {
         </center>
         <p className="message">Forgot Your Password ?</p>
         <center>
-          <a href="/">Retrieve Password</a>
+          <a href="/forgotpassword">Retrieve Password</a>
         </center>
       </div>
     );
