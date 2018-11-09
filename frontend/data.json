@@ -15,6 +15,14 @@
       "password": "hello1",
       "isTeacher": true,
       "id": 2
+    },
+    {
+      "firstname": "Marwan",
+      "lastname": "Ayadi",
+      "email": "a@m.ca",
+      "password": "marwan",
+      "isTeacher": false,
+      "id": 3
     }
   ],
   "login": [
@@ -52,6 +60,31 @@
       "username": "d_pig@encs.concordia.ca",
       "password": "hello",
       "id": 7
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 8
+    },
+    {
+      "username": "a@m.ca",
+      "password": "marwan",
+      "id": 9
+    },
+    {
+      "username": "a@m.ca",
+      "password": "tyuio",
+      "id": 10
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 11
+    },
+    {
+      "username": "d_pig@encs.concordia.ca",
+      "password": "hello",
+      "id": 12
     }
   ],
   "messages": [
@@ -88,6 +121,16 @@
       "from": "David",
       "msg": "jvbjmb",
       "id": 6
+    },
+    {
+      "from": "David",
+      "msg": "vjhknml",
+      "id": 7
+    },
+    {
+      "from": "David",
+      "msg": "mmm",
+      "id": 8
     }
   ],
   "threads": [

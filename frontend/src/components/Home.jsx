@@ -65,6 +65,7 @@ class Home extends Component {
             <PostDisplay />
           </div>
         </div>
+
         <div class="card">
           <center>
             <img

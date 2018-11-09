@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import AuthService from "./login/authService";
 import "./css/profile.css";
+import PostDisplay from "./post/postDisplay";
+import Drop from "./drop";
 
 const Auth = new AuthService("http://localhost:3001");
 
 export default class Profile extends Component {
   state = {
+    selectedFile: null,
+    loaded: 0,
     firstName: "",
     lastName: "",
     email: localStorage.getItem("email"),
@@ -69,6 +73,8 @@ export default class Profile extends Component {
           <br />
         </div>
 
+        <PostDisplay />
+
         <div className="profile">
           <form>
             <input
@@ -104,8 +110,17 @@ export default class Profile extends Component {
               onChange={e => this.change(e)}
             />
             <br />
-            <button onClick={e => this.onEdit(e)}> Edit </button>
-            <button onClick={e => this.onSubmit(e)}> Save </button>
+
+            <div className="App">
+              <input
+                type="file"
+                name=""
+                id=""
+                onChange={this.handleselectedFile}
+              />
+              <button onClick={this.handleUpload}>Upload</button>
+              <div> {Math.round(this.state.loaded, 2)} %</div>
+            </div>
           </form>
         </div>
       </React.Fragment>
