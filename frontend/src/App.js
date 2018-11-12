@@ -22,6 +22,7 @@ class App extends Component {
         </li>
       );
     }
+  }
 
   showNavBarInfoWhenLoggedOutSignup() {
     let token = localStorage.getItem("jwt");
@@ -35,6 +36,7 @@ class App extends Component {
         </li>
       );
     }
+  }
 
   showNavBarInfoWhenLoggedInProfile() {
     let token = localStorage.getItem("jwt");
@@ -48,6 +50,7 @@ class App extends Component {
         </li>
       );
     }
+  }
 
   showNavBarInfoWhenLoggedInMessages() {
     let token = localStorage.getItem("jwt");
@@ -61,6 +64,7 @@ class App extends Component {
         </li>
       );
     }
+  }
 
   showNavBarInfoWhenLoggedInGroups() {
     let token = localStorage.getItem("jwt");
@@ -89,6 +93,7 @@ class App extends Component {
         </span>
       );
     }
+  }
 
   handleLogout = () => {
     localStorage.removeItem("jwt");
