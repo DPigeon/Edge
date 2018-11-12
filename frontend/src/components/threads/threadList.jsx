@@ -11,7 +11,8 @@ class ThreadList extends Component {
       currentId: "",
       from: "",
       to: "",
-      name: ""
+      name: "",
+      clickedThread: false
     };
   }
 
@@ -33,14 +34,15 @@ class ThreadList extends Component {
       });
   }
 
-  handleClickItem(id, sender, receiver, n) {
+  handleClickItem = (id, sender, receiver, n) => {
     this.setState({
       currentId: id,
       from: sender,
       to: receiver,
-      name: n
+      name: n,
+      clickedThread: true
     });
-  }
+  };
 
   showColumn1() {
     return (
@@ -114,17 +116,25 @@ class ThreadList extends Component {
   }
 
   showColumn3() {
-    var { currentId, from, to, name } = this.state;
-    return (
-      <div className="col3">
-        <ul className="rightsend">
-          <li>
-            <a href="/">Send</a>
-          </li>
-        </ul>
-        <Messager id={currentId} sender={from} receiver={to} name={name} />
-      </div>
-    );
+    var { currentId, from, to, name, clickedThread } = this.state;
+    if (clickedThread) {
+      return (
+        <div className="col3">
+          <ul className="rightsend">
+            <li>
+              <a href="/">Send</a>
+            </li>
+          </ul>
+          <Messager id={currentId} sender={from} receiver={to} name={name} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="col3">
+          Click on a thread to display its conversation...
+        </div>
+      );
+    }
   }
 
   createThread = id => {};
