@@ -19,7 +19,7 @@ class GroupList extends Component {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
-    fetch("http://localhost:3001/groups", {
+    fetch("http://localhost:8000/groups", {
       method: "GET"
     })
       .then(res => res.json())
@@ -31,7 +31,22 @@ class GroupList extends Component {
       });
   }
 
-  joinGroup() {} // Need to work on this.
+  joinGroup = (id, email) => {
+    fetch("http://localhost:8000/user_groups", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        group_id: id,
+        user_id: email,
+        admin: 0
+      })
+    });
+    //give access to the group afterwards
+    window.location.replace("/groups/" + id);
+  };
 
   handleClickItem(gN, gD, gT) {
     this.setState({
@@ -58,11 +73,15 @@ class GroupList extends Component {
                         <a href={"/groups/" + item.id}>
                           {item.name}
                           <br />
-                          Group Title: {item.title}
+                          Group Title: {item.name}
                           <br />
                           Group Description: {item.description}
                         </a>
-                        <button onclick={() => this.joinGroup()}>Join</button>
+                        <button
+                          onclick={() => this.joinGroup(item.id, item.id)}
+                        >
+                          Join
+                        </button>
                       </li>
                     </ul>
                   </div>
