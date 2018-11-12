@@ -5,6 +5,7 @@ const User = require('./models/User')
 const UserController= require('./controllers/User')
 const Auth = require('./Auth')
 
+
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -57,6 +58,31 @@ app.post('/threads', ThreadController.create);
 app.get('/threads/:threadId', ThreadController.getById);
 //app.put('/threads/:threadId', threadController.updateById); NOT NEEDED FOR NOW
 app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
+
+
+const PostController = require('./controllers/Post')
+
+// req.body  = {author_email, data, group_id}
+app.post('/posts', PostController.create)
+// gets all post
+app.get('/posts')
+// gets all posts written by one user in the shared dashboard
+app.get('/posts/:author_email,', PostController.retrieve)
+
+
+
+
+
+// modify the test db only
+// ------------------------------------------------------------------
+app.post('/test/posts',PostController.create)
+
+app.get('/test/posts',PostController.retrieve)
+
+// gets all posts written by one user in the shared dashboard
+app.get('/test/posts/:author_email',PostController.retrieve)
+// ------------------------------------------------------------------
+
 
 let port = 8000;
 const api = app.listen(port, () => {
