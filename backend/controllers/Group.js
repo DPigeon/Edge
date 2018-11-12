@@ -43,6 +43,37 @@ class GroupController {
         res.json(query.groups);
     }
 
+    static addMemberToGroup(req, res) {
+        if (!req.params.groupId) {
+            return res.status(400).json({error: "Please provide a valid group id in the route"});
+        }
+
+        if (!req.body.user_id) {
+            return res.status(400).json({error: "Please provide valid data"});
+        }
+
+        let query = Group.addMember(req.params.groupId, req.body.user_id, req.body.admin);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json({success: true})
+    }
+
+    static getMembers(req, res) {
+        if (!req.params.groupId) {
+            return res.status(400).json({error: "Please provide a valid group id in the route"});
+        }
+
+        let query = Group.getMembers(req.params.groupId);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json(query.members);
+    }
 }
 
 module.exports = GroupController;

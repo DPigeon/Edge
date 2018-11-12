@@ -64,6 +64,9 @@ app.get('/groups', GroupController.getAll);
 app.post('/groups', GroupController.create);
 app.get('/groups/:groupId', GroupController.getById);
 
+app.post('/groups/:groupId/members', GroupController.addMemberToGroup);
+app.get('/groups/:groupId/members', GroupController.getMembers);
+
 let port = 8000;
 const api = app.listen(port, () => {
     console.log('backend started on port', port)
