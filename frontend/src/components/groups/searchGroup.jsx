@@ -43,7 +43,9 @@ class SearchGroup extends Component {
                 <li key={item.id}>
                   <h5>
                     <div className="title">
-                      <a href={"/singlegroup/" + item.title}>{item.title}</a>
+                      <a href={"/groups/" + item.title}>
+                        {item.title} ID: {item.id}
+                      </a>
                     </div>
                   </h5>
                   <h10>

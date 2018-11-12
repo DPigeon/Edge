@@ -134,7 +134,7 @@ class App extends Component {
   render() {
     return (
       <div className="App cotainer">
-        <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav className="navbar navbar-expand-lg bg-secondary">
           <a className="navbar-brand" href="/">
             <img
               src={require("./components/profile/images/logo.png")}

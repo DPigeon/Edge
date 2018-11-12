@@ -17,6 +17,7 @@ class PostEditor extends Component {
 
   createPost = () => {
     if (this.state.newPostBody !== "") {
+      //if the post is not empty
       //gets all posts
       this.props.addPost(this.state.newPostBody);
       this.setState({

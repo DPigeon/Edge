@@ -127,30 +127,35 @@
   ],
   "groups": [{
       "title": "The NHLs",
-      "description": "We like NHL, join us!",
+      "description": "We like gaming, join us!",
       "members": [
-        "David, ",
-        "Marwan, "
-      ]
+        "Ribal",
+        "David",
+        "Ruslan",
+        "Maria"
+      ],
+      "id": 1
     },
     {
       "title": "The Gamers",
       "description": "We like gaming, join us!",
       "members": [
-        "Ribal, ",
-        "David, ",
-        "Ruslan, ",
+        "Ribal",
+        "David",
+        "Ruslan",
         "Maria"
-      ]
+      ],
+      "id": 2
     },
     {
       "title": "Software Group",
       "description": "We are in SOEN !",
       "members": [
-        "Ribal, ",
-        "Marwan, ",
+        "Ribal",
+        "Marwan",
         "Anas"
-      ]
+      ],
+      "id": 3
     },
     {
       "title": "Computer Group",
@@ -159,7 +164,8 @@
         "David, ",
         "Maria, ",
         "Ruslan"
-      ]
+      ],
+      "id": 4
     },
     {
       "title": "Test Group",
@@ -167,7 +173,8 @@
       "members": [
         "Maria, ",
         "Anas, "
-      ]
+      ],
+      "id": 5
     },
     {
       "title": "Bonjour",
@@ -175,9 +182,11 @@
       "members": [
         "David, ",
         "Ribal, "
-      ]
+      ],
+      "id": 6
     }
   ],
+
   "pictures": [{
     "pictureInfo": ""
   }]
