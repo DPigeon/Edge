@@ -127,42 +127,64 @@
       "title": "The NHLs",
       "description": "We like NHL, join us!",
       "groupAdmin": "David",
-      "members": ["David ", "Marwan "],
+      "members": [
+        "David",
+        "Marwan"
+      ],
       "id": 1
     },
     {
       "title": "The Gamers",
       "description": "We like gaming, join us!",
       "groupAdmin": "Maria",
-      "members": ["Ribal ", "David ", "Ruslan ", "Maria "],
+      "members": [
+        "Ribal",
+        "David",
+        "Ruslan",
+        "Maria"
+      ],
       "id": 2
     },
     {
       "title": "Software Group",
       "description": "We are in SOEN !",
       "groupAdmin": "Ribal",
-      "members": ["Ribal ", "Marwan ", "Anas "],
+      "members": [
+        "Ribal",
+        "Marwan",
+        "Anas"
+      ],
       "id": 3
     },
     {
       "title": "Computer Group",
       "description": "We are in COEN !",
       "groupAdmin": "David",
-      "members": ["David ", "Maria ", "Ruslan "],
+      "members": [
+        "David",
+        "Maria",
+        "Ruslan"
+      ],
       "id": 4
     },
     {
       "title": "Test Group",
       "description": "whatsup!",
       "groupAdmin": "Anas",
-      "members": ["Maria ", "Anas "],
+      "members": [
+        "Maria",
+        "Anas"
+      ],
       "id": 5
     },
     {
       "title": "Bonjour",
       "description": "Come say hi!",
       "groupAdmin": "Ribal",
-      "members": ["David ", "Ribal "],
+      "members": [
+        "David",
+        "Ribal"
+      ],
       "id": 6
     }
   ],

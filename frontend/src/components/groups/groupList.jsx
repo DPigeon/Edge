@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import IndividualGroup from "./individualGroup";
 
 class GroupList extends Component {
   constructor(props) {
@@ -31,8 +30,6 @@ class GroupList extends Component {
         });
       });
   }
-
-  createGroup(groupAdmin) {} // Need to work on this
 
   joinGroup() {} // Need to work on this.
 
@@ -73,9 +70,9 @@ class GroupList extends Component {
               </div>
             ))}
             <center>
-              <button className="newGroup" onClick={() => this.creatGroup()}>
-                Create Group
-              </button>
+              <a href={"/creategroup"}>
+                <button className="newGroup">Create Group</button>
+              </a>
             </center>
           </div>
         </div>
