@@ -50,7 +50,7 @@ class IndividualGroup extends Component {
     };
   }
 
-  // Made by Maria and David looping the members and adding the link
+  // Made by Maria and David looping through members and adding the link
   showUrlMembers(arrayMembers) {
     var membersObject = [];
     for (var i = 0; i < arrayMembers.length; i++) {
@@ -90,7 +90,6 @@ class IndividualGroup extends Component {
             </div>
           ))}
         </ul>
-        <PostDisplay />
       </React.Fragment>
     );
   }
