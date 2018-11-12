@@ -58,6 +58,12 @@ app.get('/threads/:threadId', ThreadController.getById);
 //app.put('/threads/:threadId', threadController.updateById); NOT NEEDED FOR NOW
 app.get('/threads/:threadId/messages', ThreadController.getAllMessagesById);
 
+const GroupController = require('./controllers/Group');
+
+app.get('/groups', GroupController.getAll);
+app.post('/groups', GroupController.create);
+app.get('/groups/:groupId', GroupController.getById);
+
 let port = 8000;
 const api = app.listen(port, () => {
     console.log('backend started on port', port)
