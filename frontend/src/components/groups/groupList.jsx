@@ -71,11 +71,13 @@ class GroupList extends Component {
                     <ul>
                       <li>
                         <a href={"/groups/" + item.id}>
-                          {item.name}
+                          Group Name: {item.name}
                           <br />
                           Group Title: {item.name}
                           <br />
                           Group Description: {item.description}
+                          <br />
+                          Group Admin: {item.Admin}
                         </a>
                         <button
                           onclick={() => this.joinGroup(item.id, item.id)}
