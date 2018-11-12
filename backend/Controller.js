@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const User = require('./models/User')
-const UserController= require('./controllers/User')
+const UserController = require('./controllers/User')
 const Auth = require('./Auth')
 
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.post('/signup', (req, res) => {
     const { firstname, lastname, email, password, is_teacher } = req.body
     const user = new User({ firstname, lastname, email, password, is_teacher })
-    console.log('Attempt at signup:\n', );
+    console.log('Attempt at signup:\n');
     console.log(user);
     const { success, message } = UserController.RegisterUser(user)
     const status = { success, message }
@@ -39,7 +39,7 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body
-    const result = Auth.AuthenticateUser(email,password)
+    const result = Auth.AuthenticateUser(email, password)
     console.log("Attempt at login:", { email, password })
     res.json(result)
 })
@@ -65,9 +65,9 @@ const PostController = require('./controllers/Post')
 // req.body  = {author_email, data, group_id}
 app.post('/posts', PostController.create)
 // gets all post
-app.get('/posts')
+app.get('/posts', PostController.retrieveAll)
 // gets all posts written by one user in the shared dashboard
-app.get('/posts/:author_email,', PostController.retrieve)
+app.get('/posts/:author_email,', PostController.retrieveByUser)
 
 
 
@@ -75,12 +75,12 @@ app.get('/posts/:author_email,', PostController.retrieve)
 
 // modify the test db only
 // ------------------------------------------------------------------
-app.post('/test/posts',PostController.create)
+app.post('/test/posts', PostController.create)
 
-app.get('/test/posts',PostController.retrieve)
+app.get('/test/posts', PostController.retrieveAll)
 
 // gets all posts written by one user in the shared dashboard
-app.get('/test/posts/:author_email',PostController.retrieve)
+app.get('/test/posts/:author_email', PostController.retrieveByUser)
 // ------------------------------------------------------------------
 
 

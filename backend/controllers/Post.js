@@ -41,7 +41,36 @@ module.exports.create = (req, res) => {
     res.json({ success: false, message: "UnAuthorized" })
 }
 
-module.exports.retrieve = (req, res) => {
+module.exports.retrieveByUser = (req, res) => {
+    const { test, isAuthorized } = determineTestAndAuth(req)
+    if (isAuthorized) {
+
+        author_email = req.params.author_email
+
+        console.log("req.params.author_email => " + author_email)
+
+        if (author_email) { // return all posts from a given person
+            const postList = Post.fetchAll({ author_email, test })
+            console.log("postList => \n" + postList)
+            return res.status(200).json({ postList })
+        }
+        return res.status(400).json({ error: "Have to provide author_email" })
+
+    }
+}
+module.exports.retrieveAll = (req, res) => {
+    const { test, isAuthorized } = determineTestAndAuth(req)
+    if (isAuthorized) {
+        const postList = Post.fetchAll({ test })
+        console.log("postList =>\n", postList)
+        return res.status(200).json({ postList })
+
+    }
+    return res.status(403)
+
+}
+
+const determineTestAndAuth = (req) => {
     let test = false
     if (req.originalUrl.slice(1, 5) == 'test') {
         test = true
@@ -49,26 +78,12 @@ module.exports.retrieve = (req, res) => {
 
     const { jwt } = req.header
     const { isAuthorized } = Auth.AuthorizeUser(jwt)
-    if (isAuthorized) {
-        const { author_email, group_id } = res.body
-
-        if (group_id) {
-            // return all posts from a given group
-            const postList = Post.fetchAll({ group_id, test })
-
-        } else if (author_email) {
-            // return all posts from a given person
-            const postList = Post.fetchAll({ author_email, test })
-        } else {
-            const postList = Post.fetchAll()
-        }
-        console.log("postList => \n" + postList)
-        res.status(200)
-        res.json({ postList })
-
-    }
+    return { test, isAuthorized }
 }
 
-
-
-
+// for another method
+// if (group_id) {
+    // return all posts from a given group
+    // const postList = Post.fetchAll({ group_id, test })
+//
+// }

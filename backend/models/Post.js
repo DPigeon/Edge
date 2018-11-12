@@ -32,7 +32,7 @@ class Post {
             result = connection.query(queryStr)
             console.log("query result => " + result)
         } catch (error) {
-            console.log("Error: query result => " + result)
+            console.log("Error: query result => " + error)
             return { success: false, message: error }
         }
         return { success: true, message: "Post successfully saved to database" }
@@ -41,13 +41,15 @@ class Post {
 
     // Return all posts
     static fetchAll({ author_email, group_id, test }) {
+        let connection = db.SyncConn
         if (test) {
             connection = db.TestSynConn
         }
-        let queryStr = nil
+        let queryStr = null
 
         // if group_id is provided, assume that post belongs to a certain group
-        if (group_id != null || group_id != undefined || group_id != "") {
+        if (group_id != null && group_id !== undefined && group_id != "") {
+            console.log("group_id =>", group_id)
             // select posts related to a group
             queryStr = `SELECT * FROM posts WHERE group_id=${group_id}`
         }
@@ -58,12 +60,14 @@ class Post {
         } else {
             queryStr = `SELECT * from posts`
         }
+
         try {
+            console.log("queryStr =>", queryStr)
             const posts = connection.query(queryStr)
+            return { success: true, posts }
         } catch (error) {
             return { success: false, message: error }
         }
-        return { success: true, posts }
     }
 }
 module.exports = Post
