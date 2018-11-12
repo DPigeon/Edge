@@ -37,7 +37,7 @@ class Thread {
         console.log('Getting thread with id : ', threadId);
 
         try {
-            const queryResult = db.query(`SELECT * FROM threads WHERE id = ${threadId}`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM threads WHERE id = ${threadId}`);
             thread = queryResult[0];
         } catch (error) {
             console.log('Error : ', error);
