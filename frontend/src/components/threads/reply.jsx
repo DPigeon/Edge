@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./styles/messages.css";
-import Messager from "./messager";
+import Notify from "../notifications/notify";
 
 class Reply extends Component {
   constructor(props) {
     super(props);
+    this.notify = new Notify();
     this.state = {
       to: "",
       message: ""
@@ -34,6 +35,8 @@ class Reply extends Component {
       })
     });
     window.location.reload();
+    //send the notification to receiver here
+    this.notify.showNotifications(1, this.props.sender); //must fine who to send it to.
   };
 
   render() {

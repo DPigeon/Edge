@@ -16,24 +16,27 @@ class PostEditor extends Component {
   };
 
   createPost = () => {
-    //gets all posts
-    this.props.addPost(this.state.newPostBody);
-    this.setState({
-      newPostBody: ""
-    });
-    fetch("http://localhost:3001/posts", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: "",
-        msg: this.state.newPostBody,
-        likes: 0,
-        dislikes: 0
-      })
-    });
+    if (this.state.newPostBody !== "") {
+      //if the post is not empty
+      //gets all posts
+      this.props.addPost(this.state.newPostBody);
+      this.setState({
+        newPostBody: ""
+      });
+      fetch("http://localhost:3001/posts", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "",
+          msg: this.state.newPostBody,
+          likes: 0,
+          dislikes: 0
+        })
+      });
+    }
   };
 
   render() {

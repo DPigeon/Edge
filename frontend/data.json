@@ -1,11 +1,11 @@
 {
-  "signup": [
-    {
+  "signup": [{
       "firstname": "David",
       "lastname": "Pigeon",
-      "email": "lol@lol.ca",
+      "email": "d_pig@encs.concordia.ca",
       "password": "hello",
       "isTeacher": false,
+      "notifications": 0,
       "id": 1
     },
     {
@@ -14,6 +14,7 @@
       "email": "lol1@lol.ca",
       "password": "hello1",
       "isTeacher": true,
+      "notifications": 0,
       "id": 2
     },
     {
@@ -25,8 +26,7 @@
       "id": 3
     }
   ],
-  "login": [
-    {
+  "login": [{
       "username": "lol@lol.ca",
       "password": "hello",
       "id": 1
@@ -87,8 +87,7 @@
       "id": 12
     }
   ],
-  "messages": [
-    {
+  "messages": [{
       "from": "Marwan",
       "msg": "Hey what's up we are testing and you should check for integration as well. Have a good night.",
       "messageId": 1,
@@ -132,8 +131,7 @@
       "id": 8
     }
   ],
-  "threads": [
-    {
+  "threads": [{
       "from": "David",
       "subject": "Assignment #7",
       "threadId": "1",
@@ -152,24 +150,22 @@
       "profilePic": "ppic.png"
     }
   ],
-  "posts": [
-    {
+  "posts": [{
       "from": "d_pig@encs.concordia.ca",
       "msg": "I'm first post",
-      "likes": 0,
+      "likes": 1,
       "dislikes": 0,
       "id": 1
     },
     {
       "from": "hi@Okay.com",
       "msg": "What's up like me",
-      "likes": 0,
+      "likes": 1,
       "dislikes": 0,
       "id": 2
     }
   ],
-  "postComments": [
-    {
+  "postComments": [{
       "id": 1,
       "from": "lol@lol.com",
       "msg": "Hey I'm comment one",
@@ -182,8 +178,7 @@
       "postId": 1
     }
   ],
-  "profiles": [
-    {
+  "profiles": [{
       "firstname": "David",
       "lastname": "Pigeon",
       "email": "d_pig@encs.concordia.ca",
@@ -198,21 +193,20 @@
       "isTeacher": false
     }
   ],
-  "groups": [
-    {
+  "groups": [{
       "title": "The NHLs",
-      "description": "We like NHL, join us!",
-      "groupAdmin": "David",
+      "description": "We like gaming, join us!",
       "members": [
+        "Ribal",
         "David",
-        "Marwan"
+        "Ruslan",
+        "Maria"
       ],
       "id": 1
     },
     {
       "title": "The Gamers",
       "description": "We like gaming, join us!",
-      "groupAdmin": "Maria",
       "members": [
         "Ribal",
         "David",
@@ -224,7 +218,6 @@
     {
       "title": "Software Group",
       "description": "We are in SOEN !",
-      "groupAdmin": "Ribal",
       "members": [
         "Ribal",
         "Marwan",
@@ -235,10 +228,9 @@
     {
       "title": "Computer Group",
       "description": "We are in COEN !",
-      "groupAdmin": "David",
       "members": [
-        "David",
-        "Maria",
+        "David, ",
+        "Maria, ",
         "Ruslan"
       ],
       "id": 4
@@ -246,27 +238,24 @@
     {
       "title": "Test Group",
       "description": "whatsup!",
-      "groupAdmin": "Anas",
       "members": [
-        "Maria",
-        "Anas"
+        "Maria, ",
+        "Anas, "
       ],
       "id": 5
     },
     {
       "title": "Bonjour",
       "description": "Come say hi!",
-      "groupAdmin": "Ribal",
       "members": [
-        "David",
-        "Ribal"
+        "David, ",
+        "Ribal, "
       ],
       "id": 6
     }
   ],
-  "pictures": [
-    {
-      "pictureInfo": ""
-    }
-  ]
+
+  "pictures": [{
+    "pictureInfo": ""
+  }]
 }

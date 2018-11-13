@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import decode from "jwt-decode";
 import Routes from "./Routes";
 import Home from "./components/Home";
 import Notify from "./components/notifications/notify";
@@ -8,6 +9,36 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.infos = new Home();
+    this.state = {
+      userProfile: []
+    };
+  }
+
+  componentDidMount() {
+    this.decodeJwtToken();
+  }
+
+  decodeJwtToken() {
+    //refactor this code later
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      //this.props.history.replace("/login");
+    }
+  }
+
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
   }
 
   showNavBarInfoWhenLoggedOutLogin() {
@@ -86,7 +117,7 @@ class App extends Component {
       //if the user is logged in, show infos
       return (
         <span class="navbar-text float-xs-right ml-auto">
-          <Notify />
+          <Notify email={this.state.userProfile.email} />
           <button className="btn btn-dark" onClick={() => this.handleLogout()}>
             Logout
           </button>
@@ -103,9 +134,13 @@ class App extends Component {
   render() {
     return (
       <div className="App cotainer">
-        <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav className="navbar navbar-expand-lg bg-secondary">
           <a className="navbar-brand" href="/">
-            Edge
+            <img
+              src={require("./components/profile/images/logo.png")}
+              alt="logo"
+              className="logo"
+            />
           </a>
           <button
             className="navbar-toggler"

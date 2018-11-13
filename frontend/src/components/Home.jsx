@@ -23,10 +23,6 @@ class Home extends Component {
     }
   }
 
-  getJwtInfoFirstname() {
-    return this.state.userProfile.firstname;
-  }
-
   getToken() {
     // Retrieves the user token jwt from localStorage
     return localStorage.getItem("jwt");
@@ -95,25 +91,6 @@ class Home extends Component {
         <div class="card">
           <div id="con" class="containernode">
             <PostDisplay email={this.state.userProfile.email} />
-          </div>
-        </div>
-
-        <div class="card">
-          <center>
-            <img
-              src={require("./images/welcome.jpg")}
-              alt="Welcome"
-              className="img2"
-            />
-          </center>
-          <div class="container">
-            <h2>
-              {this.state.userProfile.firstname}{" "}
-              {this.state.userProfile.lastname}
-            </h2>
-            <p class="title">Parent A</p>
-            <p>Some text that describes</p>
-            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
       </div>

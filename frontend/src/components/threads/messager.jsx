@@ -72,7 +72,8 @@ class Messager extends Component {
                   <li key={item.id}>
                     <h5>
                       <div className="messagefrom">
-                        Message from {item.sender}
+                        Message from
+                        <a href={"/user/" + item.sender}>{item.sender}</a>
                       </div>
                     </h5>
                     <div className="itemmsg">
