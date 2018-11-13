@@ -43,16 +43,18 @@ module.exports.create = (req, res) => {
 
 module.exports.retrieveByUser = (req, res) => {
     const { test, isAuthorized } = determineTestAndAuth(req)
+    console.log("test =>",test)
+    console.log ("isAuthorized =>",isAuthorized)
     if (isAuthorized) {
 
         author_email = req.params.author_email
-
         console.log("req.params.author_email => " + author_email)
 
         if (author_email) { // return all posts from a given person
-            const postList = Post.fetchAll({ author_email, test })
+            const { success, postList } = Post.fetchAll({ author_email, test })
+            console.log("success =>", success)
             console.log("postList => \n" + postList)
-            return res.status(200).json({ postList })
+            return res.status(200).json({success, postList })
         }
         return res.status(400).json({ error: "Have to provide author_email" })
 
@@ -61,9 +63,10 @@ module.exports.retrieveByUser = (req, res) => {
 module.exports.retrieveAll = (req, res) => {
     const { test, isAuthorized } = determineTestAndAuth(req)
     if (isAuthorized) {
-        const postList = Post.fetchAll({ test })
+        const { success, postList } = Post.fetchAll({ test })
+        console.log("success =>", success)
         console.log("postList =>\n", postList)
-        return res.status(200).json({ postList })
+        return res.status(200).json({ success, postList })
 
     }
     return res.status(403)

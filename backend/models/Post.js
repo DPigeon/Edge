@@ -45,6 +45,8 @@ class Post {
         if (test) {
             connection = db.TestSynConn
         }
+        console.log("connection =>",connection)
+
         let queryStr = null
 
         // if group_id is provided, assume that post belongs to a certain group
@@ -56,15 +58,15 @@ class Post {
         // group_id not provided then assume that post belongs to the shared dashboard
         else if (author_email) {
             // select posts related to a user
-            queryStr = `SELECT * FROM posts WHERE author_email=${author_email} AND group_id=NULL`
+            queryStr = `SELECT * FROM posts WHERE author_email='${author_email}' AND group_id IS NULL`
         } else {
             queryStr = `SELECT * from posts`
         }
 
         try {
             console.log("queryStr =>", queryStr)
-            const posts = connection.query(queryStr)
-            return { success: true, posts }
+            const postList = connection.query(queryStr)
+            return { success: true, postList }
         } catch (error) {
             return { success: false, message: error }
         }
