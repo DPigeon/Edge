@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/post.css";
+import "../styles/comment.css";
 
 class CommentEditor extends Component {
   constructor(props) {
@@ -26,16 +26,15 @@ class CommentEditor extends Component {
 
   render() {
     return (
-      <div className="commentEditor">
-        <form id="ex" class="exaple" onChange={this.handleCommentChange}>
+      <div className="commentcontainer">
+        <form class="commentfield" onChange={this.handleCommentChange}>
           <input
-            id="ppp"
-            class="commenttt"
+            className="commentinput"
             value={this.state.newCommentBody}
             placeholder="Comment something here.."
           />
           <button
-            class="commbtn"
+            className="commbtn"
             onClick={() => this.createComment()}
             type="button"
           >

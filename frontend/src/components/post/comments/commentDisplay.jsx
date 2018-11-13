@@ -17,7 +17,7 @@ class CommentDisplay extends Component {
 
   render() {
     return (
-      <div className="comment-body">
+      <div className="">
         <CommentEditor addComment={this.addComment} />
         {this.state.comments.map((commentBody, idx) => {
           return <Comment key={idx} commentBody={commentBody} />;

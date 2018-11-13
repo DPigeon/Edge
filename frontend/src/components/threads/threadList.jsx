@@ -77,7 +77,8 @@ class ThreadList extends Component {
                   <div className="boxmessage" key={item.id}>
                     <ul>
                       <li>
-                        <button
+                        <div
+                          className="message"
                           onClick={() =>
                             this.handleClickItem(
                               item.id,
@@ -92,7 +93,7 @@ class ThreadList extends Component {
                           Message from {item.sender}
                           <br />
                           03/06/18
-                        </button>
+                        </div>
                       </li>
                     </ul>
                   </div>

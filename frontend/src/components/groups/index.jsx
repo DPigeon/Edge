@@ -12,7 +12,6 @@ class Groups extends Component {
   render() {
     return (
       <React.Fragment>
-        <UserGroup />
         <div className="profilecontainer">
           <img
             src={require("../profile/images/banner.jpg")}
@@ -22,6 +21,7 @@ class Groups extends Component {
 
           <h1>Group Name</h1>
           <button className="editpic">Update Info</button>
+          <UserGroup />
           <br />
           <br />
           <br />

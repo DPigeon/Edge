@@ -11,17 +11,17 @@ class Post extends Component {
 
   render() {
     return (
-      <div className="aPost">
-        <div className="card">
-          <h5>
-            Post by <a href={"/user/" + this.props.by}>{this.props.by}</a>
-          </h5>
+      <div className="card">
+        <div className="posttext">
+          <h6>
+            Post by <a href={"/user/" + this.props.by} />
+          </h6>
+          <br />
           {this.props.postBody}
           <br />
-          <br />
-          <LikeDislike postId={this.props.postId} />
-          <CommentDisplay />
         </div>
+        <LikeDislike postId={this.props.postId} />
+        <CommentDisplay />
       </div>
     );
   }

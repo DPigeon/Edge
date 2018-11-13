@@ -3,6 +3,8 @@ import Home from "../Home";
 import UploadImages from "./uploadImages";
 import decode from "jwt-decode";
 import "./styles/profile.css";
+import Popup from "reactjs-popup";
+import PostDisplay from "../post/postDisplay";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -86,10 +88,6 @@ export default class Profile extends Component {
     const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
     return (
       <React.Fragment>
-        <center>
-          <UploadImages />
-        </center>
-        <br />
         <div className="profilecontainer">
           <img
             src={require("./images/banner.jpg")}
@@ -105,60 +103,114 @@ export default class Profile extends Component {
           </center>
           <h3>
             {this.state.userProfile.firstname} {this.state.userProfile.lastname}
+            <br />
+            <h5> {labelTeacher}</h5>
           </h3>
-          <button className="editpic">Update Info</button>
+          <br />
+          <br />
+          <br />
+
+          <br />
+          <br />
+
+          <div className="picbox">
+            <h2>Pictures</h2>
+            <img
+              src={require("./images/image1.jpg")}
+              alt="img"
+              className="pic"
+            />
+            <img
+              src={require("./images/image2.jpg")}
+              alt="img"
+              className="pic"
+            />
+            <img
+              src={require("./images/image3.jpg")}
+              alt="img"
+              className="pic"
+            />
+          </div>
+
+          <Popup
+            trigger={<button className="editpic"> Update Info </button>}
+            modal
+            closeOnDocumentClick
+          >
+            <span className="edit">
+              <div className="profile">
+                <h4>Edit your profile</h4>
+                <br />
+                <br />
+                <form>
+                  <div className="un">
+                    <p>First Name </p>
+
+                    <input
+                      name="firstName"
+                      placeholder="First Name"
+                      value={this.state.userProfile.firstname}
+                      onChange={e => this.change(e)}
+                    />
+                  </div>
+
+                  <div className="deux">
+                    <p>Last Name</p>
+                    <input
+                      className=""
+                      name="lastName"
+                      placeholder="Last Name"
+                      value={this.state.userProfile.lastname}
+                      onChange={e => this.change(e)}
+                    />
+                  </div>
+
+                  <div className="trois">
+                    <p>Email</p>
+                    <input
+                      className=""
+                      name="email"
+                      placeholder="Email"
+                      value={this.state.userProfile.email}
+                      onChange={e => this.change(e)}
+                    />
+                  </div>
+
+                  <div className="quatre">
+                    <p>Password</p>
+                    <input
+                      className=""
+                      name="password"
+                      type="password"
+                      placeholder="Password"
+                      value={this.state.userProfile.password}
+                      onChange={e => this.change(e)}
+                    />
+                  </div>
+                  <div className="cinq">
+                    <p>Profile Picture</p>
+                    <UploadImages />
+                  </div>
+                  <div className="six">
+                    <p>Banner Picture</p>
+                    <UploadImages />
+                  </div>
+                  <button onClick={e => this.onEdit(e)}> Edit </button>
+                  <button onClick={e => this.onSubmit(e)}> Save </button>
+                </form>
+                <center />
+              </div>
+            </span>
+          </Popup>
           <br />
           <br />
           <br />
           <br />
         </div>
-        <h6> This user is a {labelTeacher}</h6>
-        <div className="profile">
-          <form>
-            <p>First Name</p>
-            <input
-              className=""
-              name="firstName"
-              placeholder="First Name"
-              value={this.state.userProfile.firstname}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Last Name</p>
-            <input
-              className=""
-              name="lastName"
-              placeholder="Last Name"
-              value={this.state.userProfile.lastname}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Email</p>
-            <input
-              className=""
-              name="email"
-              placeholder="Email"
-              value={this.state.userProfile.email}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Password</p>
-            <input
-              className=""
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={this.state.userProfile.password}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <button onClick={e => this.onEdit(e)}> Edit </button>
-            <button onClick={e => this.onSubmit(e)}> Save </button>
-          </form>
+        <div className="postspace">
+          <center>
+            <PostDisplay />
+          </center>
         </div>
       </React.Fragment>
     );

@@ -18,11 +18,13 @@
 
 .pp {
   border: 5px solid white;
-  width: 17%;
+  max-width: 17%;
+  width: auto;
+  height: auto;
   border-radius: 50%;
   position: absolute;
-  top: 175px;
-  left: 190px;
+  top: 17%;
+  left: 12%;
 }
 
 .editpic {
@@ -33,6 +35,52 @@
 
 h3 {
   position: absolute;
-  left: 475px;
+  left: 30%;
   color: red;
+}
+.edit {
+  color: blue;
+}
+p {
+  display: inline-block;
+}
+.un input {
+  margin-left: 15px;
+  width: 50%;
+}
+.deux input {
+  margin-left: 15px;
+  width: 50%;
+}
+.trois input {
+  margin-left: 15px;
+  width: 50%;
+}
+.quatre input {
+  margin-left: 15px;
+  width: 50%;
+}
+.cinq input {
+  display: inline-block;
+  margin-left: 15px;
+}
+.six input {
+  margin-left: 15px;
+}
+.pic {
+  margin-left: 15px;
+  width: 300px;
+  height: 200px;
+  display: inline-block;
+}
+.picbox {
+  padding: 15px 15px 15px 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+}
+.postspace {
+  position: absolute;
+  width: auto;
+  left: 10%;
+  right: 10%;
 }
