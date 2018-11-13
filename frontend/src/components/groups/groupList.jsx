@@ -70,7 +70,7 @@ class GroupList extends Component {
         })
       });
       //give access to the group afterwards
-      //this.sendGroupRequest(email, id); //send a group request to the database
+      this.sendGroupRequest(email, id); //send a group request to the database
       alert("You have joined " + name + "'s group !");
       //window.location.replace("/group/" + id);
     } else {
