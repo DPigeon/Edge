@@ -6,6 +6,7 @@ const syncMySQL = require('sync-mysql');
 const dbHost = '18.221.83.136';
 const dbRootUser = 'root';
 const dbName = 'platform341';
+const testDbName = 'testplatform341'
 const dbRootPass = 'ribalestbeau';
 
 module.exports.SyncConn = new syncMySQL({
@@ -14,6 +15,13 @@ module.exports.SyncConn = new syncMySQL({
     password: dbRootPass,
     database: dbName
 });
+
+module.exports.TestSynConn = new syncMySQL({
+    host: dbHost,
+    user: dbRootUser,
+    password: dbRootPass,
+    database: testDbName
+})
 // ----------------------------------------------------------------------------------------
 
 module.exports.ObjectToQuery = (object) => {
