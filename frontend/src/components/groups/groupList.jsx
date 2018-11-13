@@ -41,11 +41,9 @@ class GroupList extends Component {
 
   memberAlreadyExistsInGroup(email) {
     for (var i = 0; i < this.state.members.length; i++) {
-      if (email !== this.state.members[i].user_id) {
-        return false; //does not exist
-      }
+      if (email === this.state.members[i].user_id) return true; //does not exist
     }
-    return true; //exists
+    return false; //exists
   }
 
   joinGroup = (id, email, name) => {
@@ -57,7 +55,8 @@ class GroupList extends Component {
           members: json
         });
       });
-    if (!this.memberAlreadyExistsInGroup(email)) {
+    console.log(this.state.members); //BUG: the array is empty on first click of join button
+    if (this.memberAlreadyExistsInGroup(email) === false) {
       //sees if member already exists
       fetch(`http://localhost:8000/groups/${id}/members`, {
         method: "POST",
@@ -71,13 +70,27 @@ class GroupList extends Component {
         })
       });
       //give access to the group afterwards
+      //this.sendGroupRequest(email, id); //send a group request to the database
       alert("You have joined " + name + "'s group !");
-      window.location.replace("/groups/" + id);
+      //window.location.replace("/group/" + id);
     } else {
       //if the email is the same as one of the emails in the group members list
       alert("You are already a member of this group !");
     }
   };
+
+  sendGroupRequest(email, id) {
+    fetch(`http://localhost:8000/groups/${id}/requests`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: email
+      })
+    });
+  }
 
   handleClickItem(gN, gD, gT) {
     this.setState({
