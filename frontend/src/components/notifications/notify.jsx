@@ -111,7 +111,7 @@ class Notify extends Component {
             <a className="dropdown-item" href="/">
               New post on your wall from Anas
             </a>
-            <a className="dropdown-item">
+            <a href="/" className="dropdown-item">
               Maria wants to join your group SOEN
               <br />
               <button

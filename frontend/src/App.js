@@ -46,8 +46,8 @@ class App extends Component {
     if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/login">
+        <li className="nav-item">
+          <a className="nav-link" href="/login">
             Login
           </a>
         </li>
@@ -60,8 +60,8 @@ class App extends Component {
     if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">
+        <li className="nav-item">
+          <a className="nav-link" href="/signup">
             Signup
           </a>
         </li>
@@ -74,8 +74,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/profile">
+        <li className="nav-item">
+          <a className="nav-link" href="/profile">
             Profile
           </a>
         </li>
@@ -88,8 +88,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/threads">
+        <li className="nav-item">
+          <a className="nav-link" href="/threads">
             Messages
           </a>
         </li>
@@ -102,8 +102,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/groups">
+        <li className="nav-item">
+          <a className="nav-link" href="/groups">
             Groups
           </a>
         </li>
@@ -116,7 +116,7 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <span class="navbar-text float-xs-right ml-auto">
+        <span className="navbar-text float-xs-right ml-auto">
           <Notify email={this.state.userProfile.email} />
           <button className="btn btn-dark" onClick={() => this.handleLogout()}>
             Logout
@@ -153,10 +153,10 @@ class App extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="/">
                   Home <span className="sr-only">(current)</span>
                 </a>
               </li>
