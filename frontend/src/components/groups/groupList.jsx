@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import decode from "jwt-decode";
 
 class GroupList extends Component {
   constructor(props) {
@@ -9,12 +10,17 @@ class GroupList extends Component {
       groupList: [],
       groupTitle: "",
       groupAdmin: "",
+      userProfile: [],
       isLoaded: false
     };
   }
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
+    let profile = decode(jwt); //decodes the jwt
+    this.setState({
+      userProfile: profile
+    });
     if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
@@ -32,15 +38,16 @@ class GroupList extends Component {
   }
 
   joinGroup = (id, email) => {
-    fetch("http://localhost:8000/user_groups", {
+    //make it so if user already exists in the group, alert(You cannot join cause you are already inside this group)
+    fetch(`http://localhost:8000/groups/${id}/members`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        group_id: id,
         user_id: email,
+        group_id: id,
         admin: 0
       })
     });
@@ -57,6 +64,7 @@ class GroupList extends Component {
   }
 
   groupList() {
+    //decodes the jwt
     var { isLoaded, groupList } = this.state;
     if (!isLoaded) {
       return <div> Loading the groups, please wait... </div>;
@@ -65,29 +73,22 @@ class GroupList extends Component {
         <div>
           <div>
             {groupList.map(item => (
-              <div>
-                <h10>
-                  <div key={item.id}>
-                    <ul>
-                      <li>
-                        <a href={"/groups/" + item.id}>
-                          Group Name: {item.name}
-                          <br />
-                          Group Title: {item.name}
-                          <br />
-                          Group Description: {item.description}
-                          <br />
-                          Group Admin: {item.Admin}
-                        </a>
-                        <button
-                          onclick={() => this.joinGroup(item.id, item.id)}
-                        >
-                          Join
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </h10>
+              <div key={item.id}>
+                <ul>
+                  <li>
+                    <a href={"/groups/" + item.id}>
+                      Group Name: {item.name}
+                      <br />
+                    </a>
+                    <button
+                      onClick={() =>
+                        this.joinGroup(item.id, this.state.userProfile.email)
+                      }
+                    >
+                      Join
+                    </button>
+                  </li>
+                </ul>
               </div>
             ))}
             <center>

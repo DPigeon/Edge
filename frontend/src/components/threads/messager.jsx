@@ -34,7 +34,6 @@ class Messager extends Component {
             isLoaded: true,
             items: json
           });
-          this.forceUpdate();
         });
     }
     /*if (id !== undefined || id != null || id !== "") {
