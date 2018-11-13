@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import decode from "jwt-decode";
+import SearchGroup from "./searchGroup";
 
 class GroupList extends Component {
   constructor(props) {
@@ -94,12 +95,13 @@ class GroupList extends Component {
     } else {
       return (
         <div>
+          <SearchGroup />
           <div>
             {groupList.map(item => (
               <div key={item.id}>
                 <ul>
                   <li>
-                    <a href={"/groups/" + item.id}>
+                    <a href={"/group/" + item.id}>
                       Group Name: {item.name}
                       <br />
                     </a>

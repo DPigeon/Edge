@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SearchUser from "./searchUser";
 
 class IndividualGroup extends Component {
   constructor(props) {
@@ -6,67 +7,33 @@ class IndividualGroup extends Component {
     this.state = {
       members: [],
       groupInfo: [],
-      id: ""
-      /*groups: [
-        {
-          // ignore these.
-          id: 0,
-          title: "Member0",
-          selected: false,
-          key: "groupMember"
-        },
-
-        {
-          id: 1,
-          title: "Member1",
-          selected: false,
-          key: "groupMember"
-        },
-        {
-          id: 2,
-          title: "Member2",
-          selected: false,
-          key: "groupMember"
-        },
-        {
-          id: 3,
-          title: "Member3",
-          selected: false,
-          key: "groupMember"
-        },
-        {
-          id: 4,
-          title: "Member4",
-          selected: false,
-          key: "groupMember"
-        },
-        {
-          id: 5,
-          title: "Member5",
-          selected: false,
-          key: "groupMember"
-        }
-      ]*/
+      groupId: ""
     };
   }
 
   componentDidMount() {
     const { group_id } = this.props.match.params; //gets the id from the url
     this.setState({
-      id: group_id
+      groupId: group_id
     });
-    fetch(`http://localhost:8000/groups/${group_id}/members`) //from data.json file
+    //Must get the users for profile id of each email
+    /*fetch(
+      `http://localhost:8000/users`
+    )
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          users: json
+        });
+      });
+  }*/
+    fetch(
+      `http://localhost:8000/groups/${this.props.match.params.groupId}/members`
+    )
       .then(res => res.json())
       .then(json => {
         this.setState({
           members: json
-        });
-      });
-    fetch(`http://localhost:8000/groups/${group_id}`) //from data.json file
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          groupInfo: json
         });
       });
   }
@@ -74,8 +41,8 @@ class IndividualGroup extends Component {
   isGroupAdmin(admin) {
     //looks if admin or not with text
     var adminOrMember = "";
-    if (admin === 0) adminOrMember = "Member";
-    else adminOrMember = "Admin";
+    if (admin === false) adminOrMember = "Member";
+    else if (admin === true) adminOrMember = "Admin";
     return adminOrMember;
   }
 
@@ -93,34 +60,16 @@ class IndividualGroup extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="GroupInfo">
-          <ul>
-            {this.state.groupInfo.map(item => (
-              <div className="Group">
-                <li key={item.id}>
-                  <h5>
-                    <div className="GroupAdmin">Group Name {item.name}</div>
-                  </h5>
-                  <div className="itemMember">
-                    {this.showUrlMembers(item.members)}
-                  </div>
-                </li>
-              </div>
-            ))}
-          </ul>
-        </div>
         <div className="GroupMembers">
           <ul>
-            {this.state.members.map(item => (
+            {this.state.members.map(item2 => (
               <div className="Group">
-                <li key={item.group_id}>
-                  <h5>
-                    <div className="GroupAdmin">
-                      Group Admin: {this.isGroupAdmin(item.admin)}
-                    </div>
-                  </h5>
+                <li key={item2.group_id}>
                   <div className="itemMember">
-                    Member: {this.showUrlMembers(item.user_id)}
+                    {this.isGroupAdmin(item2.admin)}
+                    <h5>
+                      <a href={`/users/` + item2.group_id}>{item2.user_id}</a>
+                    </h5>
                   </div>
                 </li>
               </div>

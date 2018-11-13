@@ -19,7 +19,7 @@ class SearchUser extends Component {
           users: json
         });
       });
-    fetch("http://localhost:3001/groups") //gets all the groups into an array to use
+    fetch("http://localhost:8000/groups") //gets all the groups into an array to use
       .then(res => res.json())
       .then(json => {
         this.setState({
