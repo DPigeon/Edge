@@ -11,6 +11,7 @@ class GroupList extends Component {
       groupTitle: "",
       groupAdmin: "",
       userProfile: [],
+      members: [],
       isLoaded: false
     };
   }
@@ -37,22 +38,44 @@ class GroupList extends Component {
       });
   }
 
-  joinGroup = (id, email) => {
+  memberAlreadyExistsInGroup(email) {
+    for (var i = 0; i < this.state.members.length; i++) {
+      if (email !== this.state.members[i].user_id) {
+        return false; //does not exist
+      }
+    }
+    return true; //exists
+  }
+
+  joinGroup = (id, email, name) => {
     //make it so if user already exists in the group, alert(You cannot join cause you are already inside this group)
-    fetch(`http://localhost:8000/groups/${id}/members`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        user_id: email,
-        group_id: id,
-        admin: 0
-      })
-    });
-    //give access to the group afterwards
-    window.location.replace("/groups/" + id);
+    fetch(`http://localhost:8000/groups/${id}/members`) //gets all the members inside the group
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          members: json
+        });
+      });
+    if (!this.memberAlreadyExistsInGroup(email)) {
+      //sees if member already exists
+      fetch(`http://localhost:8000/groups/${id}/members`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: email,
+          admin: false
+        })
+      });
+      //give access to the group afterwards
+      alert("You have joined " + name + "'s group !");
+      window.location.replace("/groups/" + id);
+    } else {
+      //if the email is the same as one of the emails in the group members list
+      alert("You are already a member of this group !");
+    }
   };
 
   handleClickItem(gN, gD, gT) {
@@ -82,7 +105,11 @@ class GroupList extends Component {
                     </a>
                     <button
                       onClick={() =>
-                        this.joinGroup(item.id, this.state.userProfile.email)
+                        this.joinGroup(
+                          item.id,
+                          this.state.userProfile.email,
+                          item.name
+                        )
                       }
                     >
                       Join

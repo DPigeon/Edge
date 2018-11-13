@@ -20,17 +20,6 @@ class CreateGroup extends Component {
   }
 
   //Will make it so when you click on input to add members, the user search opens up and when you click on a user, you pass his id/name to the new group
-  //Must get the id or name of the current person creating the group to make it GROUP ADMIN
-
-  getGroupByName(name) {
-    let id = 0;
-    for (var i = 0; i < this.state.groups.length; i++) {
-      if (name !== this.state.groups[i].name) {
-        id = this.state.groups[i].id;
-      }
-    }
-    return id;
-  }
 
   handleTitleChange = event => {
     this.setState({
@@ -64,7 +53,7 @@ class CreateGroup extends Component {
           aGroup: data
         }))
         .then(res => {
-          this.createAdminGroup(res.aGroup.id);
+          this.createAdminGroup(res.aGroup.id, user);
         });
     });
   };
@@ -79,12 +68,11 @@ class CreateGroup extends Component {
       },
       body: JSON.stringify({
         user_id: user,
-        group_id: id,
-        admin: 1
+        admin: true
       })
     });
     alert("You just created a new group !");
-    // window.location.replace("/groups");
+    window.location.replace("/groups");
   }
 
   render() {
