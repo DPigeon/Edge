@@ -27,3 +27,9 @@ module.exports.TestSynConn = new syncMySQL({
 module.exports.ObjectToQuery = (object) => {
     return Object.values(object).map(x => "'" + x + "'").join(',')
 }
+
+module.exports.InsertEscapeCharacters = (text)=>{
+    escapeSingleQuote = text.replace(/'/g,"\\'")
+    console.log("escapedString =>",escapeSingleQuote)
+    return escapeSingleQuote
+}

@@ -17,7 +17,7 @@ class Post {
 
         let queryStr = ""
         if (newPost.group_id == null || newPost.group_id == undefined | newPost.group_id == "") {
-            newPost.group_id == null
+            newPost.group_id = null
             queryStr =
                 `INSERT INTO posts (author_email, data, group_id) `+
                 `VALUES('${newPost.author_email}','${newPost.data}', NULL)`

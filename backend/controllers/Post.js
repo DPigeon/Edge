@@ -1,15 +1,9 @@
 const Post = require('../models/Post')
-const Auth = require('../Auth')
+const BaseController = require('../Controller')
 
 
 module.exports.create = (req, res) => {
-    console.log("Enter PostController.create handler")
-    let test = false
-    if (req.originalUrl.slice(1, 5) == 'test') {
-        test = true
-    }
-    console.log("test => " + test)
-    const isAuthorized = true
+    const {test,isAuthorized} = BaseController.determineTestAndAuth(req)
     // const { jwt } = req.header
     // const { isAuthorized } = Auth.AuthorizeUser(jwt)
     if (isAuthorized) {
@@ -24,11 +18,7 @@ module.exports.create = (req, res) => {
         }
         const newPost = new Post(author_email, data, group_id)
         const { success, message } = Post.persist({ newPost, test })
-        if (success == undefined || success == null) {
-            // if enter this block, method must be async.
-            // However it is dealt with as sync
-            process.exit
-        }
+
         if (!success) {
             res.json({ success: false, message })
             return
@@ -42,7 +32,7 @@ module.exports.create = (req, res) => {
 }
 
 module.exports.retrieveByUser = (req, res) => {
-    const { test, isAuthorized } = determineTestAndAuth(req)
+    const { test, isAuthorized } = BaseController.determineTestAndAuth(req)
     console.log("test =>",test)
     console.log ("isAuthorized =>",isAuthorized)
     if (isAuthorized) {
@@ -61,7 +51,7 @@ module.exports.retrieveByUser = (req, res) => {
     }
 }
 module.exports.retrieveAll = (req, res) => {
-    const { test, isAuthorized } = determineTestAndAuth(req)
+    const { test, isAuthorized } = BaseController.determineTestAndAuth(req)
     if (isAuthorized) {
         const { success, postList } = Post.fetchAll({ test })
         console.log("success =>", success)
@@ -73,16 +63,7 @@ module.exports.retrieveAll = (req, res) => {
 
 }
 
-const determineTestAndAuth = (req) => {
-    let test = false
-    if (req.originalUrl.slice(1, 5) == 'test') {
-        test = true
-    }
 
-    const { jwt } = req.header
-    const { isAuthorized } = Auth.AuthorizeUser(jwt)
-    return { test, isAuthorized }
-}
 
 // for another method
 // if (group_id) {
