@@ -114,32 +114,19 @@ class IndividualGroup extends Component {
   }
 
   acceptRejectRequest = (requestId, userId, response) => {
-    if (response === true) {
-      //accepted member, congratulations {name}!
-      fetch(`http://localhost:8000/groupRequests/${requestId}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          accept: response
-        })
-      });
-    } else if (response === false) {
-      //rejected member, sorry {name}!
-      fetch(`http://localhost:8000/groupRequests/${requestId}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          accept: response
-        })
-      });
-    }
-    if (response == true) alert("You have accepted " + userId + "'s request !");
+    //accepted member, congratulations {name}!
+    fetch(`http://localhost:8000/groupRequests/${requestId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        accept: response
+      })
+    });
+    if (response === true)
+      alert("You have accepted " + userId + "'s request !");
     else alert("You have rejected " + userId + "'s request !");
     window.location.reload();
   };
