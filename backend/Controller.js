@@ -80,11 +80,11 @@ app.post('/groupRequests/:requestId', GroupController.processRequest);
 const PostController = require('./controllers/Post')
 
 // req.body  = {author_email, data, group_id}
-// app.post('/posts', PostController.create)
+app.post('/posts', PostController.create)
 // gets all post
-// app.get('/posts', PostController.retrieveAll)
+app.get('/posts', PostController.retrieveAll)
 // gets all posts written by one user in the shared dashboard
-// app.get('/posts/:author_email,', PostController.retrieveByUser)
+app.get('/posts/:author_email,', PostController.retrieveByUser)
 
 // modify the test db only
 // ------------------------------------------------------------------
@@ -99,6 +99,7 @@ app.get('/test/posts/:author_email', PostController.retrieveByUser)
 
 const CommentController = require('./controllers/Comment')
 
+app.post('/comments',CommentController.create)
 
 app.post('/test/comments',CommentController.create)
 

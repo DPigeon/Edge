@@ -47,7 +47,6 @@ class Post {
             console.log("connection to test db")
             connection = db.TestSynConn
         }
-        console.log("connection =>", connection)
 
         let queryStr = null
 
