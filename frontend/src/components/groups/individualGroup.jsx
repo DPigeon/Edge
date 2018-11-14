@@ -45,7 +45,25 @@ class IndividualGroup extends Component {
         this.setState({
           members: json
         });
+        if (
+          this.canViewThePage(
+            this.state.members,
+            this.state.userProfile.email
+          ) === false
+        ) {
+          alert("You must be a member of this group to access it.");
+          this.props.history.replace("/groups"); //go home
+        }
       });
+  }
+
+  canViewThePage(memberArray, email) {
+    for (var i = 0; i < memberArray.length; i++) {
+      if (email === memberArray[i].user_id) {
+        return true; // he/she has access to the page
+      }
+    }
+    return false; //not in the list so no access to the group
   }
 
   isTheCurrentUserAnAdmin(email, isAdmin) {
@@ -57,7 +75,7 @@ class IndividualGroup extends Component {
         return true; // he/she is an admin
       }
     }
-    return false; //exists
+    return false;
   }
 
   notificationRequests(email, isAdmin) {
