@@ -63,17 +63,6 @@ class GroupList extends Component {
   beforeRequest(members, email, id, name) {
     if (this.memberAlreadyExistsInGroup(members, email) === false) {
       //sees if member already exists
-      /*fetch(`http://localhost:8000/groups/${id}/members`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          user_id: email,
-          admin: false
-        })
-      });*/
       this.sendGroupRequest(email, id); //send a group request to the database
       alert("You have sent a request to join " + name + "'s group !");
     } else {

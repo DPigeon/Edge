@@ -15,7 +15,7 @@ class PostEditor extends Component {
     });
   };
 
-  createPost = () => {
+  createPost = email => {
     if (this.state.newPostBody !== "") {
       //if the post is not empty
       //gets all posts
@@ -23,17 +23,15 @@ class PostEditor extends Component {
       this.setState({
         newPostBody: ""
       });
-      fetch("http://localhost:3001/posts", {
+      fetch("http://localhost:8000/test/posts", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          from: "",
-          msg: this.state.newPostBody,
-          likes: 0,
-          dislikes: 0
+          author_email: email,
+          data: this.state.newPostBody
         })
       });
     }
@@ -52,7 +50,7 @@ class PostEditor extends Component {
           />
           <button
             className="btnn"
-            onClick={() => this.createPost()}
+            onClick={() => this.createPost(this.props.email)}
             type="button"
           >
             Post
