@@ -6,8 +6,11 @@ import Signup from "./components/signup/index";
 import Messager from "./components/threads/messager";
 import ThreadList from "./components/threads/threadList";
 import Profile from "./components/profile/index";
-import Groups from "./components/groups/index";
+import GroupList from "./components/groups/groupList";
+import User from "./components/profile/user";
 import CreateGroup from "./components/groups/createGroup";
+import ForgotPassword from "./components/login/forgotPassword/forgotPass";
+import IndividualGroup from "./components/groups/individualGroup";
 import NotFound from "./components/other/notfound";
 
 export default () => (
@@ -19,8 +22,11 @@ export default () => (
       <Route path="/messages" component={Messager} />
       <Route path="/threads" component={ThreadList} />
       <Route path="/profile" component={Profile} />
-      <Route path="/groups" component={Groups} />
+      <Route path="/groups" component={GroupList} />
+      <Route path="/user/:email" component={User} />
       <Route path="/creategroup" component={CreateGroup} />
+      <Route path="/forgotpassword" component={ForgotPassword} />
+      <Route path="/group/:groupId" component={IndividualGroup} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

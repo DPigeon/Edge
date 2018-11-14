@@ -17,7 +17,7 @@ class Thread {
         console.log('Creating thread with values : ', thread);
 
         try {
-            const queryResult = db.query(`INSERT INTO threads (sender, receiver, name) VALUES(${this.threadToQuery(thread)})`);
+            const queryResult = db.SyncConn.query(`INSERT INTO threads (sender, receiver, name) VALUES(${this.threadToQuery(thread)})`);
             thread.id = queryResult.insertId;
         } catch (error) {
             console.log('Error : ', error);
@@ -37,7 +37,7 @@ class Thread {
         console.log('Getting thread with id : ', threadId);
 
         try {
-            const queryResult = db.query(`SELECT * FROM threads WHERE id = ${threadId}`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM threads WHERE id = ${threadId}`);
             thread = queryResult[0];
         } catch (error) {
             console.log('Error : ', error);
@@ -57,7 +57,7 @@ class Thread {
         console.log('Getting all threads');
 
         try {
-            const queryResult = db.query(`SELECT * FROM threads`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM threads`);
             threads = queryResult;
         } catch (error) {
             console.log('Error : ', error);
@@ -83,7 +83,7 @@ class Thread {
         console.log('Getting all messages for thread of id : ', threadId);
 
         try {
-            const queryResult = db.query(`SELECT * FROM messages WHERE thread_id = ${threadId}`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE thread_id = ${threadId}`);
             messages = queryResult;
         } catch (error) {
             console.log('Error : ', error);

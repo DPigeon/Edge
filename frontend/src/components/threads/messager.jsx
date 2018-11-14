@@ -6,16 +6,28 @@ class Messager extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.id,
       items: [],
       from: "",
       isLoaded: false
     };
   }
 
-  componentWillReceiveProps() {
-    const { id } = this.props;
-    if (id !== undefined) {
-      fetch(`http://localhost:8000/threads/${id}/messages`)
+  componentWillReceiveProps(newProps) {
+    /*let id = this.props.id;
+    let newId = this.newProps.id;*/
+    if (newProps.id !== this.props.id) {
+      this.setState({ id: newProps.id });
+      fetch(`http://localhost:8000/threads/${newProps.id}/messages`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
+        });
+    } else {
+      fetch(`http://localhost:8000/threads/${this.state.id}/messages`)
         .then(res => res.json())
         .then(json => {
           this.setState({
@@ -24,6 +36,16 @@ class Messager extends Component {
           });
         });
     }
+    /*if (id !== undefined || id != null || id !== "") {
+      fetch(`http://localhost:8000/threads/${id}/messages`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
+        });
+    }*/
   }
 
   componentDidMount() {
@@ -37,19 +59,21 @@ class Messager extends Component {
   render() {
     var { isLoaded, items } = this.state;
     if (!isLoaded) {
-      return <div> Loading, please wait... </div>;
+      return <div> Click on threads to view their conversation... </div>;
     } else {
       //Data has been loaded
       return (
         <React.Fragment>
           <div>
             <ul>
+              <h4>{this.props.name} Conversation</h4>
               {items.map(item => (
                 <div className="cardmessage">
                   <li key={item.id}>
                     <h5>
                       <div className="messagefrom">
-                        Message from {item.receiver}
+                        Message from
+                        <a href={"/user/" + item.sender}>{item.sender}</a>
                       </div>
                     </h5>
                     <div className="itemmsg">
@@ -59,7 +83,11 @@ class Messager extends Component {
                 </div>
               ))}
             </ul>
-            <Reply />
+            <Reply
+              id={this.props.id}
+              sender={this.props.sender}
+              receiver={this.props.receiver}
+            />
           </div>
         </React.Fragment>
       );

@@ -16,37 +16,45 @@ class PostEditor extends Component {
   };
 
   createPost = () => {
-    this.props.addPost(this.state.newPostBody);
-    this.setState({
-      newPostBody: ""
-    });
-    fetch("http://localhost:3001/posts", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: "",
-        msg: this.state.newPostBody,
-        likes: 0,
-        dislikes: 0
-      })
-    });
+    if (this.state.newPostBody !== "") {
+      //if the post is not empty
+      //gets all posts
+      this.props.addPost(this.state.newPostBody);
+      this.setState({
+        newPostBody: ""
+      });
+      fetch("http://localhost:3001/posts", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "",
+          msg: this.state.newPostBody,
+          likes: 0,
+          dislikes: 0
+        })
+      });
+    }
   };
 
   render() {
     return (
       <div className="postEditor">
-        <form id="ex" class="example">
+        <form id="ex" className="example">
           <input
             id="ppp"
-            class="post"
+            className="post"
             value={this.state.newPostBody}
             placeholder="Post something here.."
             onChange={this.handlePostChange}
           />
-          <button class="btnn" onClick={() => this.createPost()} type="button">
+          <button
+            className="btnn"
+            onClick={() => this.createPost()}
+            type="button"
+          >
             Post
           </button>
         </form>

@@ -23,10 +23,6 @@ class Home extends Component {
     }
   }
 
-  getJwtInfoFirstname() {
-    return this.state.userProfile.firstname;
-  }
-
   getToken() {
     // Retrieves the user token jwt from localStorage
     return localStorage.getItem("jwt");
@@ -50,8 +46,8 @@ class Home extends Component {
 
   showLeftColumn() {
     return (
-      <div class="column">
-        <div class="card">
+      <div className="column">
+        <div className="card">
           <center>
             <img
               src={require("./images/profile.png")}
@@ -59,18 +55,18 @@ class Home extends Component {
               className="img1"
             />
           </center>
-          <div class="container">
+          <div className="container">
             <h2>
               {this.state.userProfile.firstname}{" "}
               {this.state.userProfile.lastname}
             </h2>
-            <p class="title">Parent A</p>
+            <p className="title">Parent A</p>
             <p>Successfully decoded the JWT Token</p>
             <p>{this.state.userProfile.email}</p>
           </div>
         </div>
 
-        <div class="card">
+        <div className="card">
           <center>
             <img
               src={require("./images/cal.jpg")}
@@ -78,9 +74,9 @@ class Home extends Component {
               className="img1"
             />
           </center>
-          <div class="container">
+          <div className="container">
             <h2>Calendar</h2>
-            <p class="title">2018-2019</p>
+            <p className="title">2018-2019</p>
             <p>Some text that describes</p>
             <p>Academic calendar</p>
           </div>
@@ -91,28 +87,10 @@ class Home extends Component {
 
   showMiddleColumn() {
     return (
-      <div class="column2">
-        <div class="card">
-          <div id="con" class="containernode">
+      <div className="column2">
+        <div className="card">
+          <div id="con" className="containernode">
             <PostDisplay email={this.state.userProfile.email} />
-          </div>
-        </div>
-        <div class="card">
-          <center>
-            <img
-              src={require("./images/welcome.jpg")}
-              alt="Welcome"
-              className="img2"
-            />
-          </center>
-          <div class="container">
-            <h2>
-              {this.state.userProfile.firstname}{" "}
-              {this.state.userProfile.lastname}
-            </h2>
-            <p class="title">Parent A</p>
-            <p>Some text that describes</p>
-            <p>{this.state.userProfile.email}</p>
           </div>
         </div>
       </div>
@@ -121,8 +99,8 @@ class Home extends Component {
 
   showRightColumn() {
     return (
-      <div class="column3">
-        <div class="card">
+      <div className="column3">
+        <div className="card">
           <center>
             <img
               src={require("./images/profile.png")}
@@ -130,17 +108,17 @@ class Home extends Component {
               className="img1"
             />
           </center>
-          <div class="container">
+          <div className="container">
             <h2>Child Name A </h2>
-            <p class="title">Class A</p>
+            <p className="title">className A</p>
             <p>Some text that describes</p>
             <p>example@example.com</p>
           </div>
         </div>
-        <div class="card">
-          <div class="container">
+        <div className="card">
+          <div className="container">
             <h2>Announcement</h2>
-            <p class="title">Midterm</p>
+            <p className="title">Midterm</p>
             <p>Some text that describes</p>
             <p>Midterms are next week</p>
           </div>
@@ -149,31 +127,9 @@ class Home extends Component {
     );
   }
 
-  showLogoutButton() {
-    let token = localStorage.getItem("jwt");
-    if (token !== undefined && token !== null) {
-      return (
-        <div className="logoutButton">
-          <button
-            className="btn btn-success"
-            onClick={() => this.handleLogout()}
-          >
-            Logout
-          </button>
-        </div>
-      );
-    }
-  }
-
-  handleLogout = () => {
-    localStorage.removeItem("jwt");
-    this.props.history.replace("/login");
-  };
-
   render() {
     return (
       <React.Fragment>
-        {this.showLogoutButton()}
         {this.showLeftColumn()}
         {this.showMiddleColumn()}
         {this.showRightColumn()}

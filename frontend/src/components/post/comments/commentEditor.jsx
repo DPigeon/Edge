@@ -16,10 +16,12 @@ class CommentEditor extends Component {
   };
 
   createComment = () => {
-    this.props.addComment(this.state.newCommentBody);
-    this.setState({
-      newCommentBody: ""
-    });
+    if (this.state.newCommentBody !== "") {
+      this.props.addComment(this.state.newCommentBody);
+      this.setState({
+        newCommentBody: ""
+      });
+    }
   };
 
   render() {

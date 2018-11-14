@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import "./styles/messages.css";
+import Notify from "../notifications/notify";
 
 class Reply extends Component {
-  state = {
-    to: "",
-    message: ""
-  };
+  constructor(props) {
+    super(props);
+    this.notify = new Notify();
+    this.state = {
+      to: "",
+      message: ""
+    };
+  }
 
   componentDidMount() {}
 
@@ -15,19 +20,23 @@ class Reply extends Component {
     });
   };
 
-  addMessage = message => {
-    fetch("http://localhost:3001/messages", {
+  addMessage = (id, from, to, message) => {
+    fetch(`http://localhost:8000/messages`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "David",
-        msg: message
+        thread_id: id,
+        sender: from,
+        receiver: to,
+        data: message
       })
     });
-    window.location.reload(); //refreshes page
+    window.location.reload();
+    //send the notification to receiver here
+    this.notify.showNotifications(1, this.props.sender); //must fine who to send it to.
   };
 
   render() {
@@ -42,7 +51,14 @@ class Reply extends Component {
             />
             <button
               className="buttonmessage"
-              onClick={() => this.addMessage(this.state.message)}
+              onClick={() =>
+                this.addMessage(
+                  this.props.id,
+                  this.props.sender,
+                  this.props.receiver,
+                  this.state.message
+                )
+              }
             >
               Reply
             </button>

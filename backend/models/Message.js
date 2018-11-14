@@ -18,7 +18,7 @@ class Message {
         console.log('Creating message with values : ', message);
 
         try {
-            const queryResult = db.query(`INSERT INTO messages (thread_id, sender, receiver, data) VALUES(${this.messageToQuery(message)})`);
+            const queryResult = db.SyncConn.query(`INSERT INTO messages (thread_id, sender, receiver, data) VALUES(${this.messageToQuery(message)})`);
             message.id = queryResult.insertId;
         } catch (error) {
             console.log('Error : ', error);
@@ -38,7 +38,7 @@ class Message {
         console.log('Getting message with id : ', messageId);
 
         try {
-            const queryResult = db.query(`SELECT * FROM messages WHERE id = ${messageId}`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE id = ${messageId}`);
             message = queryResult[0];
         } catch (error) {
             console.log('Error : ', error);

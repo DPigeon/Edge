@@ -43,6 +43,8 @@ export default class Login extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
+        //Send the jwt token
+        //jwt: localStorage.getItem('jwt');
       },
       body: JSON.stringify({
         email: this.state.email,
@@ -56,7 +58,7 @@ export default class Login extends Component {
         if (json.success) {
           console.log("token : ", json.token);
           localStorage.setItem("jwt", json.token);
-          this.props.history.replace("/"); //Go back to dashboard
+          window.location.reload(); //Go back to dashboard
         } else {
           console.log(json);
         }
@@ -110,7 +112,7 @@ export default class Login extends Component {
         </center>
         <p className="message">Forgot Your Password ?</p>
         <center>
-          <a href="/">Retrieve Password</a>
+          <a href="/forgotpassword">Retrieve Password</a>
         </center>
       </div>
     );

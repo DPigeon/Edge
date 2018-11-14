@@ -1,12 +1,44 @@
 import React, { Component } from "react";
 import "./App.css";
+import decode from "jwt-decode";
 import Routes from "./Routes";
 import Home from "./components/Home";
+import Notify from "./components/notifications/notify";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.infos = new Home();
+    this.state = {
+      userProfile: []
+    };
+  }
+
+  componentDidMount() {
+    this.decodeJwtToken();
+  }
+
+  decodeJwtToken() {
+    //refactor this code later
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      //this.props.history.replace("/login");
+    }
+  }
+
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
   }
 
   showNavBarInfoWhenLoggedOutLogin() {
@@ -14,8 +46,8 @@ class App extends Component {
     if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/login">
+        <li className="nav-item">
+          <a className="nav-link" href="/login">
             Login
           </a>
         </li>
@@ -28,8 +60,8 @@ class App extends Component {
     if (token === undefined || token === null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">
+        <li className="nav-item">
+          <a className="nav-link" href="/signup">
             Signup
           </a>
         </li>
@@ -42,8 +74,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/profile">
+        <li className="nav-item">
+          <a className="nav-link" href="/profile">
             Profile
           </a>
         </li>
@@ -56,8 +88,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/threads">
+        <li className="nav-item">
+          <a className="nav-link" href="/threads">
             Messages
           </a>
         </li>
@@ -70,8 +102,8 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <li class="nav-item">
-          <a class="nav-link" href="/groups">
+        <li className="nav-item">
+          <a className="nav-link" href="/groups">
             Groups
           </a>
         </li>
@@ -84,17 +116,31 @@ class App extends Component {
     if (token !== undefined && token !== null) {
       //if the user is logged in, show infos
       return (
-        <span class="navbar-text float-xs-right ml-auto">Welcome back !</span>
+        <span className="navbar-text float-xs-right ml-auto">
+          <Notify email={this.state.userProfile.email} />
+          <button className="btn btn-dark" onClick={() => this.handleLogout()}>
+            Logout
+          </button>
+        </span>
       );
     }
   }
 
+  handleLogout = () => {
+    localStorage.removeItem("jwt");
+    window.location.reload();
+  };
+
   render() {
     return (
       <div className="App cotainer">
-        <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav className="navbar navbar-expand-lg bg-secondary">
           <a className="navbar-brand" href="/">
-            Edge
+            <img
+              src={require("./components/profile/images/logo.png")}
+              alt="logo"
+              className="logo"
+            />
           </a>
           <button
             className="navbar-toggler"
@@ -107,10 +153,10 @@ class App extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="/">
                   Home <span className="sr-only">(current)</span>
                 </a>
               </li>

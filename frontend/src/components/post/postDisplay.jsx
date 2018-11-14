@@ -24,29 +24,32 @@ class PostDisplay extends Component {
 
   addPost = newPostBody => {
     const newState = Object.assign({}, this.state);
-    newState.posts.push(newPostBody);
+    newState.posts.unshift(newPostBody);
     this.setState(newState);
   };
 
   render() {
     return (
-      <div className="postEditor">
-        {this.state.posts.map((postBody, idx) => {
-          return <Post key={idx} postBody={postBody} />;
-        })}
-        {this.state.items.map((item, id) => {
-          return (
-            <Post
-              key={id}
-              postBody={item.msg}
-              from={item.from}
-              postId={item.id}
-              by={this.state.email}
-            />
-          );
-        })}
+      <React.Fragment>
         <PostEditor addPost={this.addPost} email />
-      </div>
+
+        <div className="postEditor">
+          {this.state.posts.map((postBody, idx) => {
+            return <Post key={idx} postBody={postBody} />;
+          })}
+          {this.state.items.map((item, id) => {
+            return (
+              <Post
+                key={id}
+                postBody={item.msg}
+                from={item.from}
+                postId={item.id}
+                by={item.name}
+              />
+            );
+          })}
+        </div>
+      </React.Fragment>
     );
   }
 }
