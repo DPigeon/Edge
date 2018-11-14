@@ -6,27 +6,46 @@ class Messager extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.id,
       items: [],
       from: "",
       isLoaded: false
     };
   }
 
-  componentWillReceiveProps() {
-    let id = this.props.id;
-    if (id !== undefined && id != 0 && id !== null) {
-      fetch(`http://localhost:8000/threads/${id}/messages`)
-        .then(res => {
-          return res.json();
-        })
+  componentWillReceiveProps(newProps) {
+    /*let id = this.props.id;
+    let newId = this.newProps.id;*/
+    if (newProps.id !== this.props.id) {
+      this.setState({ id: newProps.id });
+      fetch(`http://localhost:8000/threads/${newProps.id}/messages`)
+        .then(res => res.json())
         .then(json => {
           this.setState({
             isLoaded: true,
             items: json
           });
-          this.forceUpdate();
+        });
+    } else {
+      fetch(`http://localhost:8000/threads/${this.state.id}/messages`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
         });
     }
+    /*if (id !== undefined || id != null || id !== "") {
+      fetch(`http://localhost:8000/threads/${id}/messages`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json
+          });
+        });
+    }*/
   }
 
   componentDidMount() {

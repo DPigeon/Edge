@@ -62,8 +62,8 @@ class Notify extends Component {
     });
   };
 
-  showNotifications(type, name, groupName) {
-    //either of type message, post or group request
+  showNotifications(type, name) {
+    //either of type message or post
     switch (type) {
       case 1:
         return (
@@ -75,19 +75,6 @@ class Notify extends Component {
         return (
           <a className="dropdown-item" href="/">
             Post in your wall from {name}
-          </a>
-        );
-      case 3:
-        return (
-          <a className="dropdown-item" href="/groups">
-            {name} wants to join your group {groupName}
-            <br />
-            <button className="btn btn-success" onClick={IndividualGroup}>
-              Accept
-            </button>
-            <button className="btn btn-danger" onClick={IndividualGroup}>
-              Reject
-            </button>
           </a>
         );
       default:
@@ -110,7 +97,7 @@ class Notify extends Component {
             <a className="dropdown-item" href="/">
               New post on your wall from Anas
             </a>
-            <a href="" className="dropdown-item">
+            <a href="/" className="dropdown-item">
               Maria wants to join your group SOEN
               <br />
               <button

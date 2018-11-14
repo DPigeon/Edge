@@ -6,6 +6,6 @@ install-dep:
 
 test: install-dep
 	cd ./backend && npm test
-	cd ./frontend && npm test
+	cd ./frontend && CI=true npm test
 
 

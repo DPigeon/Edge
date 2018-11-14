@@ -4,13 +4,13 @@ class SearchGroup extends Component {
   constructor() {
     super();
     this.state = {
-      search: [],
+      search: "",
       groups: []
     };
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/groups")
+    fetch("http://localhost:8000/groups")
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -19,15 +19,38 @@ class SearchGroup extends Component {
       });
   }
 
+  getList() {
+    if (this.state.search !== "") {
+      let filteredSearch = this.state.groups.filter(group => {
+        //if you cannot find this search within it, do not return it
+        return group.name.toLowerCase().indexOf(this.state.search) !== -1;
+      });
+      return (
+        <ul>
+          {filteredSearch.map(item => (
+            <div className="cardmessage">
+              <li key={item.id}>
+                <h5>
+                  <div className="title">
+                    <a href={"/group/" + item.id}>{item.name}</a>
+                  </div>
+                </h5>
+                <h10>
+                  <div className="description">{item.description}</div>
+                </h10>
+              </li>
+            </div>
+          ))}
+        </ul>
+      );
+    }
+  }
+
   updateSearch(event) {
     this.setState({ search: event.target.value.substr(0, 20) });
   }
 
   render() {
-    let filteredSearch = this.state.groups.filter(group => {
-      //if you cannot find this search within it, do not return it
-      return group.title.toLowerCase().indexOf(this.state.search) !== -1;
-    });
     return (
       <div>
         <center>
@@ -37,22 +60,7 @@ class SearchGroup extends Component {
             value={this.state.search}
             onChange={this.updateSearch.bind(this)}
           />
-          <ul>
-            {filteredSearch.map(item => (
-              <div className="cardmessage">
-                <li key={item.id}>
-                  <h5>
-                    <div className="title">
-                      <a href={"/singlegroup/" + item.title}>{item.title}</a>
-                    </div>
-                  </h5>
-                  <h10>
-                    <div className="description">{item.description}</div>
-                  </h10>
-                </li>
-              </div>
-            ))}
-          </ul>
+          {this.getList()}
         </center>
       </div>
     );

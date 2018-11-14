@@ -17,6 +17,7 @@ class PostEditor extends Component {
 
   createPost = () => {
     if (this.state.newPostBody !== "") {
+      //if the post is not empty
       //gets all posts
       this.props.addPost(this.state.newPostBody);
       this.setState({
@@ -41,7 +42,7 @@ class PostEditor extends Component {
   render() {
     return (
       <div className="postEditor">
-        <form id="ex" class="example">
+        <form id="ex" className="example">
           <input
             id="ppp"
             className="postinput "
@@ -49,7 +50,11 @@ class PostEditor extends Component {
             placeholder="Post something here.."
             onChange={this.handlePostChange}
           />
-          <button class="btnn" onClick={() => this.createPost()} type="button">
+          <button
+            className="btnn"
+            onClick={() => this.createPost()}
+            type="button"
+          >
             Post
           </button>
         </form>

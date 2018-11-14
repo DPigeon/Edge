@@ -11,7 +11,13 @@ class ThreadList extends Component {
       currentId: "",
       from: "",
       to: "",
-      name: ""
+      name: "",
+      clickedThread: false,
+      currentIdMessage: "",
+      title: "",
+      fromMsg: "",
+      toMsg: "",
+      msg1: ""
     };
   }
 
@@ -33,30 +39,31 @@ class ThreadList extends Component {
       });
   }
 
-  handleClickItem(id, sender, receiver, n) {
+  handleClickItem = (id, sender, receiver, n) => {
     this.setState({
       currentId: id,
       from: sender,
       to: receiver,
-      name: n
+      name: n,
+      clickedThread: true
     });
-  }
+  };
 
   showColumn1() {
     return (
       <div className="col1">
         <ul className="leftopt">
           <li>
-            <a href="/">Compose</a>
+            <button onClick={() => this.createThread()}>Compose</button>
           </li>
           <li>
-            <a href="/">Inbox</a>
+            <button href="/">Inbox</button>
           </li>
           <li>
-            <a href="/">Sent</a>
+            <button href="/">Sent</button>
           </li>
           <li>
-            <a href="/">Contacts</a>
+            <button href="/">Contacts</button>
           </li>
         </ul>
       </div>
@@ -114,21 +121,150 @@ class ThreadList extends Component {
     }
   }
 
-  showColumn3() {
-    var { currentId, from, to, name } = this.state;
-    return (
-      <div className="col3">
-        <ul className="rightsend">
-          <li>
-            <a href="/">Send</a>
-          </li>
-        </ul>
-        <Messager id={currentId} sender={from} receiver={to} name={name} />
-      </div>
-    );
+  showMessagesOrNewMessageColumn() {
+    var { currentId, from, to, name, clickedThread } = this.state;
+    if (this.state.clickedThread) {
+      return (
+        <div className="col3">
+          <ul className="rightsend">
+            <li>
+              <a href="/">Send</a>
+            </li>
+          </ul>
+          <Messager id={currentId} sender={from} receiver={to} name={name} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="col3">
+          <ul className="rightsend" />
+          <h1>Send a new message</h1>
+
+          <input
+            placeHolder="Title"
+            value={this.state.title}
+            onChange={this.handleTitleChange}
+          />
+          <br />
+          <br />
+          <input
+            placeHolder="From"
+            value={this.state.fromMsg}
+            onChange={this.handleFromChange}
+          />
+          <br />
+          <br />
+          <input
+            placeHolder="To"
+            value={this.state.toMsg}
+            onChange={this.handleToChange}
+          />
+          <br />
+          <br />
+          <input
+            placeHolder="Message"
+            value={this.state.msg1}
+            onChange={this.handleMsgChange}
+          />
+          <br />
+          <br />
+          <button
+            onClick={() =>
+              this.createMessage(
+                this.state.fromMsg,
+                this.state.toMsg,
+                this.state.title,
+                this.state.msg1
+              )
+            }
+          >
+            Send Message
+          </button>
+          <br />
+        </div>
+      );
+    }
   }
 
-  createThread = id => {};
+  handleTitleChange = event => {
+    this.setState({
+      title: event.target.value
+    });
+  };
+
+  handleToChange = event => {
+    this.setState({ toMsg: event.target.value });
+  };
+
+  handleFromChange = event => {
+    this.setState({ fromMsg: event.target.value });
+  };
+
+  handleMsgChange = event => {
+    this.setState({ msg1: event.target.value });
+  };
+
+  createThread = id => {
+    this.setState({
+      currentIdMessage: id,
+      /*from: sender,
+      to: receiver,
+      name: n,*/
+      clickedThread: false
+    });
+  };
+
+  createMessage = (from, receiver, name, msg) => {
+    fetch(`http://localhost:8000/threads`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        sender: from,
+        receiver: receiver,
+        name: name
+      })
+    }).then(res => {
+      res
+        .json()
+        .then(data => ({
+          aConversation: data
+        }))
+        .then(res => {
+          this.createFirstMessageInConversation(
+            res.aConversation.id,
+            from,
+            receiver,
+            msg
+          );
+        });
+    });
+
+    //AFTER, CREATE A NEW REQUEST TO ADD THE FIRST MESSAGE IN CONVERSATION MESSAGE BETWEEN THE 2 USERS
+  };
+
+  createFirstMessageInConversation(threadId, from, receiver, msg) {
+    //adds the first message to conversation
+    fetch(`http://localhost:8000/messages`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        thread_id: threadId,
+        sender: from,
+        receiver: receiver,
+        data: msg
+      })
+    });
+    alert("You just sent a new message to " + receiver + " !");
+    //send the notification to receiver here
+    //this.notify.showNotifications(2, this.props.sender); //must fine who to send it to.
+    window.location.replace("/threads");
+  }
 
   render() {
     return (
@@ -136,7 +272,7 @@ class ThreadList extends Component {
         <div className="containerbox">
           {this.showColumn1()}
           {this.showColumn2()}
-          {this.showColumn3()}
+          {this.showMessagesOrNewMessageColumn()}
         </div>
       </React.Fragment>
     );

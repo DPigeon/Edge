@@ -52,102 +52,119 @@ class App extends Component {
             );
         }
     }
+  }
 
-    showNavBarInfoWhenLoggedOutSignup() {
-        let token = localStorage.getItem("jwt");
-        if (token === undefined || token === null) {
-            //if the user is logged in, show infos
-            return (
-                <li className="navel">
-                    <a href="/signup">Signup</a>
-                </li>
-            );
-        }
+ 
+
+  showNavBarInfoWhenLoggedInProfile() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/profile">
+            Profile
+          </a>
+        </li>
+      );
     }
+  }
 
-    showNavBarInfoWhenLoggedInProfile() {
-        let token = localStorage.getItem("jwt");
-        if (token !== undefined && token !== null) {
-            //if the user is logged in, show infos
-            return (
-                <li className="navel">
-                    <a href="/profile">Profile</a>
-                </li>
-            );
-        }
+  showNavBarInfoWhenLoggedInMessages() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/threads">
+            Messages
+          </a>
+        </li>
+      );
     }
+  }
 
-    showNavBarInfoWhenLoggedInMessages() {
-        let token = localStorage.getItem("jwt");
-        if (token !== undefined && token !== null) {
-            //if the user is logged in, show infos
-            return (
-                <li className="navel">
-                    <a href="/threads">Messages</a>
-                </li>
-            );
-        }
+  showNavBarInfoWhenLoggedInGroups() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
+      //if the user is logged in, show infos
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/groups">
+            Groups
+          </a>
+        </li>
+      );
     }
+  }
 
-    showNavBarInfoWhenLoggedInGroups() {
-        let token = localStorage.getItem("jwt");
-        if (token !== undefined && token !== null) {
-            //if the user is logged in, show infos
-            return (
-                <li class="navel">
-                    <a href="/groups">Groups</a>
-                </li>
-            );
-        }
+  showUserInfo() {
+    let token = localStorage.getItem("jwt");
+    if (token !== undefined && token !== null) {
+      //if the user is logged in, show infos
+      return (
+        <span className="navbar-text float-xs-right ml-auto">
+          <Notify email={this.state.userProfile.email} />
+          <button className="btn btn-dark" onClick={() => this.handleLogout()}>
+            Logout
+          </button>
+        </span>
+      );
     }
+  }
 
-    showUserInfo() {
-        let token = localStorage.getItem("jwt");
-        if (token !== undefined && token !== null) {
-            //if the user is logged in, show infos
-            return (
-                <li class="right">
-                    <Notify email={this.state.userProfile.email} />
-                    <button className="" onClick={() => this.handleLogout()}>
-                        Logout
-                    </button>
-                </li>
-            );
-        }
-    }
+  handleLogout = () => {
+    localStorage.removeItem("jwt");
+    window.location.reload();
+  };
 
-    handleLogout = () => {
-        localStorage.removeItem("jwt");
-        window.location.reload();
-    };
+  render() {
+    return (
+      <div className="App cotainer">
+        <nav className="navbar navbar-expand-lg bg-secondary">
+          <a className="navbar-brand" href="/">
+            <img
+              src={require("./components/profile/images/logo.png")}
+              alt="logo"
+              className="logo"
+            />
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <a className="nav-link" href="/">
+                  Home <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              {this.showNavBarInfoWhenLoggedOutSignup()}
+              {this.showNavBarInfoWhenLoggedOutLogin()}
+              {this.showNavBarInfoWhenLoggedInProfile()}
+              {this.showNavBarInfoWhenLoggedInMessages()}
+              {this.showNavBarInfoWhenLoggedInGroups()}
+              {}
+            </ul>
+            {this.showUserInfo()}
+          </div>
+        </nav>
+        <center>
+          <h1>Edge</h1>
+          <p>A simple parent-teacher communication</p>
+        </center>
+        <Routes />
+      </div>
+    );
+  }
 
-    render() {
-        return (
-            <div>
-                <ul className="topnav">
-                    <li className="homez">
-                        <a className="active" href="/">
-                            <img
-                                src={require("./components/profile/images/logo2.png")}
-                                alt="logo"
-                                className="logo"
-                            />
-                        </a>
-                    </li>
-
-                    {this.showNavBarInfoWhenLoggedOutSignup()}
-                    {this.showNavBarInfoWhenLoggedOutLogin()}
-                    {this.showNavBarInfoWhenLoggedInProfile()}
-                    {this.showNavBarInfoWhenLoggedInMessages()}
-                    {this.showNavBarInfoWhenLoggedInGroups()}
-
-                    {this.showUserInfo()}
-                </ul>
-
-                <Routes />
-            </div>
-        );
-    }
-}
 
 export default App;

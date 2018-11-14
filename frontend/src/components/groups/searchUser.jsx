@@ -5,17 +5,25 @@ class SearchUser extends Component {
     super();
     this.state = {
       search: "",
-      users: []
+      users: [],
+      groups: []
     };
   }
 
   componentDidMount() {
     //signup ---> user on 8000 (David's notes)
-    fetch("http://localhost:3001/signup")
+    fetch("http://localhost:3001/signup") //gets all the user into an array to use
       .then(res => res.json())
       .then(json => {
         this.setState({
           users: json
+        });
+      });
+    fetch("http://localhost:8000/groups") //gets all the groups into an array to use
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          groups: json
         });
       });
   }
@@ -27,12 +35,52 @@ class SearchUser extends Component {
     return teacherOrParent;
   }
 
+  isInTheGroup(name) {
+    //returns a boolean to know if the person is in the group
+    for (var i = 0; i < this.state.groups.length; i++) {
+      for (var j = i; i < this.state.groups.firstname; j++) {
+        if (this.state.groups.firstname[j] === name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  addThisMemberToTheGroup = (name, id) => {
+    //add the name by id and retreive them ?
+
+    //var obj2 = JSON.parse(this.state.groups);
+    var { objectGroup } = "";
+    /*for (var i = 0; i < this.state.groups.length; i++) {
+      objectGroup[i] = this.state.groups;
+    }*/
+    objectGroup = JSON.parse(this.state.groups);
+    console.log(objectGroup);
+    //var objectInJSON = JSON.parse(objectGroup);
+    objectGroup[id - 1].members.push(name);
+    console.log(objectGroup);
+    //this adds the member to the group if not in the group
+    //if (!this.isInTheGroup(name))
+    //ERROR: I CANNOT ACCESS THE SPECIFIC GROUP MEMBERS AND ADD NEW MEMBER TO IT
+    /*fetch("http://localhost:3001/groups/" + id, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(objectGroup)
+    });
+    alert(name + " has been added to the group !");*/
+  };
+
   getList() {
     if (this.state.search !== "") {
       let filteredSearch = this.state.users.filter(user => {
         //if you cannot find this search within it, do not return it
         return user.firstname.toLowerCase().indexOf(this.state.search) !== -1;
       });
+
       return (
         <ul>
           {filteredSearch.map(item => (
@@ -45,11 +93,18 @@ class SearchUser extends Component {
                     </a>
                   </div>
                 </h5>
-                <h10>
-                  <div className="isTeacher">
-                    {this.getTeacher(item.isTeacher)}
-                  </div>
-                </h10>
+
+                <div className="isTeacher">
+                  {this.getTeacher(item.isTeacher)}
+                </div>
+                <button
+                  className="btn btn-success"
+                  onClick={() =>
+                    this.addThisMemberToTheGroup(item.firstname, item.id)
+                  }
+                >
+                  Add Member
+                </button>
               </li>
             </div>
           ))}
@@ -71,7 +126,6 @@ class SearchUser extends Component {
             type="text"
             value={this.state.search}
             onChange={this.updateSearch.bind(this)}
-            onKeyPress={this.getList()}
           />
 
           {this.getList()}
