@@ -85,11 +85,12 @@ class Notify extends Component {
   render() {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
     //this is a simple notification example with messages, wall posts and group request
-    //btn btn-success dropdown-toggle dropbtn
     return (
       <span className="navbar-text float-xs-right ml-auto">
         <div className="dropdown">
-          <button className="">{this.state.notificationCounter}</button>
+          <button className="btn btn-success dropdown-toggle dropbtn">
+            {this.state.notificationCounter}
+          </button>
           <div className="dropdown-content">
             <a className="dropdown-item" href="/threads">
               Message from David

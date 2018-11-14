@@ -1,12 +1,14 @@
 import React from "react";
-import "../styles/comment.css";
+import "../styles/post.css";
 
 const Comments = props => (
-  <div className="commentcard">
-    <h8 className="commentname">Comment by {localStorage.getItem("email")}</h8>
-    <br />
-
-    {props.commentBody}
+  <div className="aComment">
+    <div className="card">
+      <h5>Comment by {localStorage.getItem("email")}</h5>
+      {props.commentBody}
+      <br />
+      <br />
+    </div>
   </div>
 );
 

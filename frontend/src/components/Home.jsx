@@ -130,9 +130,6 @@ class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <br />
-        <br />
-
         {this.showLeftColumn()}
         {this.showMiddleColumn()}
         {this.showRightColumn()}

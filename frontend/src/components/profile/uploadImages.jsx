@@ -36,14 +36,11 @@ class UploadImages extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={this.fileChangedHandler}
-        />
+      <div>
+        <input type="file" onChange={this.fileChangedHandler} />
+        <br />
         <button onClick={this.fileUploadHandler}>Upload</button>
-      </React.Fragment>
+      </div>
     );
   }
 }

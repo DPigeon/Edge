@@ -45,7 +45,7 @@ class PostEditor extends Component {
         <form id="ex" className="example">
           <input
             id="ppp"
-            className="postinput "
+            className="post"
             value={this.state.newPostBody}
             placeholder="Post something here.."
             onChange={this.handlePostChange}

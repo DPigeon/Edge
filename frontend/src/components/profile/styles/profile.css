@@ -18,13 +18,11 @@
 
 .pp {
   border: 5px solid white;
-  max-width: 17%;
-  width: auto;
-  height: auto;
+  width: 17%;
   border-radius: 50%;
   position: absolute;
-  top: 17%;
-  left: 12%;
+  top: 175px;
+  left: 190px;
 }
 
 .editpic {
@@ -35,52 +33,6 @@
 
 h3 {
   position: absolute;
-  left: 30%;
+  left: 475px;
   color: red;
-}
-.edit {
-  color: blue;
-}
-.editcontainer {
-  margin: 15px;
-}
-.mod {
-  text-align: left;
-  margin-top: 0;
-}
-.mod input {
-  float: left;
-  width: 70%;
-}
-.imageedit {
-  float: left;
-}
-.uploadbutton {
-  display: block;
-  width: 100%;
-  border: none;
-  background-color: #4caf50;
-  color: white;
-  padding: 7px 14px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.pic {
-  margin-left: 15px;
-  width: 300px;
-  height: 200px;
-  display: inline-block;
-}
-.picbox {
-  padding: 15px 15px 15px 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-bottom: 15px;
-}
-.postspace {
-  position: absolute;
-  width: auto;
-  left: 10%;
-  right: 10%;
 }

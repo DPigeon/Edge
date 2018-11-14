@@ -84,18 +84,22 @@ class LikeDislike extends Component {
     //const textDislike = this.state.disliked ? "disliked" : "haven't disliked";
     const label2 = this.state.disliked ? "Undislike" : "Dislike";
     return (
-      <div className="likebox">
-        <span className="likecount">{this.state.counterLike}</span>
+      <div className="box">
+        <span className="badge m-2 badge-primary">
+          {this.state.counterLike}
+        </span>
         <button
-          className="like"
+          className="btn btn-primary"
           onClick={() => this.handleLike(this.state.postID)}
           disabled={this.state.isLikeButtonDisabled}
         >
           {label}
         </button>
-        <span className="dislikecount">{this.state.counterDislike}</span>
+        <span className="badge m-2 badge-dark">
+          {this.state.counterDislike}
+        </span>
         <button
-          className="dislike"
+          className="btn badge-dark"
           onClick={() => this.handleDislike(this.state.postID)}
           disabled={this.state.isDislikeButtonDisabled}
         >

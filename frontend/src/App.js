@@ -6,55 +6,68 @@ import Home from "./components/Home";
 import Notify from "./components/notifications/notify";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.infos = new Home();
-        this.state = {
-            userProfile: []
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.infos = new Home();
+    this.state = {
+      userProfile: []
+    };
+  }
 
-    componentDidMount() {
-        this.decodeJwtToken();
-    }
+  componentDidMount() {
+    this.decodeJwtToken();
+  }
 
-    decodeJwtToken() {
-        //refactor this code later
-        try {
-            const profile = this.getProfile();
-            this.setState({
-                userProfile: profile
-            });
-        } catch (err) {
-            localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
-            //this.props.history.replace("/login");
-        }
-    }
-
-    getToken() {
-        // Retrieves the user token jwt from localStorage
-        return localStorage.getItem("jwt");
-    }
-
-    getProfile() {
-        // Using jwt-decode npm package to decode the token
-        return decode(this.getToken());
-    }
-
-    showNavBarInfoWhenLoggedOutLogin() {
-        let token = localStorage.getItem("jwt");
-        if (token === undefined || token === null) {
-            //if the user is logged in, show infos
-            return (
-                <li className="nael">
-                    <a href="/login">Login</a>
-                </li>
-            );
-        }
+  decodeJwtToken() {
+    //refactor this code later
+    try {
+      const profile = this.getProfile();
+      this.setState({
+        userProfile: profile
+      });
+    } catch (err) {
+      localStorage.removeItem("jwt"); //if an error occurs while decoding jwt token, logout
+      //this.props.history.replace("/login");
     }
   }
 
- 
+  getToken() {
+    // Retrieves the user token jwt from localStorage
+    return localStorage.getItem("jwt");
+  }
+
+  getProfile() {
+    // Using jwt-decode npm package to decode the token
+    return decode(this.getToken());
+  }
+
+  showNavBarInfoWhenLoggedOutLogin() {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
+      //if the user is logged in, show infos
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/login">
+            Login
+          </a>
+        </li>
+      );
+    }
+  }
+
+  showNavBarInfoWhenLoggedOutSignup() {
+    let token = localStorage.getItem("jwt");
+    if (token === undefined || token === null) {
+      //if the user is logged in, show infos
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/signup">
+            Signup
+          </a>
+        </li>
+      );
+    }
+  }
 
   showNavBarInfoWhenLoggedInProfile() {
     let token = localStorage.getItem("jwt");
@@ -165,6 +178,6 @@ class App extends Component {
       </div>
     );
   }
-
+}
 
 export default App;
