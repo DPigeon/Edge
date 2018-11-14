@@ -1,4 +1,5 @@
 const db = require('../db')
+const Comment = require('./Comment')
 
 
 class Post {
@@ -19,11 +20,11 @@ class Post {
         if (newPost.group_id == null || newPost.group_id == undefined | newPost.group_id == "") {
             newPost.group_id = null
             queryStr =
-                `INSERT INTO posts (author_email, data, group_id) `+
+                `INSERT INTO posts (author_email, data, group_id) ` +
                 `VALUES('${newPost.author_email}','${newPost.data}', NULL)`
         } else {
             queryStr =
-                `INSERT INTO posts (author_email,data,group_id) `+
+                `INSERT INTO posts (author_email,data,group_id) ` +
                 `VALUES(${db.ObjectToQuery(newPost)})`
         }
         console.log("query string => \n" + queryStr)
@@ -43,14 +44,15 @@ class Post {
     static fetchAll({ author_email, group_id, test }) {
         let connection = db.SyncConn
         if (test) {
+            console.log("connection to test db")
             connection = db.TestSynConn
         }
-        console.log("connection =>",connection)
+        console.log("connection =>", connection)
 
         let queryStr = null
 
         // if group_id is provided, assume that post belongs to a certain group
-        if (group_id != null && group_id !== undefined && group_id != "") {
+        if (group_id != null && group_id != undefined && group_id != "") {
             console.log("group_id =>", group_id)
             // select posts related to a group
             queryStr = `SELECT * FROM posts WHERE group_id=${group_id}`
@@ -62,14 +64,25 @@ class Post {
         } else {
             queryStr = `SELECT * from posts`
         }
-
+        let postList
         try {
             console.log("queryStr =>", queryStr)
-            const postList = connection.query(queryStr)
-            return { success: true, postList }
+            postList = connection.query(queryStr)
         } catch (error) {
             return { success: false, message: error }
         }
+        if (postList) {
+            console.log("postList (from within model)=>\n",postList);
+            for (let i = 0; i < postList.length; i++) {
+                let post_id = postList[i].id
+                console.log("post_id =>", post_id);
+                let { commentList } = Comment.fetchAllFromPostId({ post_id, test })
+                postList[i].commentList = commentList
+                console.log("commentList =>\n" + commentList)
+            }
+            return { success: true, postList }
+        }
+        return { success: false, message: "postList is undefined" }
     }
 }
 module.exports = Post
