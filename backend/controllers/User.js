@@ -7,7 +7,7 @@ class UserController {
     static RegisterUser(user) {
         // Try to enter a new record in the database.
         try {
-            const queryResult = dbSyncConn.query(
+            const queryResult = db.SyncConn.query(
                 `INSERT INTO user VALUES( ${this.userToQuery(user)} )`)
             console.log(queryResult);
         } catch (error) {
@@ -27,7 +27,7 @@ class UserController {
             storedUser = db.SyncConn.query(
                 `SELECT * FROM user WHERE email='${email}' AND password='${password}'`
             )
-            console.log("storedUser =>", storedUser)
+            console.log("storedUser =>", storedUser[0])
         } catch (error) {
             console.log(error)
             return {error,success:false}

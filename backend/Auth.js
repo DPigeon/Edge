@@ -9,19 +9,8 @@ class AuthService {
     // If success == true, then check the token field
     // else
     static AuthenticateUser(email, password) {
-        const {
-            success,
-            error,
-            user
-        } = UserController.retrieveUser({
-            email,
-            password
-        });
-        const result = {
-            success,
-            error,
-            user
-        };
+        const { success, error, user } = UserController.retrieveUser({ email, password })
+        const result = { success, error, user }
         console.log("result from 'AuthenticateUser => ", result);
         if (error != undefined) {
             return {
@@ -36,23 +25,36 @@ class AuthService {
             };
         } else {
             const token = jwt.sign({
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    email: user.email,
-                    is_teacher: user.is_teacher
-                },
-                superSecret, {
-                    expiresIn: 60 * 60
-                }
-            );
-            return {
-                success: true,
-                token
-            };
+                id: user.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                is_teacher: user.is_teacher
+            },
+                superSecret,
+                { expiresIn: 60 * 60 })
+            return { success: true, token }
         }
     }
 
-    static AuthorizeUser(token) {}
+    static AuthorizeUser(token) {
+        // if (token == null || token == undefined) {
+            // return { isAuthorized: false }
+        // }
+        // try {
+            // const decoded = jwt.verify(token, superSecret)
+        // } catch (error) {
+            // return {isAuthorized:false}
+        // }
+        // return {isAuthorized: true, token: decoded}
+
+
+        // for now accept all tokens in order not to break the whole API
+        return {isAuthorized: true}
+    }
+
 }
+
+
 
 module.exports = AuthService

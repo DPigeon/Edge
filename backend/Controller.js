@@ -2,8 +2,9 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const User = require('./models/User')
-const UserController= require('./controllers/User')
+const UserController = require('./controllers/User')
 const Auth = require('./Auth')
+
 
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
@@ -27,7 +28,7 @@ app.get('/', (req, res) => {
 app.post('/signup', (req, res) => {
     const { firstname, lastname, email, password, is_teacher } = req.body
     const user = new User({ firstname, lastname, email, password, is_teacher })
-    console.log('Attempt at signup:\n', );
+    console.log('Attempt at signup:\n');
     console.log(user);
     const { success, message } = UserController.RegisterUser(user)
     const status = { success, message }
@@ -38,7 +39,7 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body
-    const result = Auth.AuthenticateUser(email,password)
+    const result = Auth.AuthenticateUser(email, password)
     console.log("Attempt at login:", { email, password })
     res.json(result)
 })
@@ -72,6 +73,30 @@ app.get('/groups/:groupId/requests', GroupController.getRequests);
 
 app.get('/groupRequests/:requestId', GroupController.getRequest);
 app.post('/groupRequests/:requestId', GroupController.processRequest);
+
+const PostController = require('./controllers/Post')
+
+// req.body  = {author_email, data, group_id}
+app.post('/posts', PostController.create)
+// gets all post
+app.get('/posts', PostController.retrieveAll)
+// gets all posts written by one user in the shared dashboard
+app.get('/posts/:author_email,', PostController.retrieveByUser)
+
+
+
+
+
+// modify the test db only
+// ------------------------------------------------------------------
+app.post('/test/posts', PostController.create)
+
+app.get('/test/posts', PostController.retrieveAll)
+
+// gets all posts written by one user in the shared dashboard
+app.get('/test/posts/:author_email', PostController.retrieveByUser)
+// ------------------------------------------------------------------
+
 
 let port = 8000;
 const api = app.listen(port, () => {
