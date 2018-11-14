@@ -15,11 +15,23 @@ class CommentEditor extends Component {
     });
   };
 
-  createComment = () => {
+  createComment = (email, postId) => {
     if (this.state.newCommentBody !== "") {
       this.props.addComment(this.state.newCommentBody);
       this.setState({
         newCommentBody: ""
+      });
+      fetch("http://localhost:8000/test/comments", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          author_email: email,
+          data: this.state.newCommentBody,
+          post_id: postId
+        })
       });
     }
   };
@@ -36,7 +48,9 @@ class CommentEditor extends Component {
           />
           <button
             class="commbtn"
-            onClick={() => this.createComment()}
+            onClick={() =>
+              this.createComment(this.props.email, this.props.postId)
+            }
             type="button"
           >
             Comment
