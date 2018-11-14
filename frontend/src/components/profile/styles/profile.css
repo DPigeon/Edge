@@ -41,32 +41,32 @@ h3 {
 .edit {
   color: blue;
 }
-p {
-  display: inline-block;
+.editcontainer {
+  margin: 15px;
 }
-.un input {
-  margin-left: 15px;
-  width: 50%;
+.mod {
+  text-align: left;
+  margin-top: 0;
 }
-.deux input {
-  margin-left: 15px;
-  width: 50%;
+.mod input {
+  float: left;
+  width: 70%;
 }
-.trois input {
-  margin-left: 15px;
-  width: 50%;
+.imageedit {
+  float: left;
 }
-.quatre input {
-  margin-left: 15px;
-  width: 50%;
+.uploadbutton {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  padding: 7px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
 }
-.cinq input {
-  display: inline-block;
-  margin-left: 15px;
-}
-.six input {
-  margin-left: 15px;
-}
+
 .pic {
   margin-left: 15px;
   width: 300px;

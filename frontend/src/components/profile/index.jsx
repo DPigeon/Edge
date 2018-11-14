@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Home from "../Home";
-import UploadImages from "./uploadImages";
+import ImageUploader from "react-images-upload";
 import decode from "jwt-decode";
 import "./styles/profile.css";
 import Popup from "reactjs-popup";
@@ -75,17 +75,12 @@ export default class Profile extends Component {
     this.props.onSubmit(this.state);
     console.log(this.state);
   };
-  onEdit = e => {
-    this.setState({
-      firstName: e.target.value,
-      lastName: "",
-      email: "",
-      password: ""
-    });
-  };
 
   render() {
     const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
+    const modalStyle = {
+      width: "600px"
+    };
     return (
       <React.Fragment>
         <div className="profilecontainer">
@@ -133,74 +128,100 @@ export default class Profile extends Component {
           </div>
 
           <Popup
+            contentStyle={modalStyle}
             trigger={<button className="editpic"> Update Info </button>}
             modal
             closeOnDocumentClick
           >
-            <span className="edit">
+            <div className="editcontainer">
               <div className="profile">
                 <h4>Edit your profile</h4>
                 <br />
-                <br />
-                <form>
-                  <div className="un">
-                    <p>First Name </p>
 
+                <form>
+                  <div className="mod">
+                    First Name <br />
                     <input
                       name="firstName"
                       placeholder="First Name"
-                      value={this.state.userProfile.firstname}
                       onChange={e => this.change(e)}
                     />
                   </div>
+                  <br />
+                  <br />
 
-                  <div className="deux">
-                    <p>Last Name</p>
+                  <div className="mod">
+                    Last Name <br />
                     <input
                       className=""
                       name="lastName"
                       placeholder="Last Name"
-                      value={this.state.userProfile.lastname}
                       onChange={e => this.change(e)}
                     />
                   </div>
+                  <br />
+                  <br />
 
-                  <div className="trois">
-                    <p>Email</p>
+                  <div className="mod">
+                    Email <br />
                     <input
                       className=""
                       name="email"
                       placeholder="Email"
-                      value={this.state.userProfile.email}
                       onChange={e => this.change(e)}
                     />
                   </div>
+                  <br />
+                  <br />
 
-                  <div className="quatre">
-                    <p>Password</p>
+                  <div className="mod">
+                    Password <br />
                     <input
                       className=""
                       name="password"
                       type="password"
                       placeholder="Password"
-                      value={this.state.userProfile.password}
                       onChange={e => this.change(e)}
                     />
                   </div>
-                  <div className="cinq">
-                    <p>Profile Picture</p>
-                    <UploadImages />
+                  <br />
+                  <br />
+                  <div className="imageedit">
+                    Profile Picture
+                    <ImageUploader
+                      withIcon={false}
+                      buttonText="Choose image"
+                      onChange={this.onDrop}
+                      withLabel={false}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={5242880}
+                      singleImage={true}
+                    />
                   </div>
-                  <div className="six">
-                    <p>Banner Picture</p>
-                    <UploadImages />
+
+                  <div className="imageedit">
+                    Banner Picture
+                    <ImageUploader
+                      fileContainerStyle=""
+                      buttonClassName=""
+                      className="imageup"
+                      withIcon={false}
+                      buttonText="Choose image"
+                      onChange={this.onDrop}
+                      withLabel={false}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={5242880}
+                      singleImage={true}
+                    />
                   </div>
-                  <button onClick={e => this.onEdit(e)}> Edit </button>
-                  <button onClick={e => this.onSubmit(e)}> Save </button>
+                  <br />
+                  <br />
+                  <br />
+
+                  <button className="uploadbutton">Update informations</button>
                 </form>
-                <center />
               </div>
-            </span>
+            </div>
           </Popup>
           <br />
           <br />
