@@ -13,6 +13,7 @@ class GroupList extends Component {
       groupAdmin: "",
       userProfile: [],
       members: [],
+      newMembers: [],
       isLoaded: false
     };
   }
@@ -39,9 +40,9 @@ class GroupList extends Component {
       });
   }
 
-  memberAlreadyExistsInGroup(email) {
-    for (var i = 0; i < this.state.members.length; i++) {
-      if (email === this.state.members[i].user_id) return true; //does not exist
+  memberAlreadyExistsInGroup(membersArray, email) {
+    for (var i = 0; i < membersArray.length; i++) {
+      if (email === membersArray[i].user_id) return true; //does not exist
     }
     return false; //exists
   }
@@ -54,30 +55,21 @@ class GroupList extends Component {
         this.setState({
           members: json
         });
+        this.beforeRequest(this.state.members, email, id, name); //We did not have access to the members (fixed David)
       });
-    console.log(this.state.members); //BUG: the array is empty on first click of join button
-    if (this.memberAlreadyExistsInGroup(email) === false) {
+  };
+
+  //console.log(newMembersArray); //BUG: the array is empty on first click of join button
+  beforeRequest(members, email, id, name) {
+    if (this.memberAlreadyExistsInGroup(members, email) === false) {
       //sees if member already exists
-      fetch(`http://localhost:8000/groups/${id}/members`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          user_id: email,
-          admin: false
-        })
-      });
-      //give access to the group afterwards
       this.sendGroupRequest(email, id); //send a group request to the database
-      alert("You have joined " + name + "'s group !");
-      //window.location.replace("/group/" + id);
+      alert("You have sent a request to join " + name + "'s group !");
     } else {
       //if the email is the same as one of the emails in the group members list
       alert("You are already a member of this group !");
     }
-  };
+  }
 
   sendGroupRequest(email, id) {
     fetch(`http://localhost:8000/groups/${id}/requests`, {
