@@ -1,6 +1,6 @@
 const db = require('../db')
 const Comment = require('./Comment')
-
+const Like = require('./Like')
 
 class Post {
     constructor(author_email, data, group_id) {
@@ -71,13 +71,16 @@ class Post {
             return { success: false, message: error }
         }
         if (postList) {
-            console.log("postList (from within model)=>\n",postList);
+            console.log("postList (from within model)=>\n", postList);
             for (let i = 0; i < postList.length; i++) {
                 let post_id = postList[i].id
-                console.log("post_id =>", post_id);
+                console.log("post_id =>", post_id)
                 let { commentList } = Comment.fetchAllFromPostId({ post_id, test })
+                let { likeList } = Like.fetchAllFromPostId({ post_id, test })
                 postList[i].commentList = commentList
+                postList[i].likeList = likeList
                 console.log("commentList =>\n" + commentList)
+                console.log("likeList =>\n" + likeList)
             }
             return { success: true, postList }
         }

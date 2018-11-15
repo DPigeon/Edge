@@ -107,6 +107,8 @@ const LikeController = require('./controllers/Like')
 
 app.post('/likes',LikeController.create)
 
+app.post('/test/likes',LikeController.create)
+
 
 module.exports.determineTestAndAuth = (req) => {
     let test = false
