@@ -21,7 +21,7 @@ class CommentEditor extends Component {
       this.setState({
         newCommentBody: ""
       });
-      fetch("http://localhost:8000/test/comments", {
+      fetch("http://localhost:8000/comments", {
         method: "POST",
         headers: {
           Accept: "application/json",

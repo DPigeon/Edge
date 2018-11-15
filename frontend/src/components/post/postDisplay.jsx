@@ -12,15 +12,13 @@ class PostDisplay extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch("http://localhost:8000/posts")
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json.postList //posts get into a stack/array
-        });
-      });
-  }
+  /*getCommentsById() {
+    for (var i = 0; i < this.state.comments.length; i++) {
+      if (this.state.arrPost[i].id === this.state.comments[i].post_id) {
+        return this.state.comments[i];
+      }
+    }
+  }*/
 
   addPost = newPostBody => {
     window.location.reload();
@@ -35,13 +33,15 @@ class PostDisplay extends Component {
         <PostEditor addPost={this.addPost} email={this.props.email} />
 
         <div className="postEditor">
-          {this.state.items.reverse().map((item, id) => {
+          {this.props.posts.reverse().map((item, id) => {
             return (
               <Post
                 key={id}
                 postBody={item.data}
                 from={item.author_email}
+                posts={this.props.posts}
                 postId={item.id}
+                comments={this.props.comments}
                 by={item.author_email}
                 emailOfPost={this.props.email}
               />

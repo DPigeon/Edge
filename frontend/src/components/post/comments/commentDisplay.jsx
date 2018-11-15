@@ -6,25 +6,48 @@ class CommentDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: []
+      comments: [],
+      items: []
     };
   }
 
   /*componentDidMount() {
-    fetch("http://localhost:8000/test/comments")
+    fetch("http://localhost:8000/posts")
       .then(res => res.json())
       .then(json => {
         this.setState({
-          items: json.commentList
+          items: json.postList //posts get into a stack/array
         });
+        //console.log(this.state.items[0]);
       });
   }*/
 
   addComment = newCommentBody => {
-    const newState = Object.assign({}, this.state);
+    window.location.reload();
+    /*const newState = Object.assign({}, this.state);
     newState.comments.unshift(newCommentBody);
-    this.setState(newState);
+    this.setState(newState);*/ //not needed anymore
   };
+
+  showComments() {
+    for (var i = 0; i < this.props.posts.length; i++) {
+      for (var j = 0; j < this.props.comments.length; j++) {
+        return (
+          <div>
+            {this.props.posts[i].commentList.map((item, idx) => {
+              return (
+                <Comment
+                  key={item.post_id}
+                  commentBody={item.data}
+                  by={item.author_email}
+                />
+              );
+            })}
+          </div>
+        );
+      }
+    }
+  }
 
   render() {
     return (
@@ -35,9 +58,7 @@ class CommentDisplay extends Component {
             email={this.props.email}
             postId={this.props.postId}
           />
-          {this.state.comments.map((commentBody, idx) => {
-            return <Comment key={idx} commentBody={commentBody} />;
-          })}
+          {this.showComments()}
         </div>
         <div className="postEditor" />
       </React.Fragment>

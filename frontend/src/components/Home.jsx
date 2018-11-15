@@ -7,7 +7,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userProfile: []
+      userProfile: [],
+      items: [],
+      arrayComments: []
     };
   }
 
@@ -42,6 +44,32 @@ class Home extends Component {
       // if is logged in, get user profile
       this.decodeJwtToken();
     }
+    fetch("http://localhost:8000/posts")
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          items: json.postList //posts get into a stack/array
+        });
+        let array = [];
+        this.setCommentList(this.state.items, array);
+      });
+  }
+
+  setCommentList(newArray) {
+    let array = [];
+
+    for (var i = 0; i < newArray.length; i++) {
+      array[i] = newArray[i].commentList;
+    }
+    this.setState({ arrayComments: array });
+  }
+
+  getPostList() {
+    return this.state.items;
+  }
+
+  getCommentList() {
+    return this.state.arrayComments;
   }
 
   showLeftColumn() {
@@ -90,7 +118,11 @@ class Home extends Component {
       <div className="column2">
         <div className="card">
           <div id="con" className="containernode">
-            <PostDisplay email={this.state.userProfile.email} />
+            <PostDisplay
+              email={this.state.userProfile.email}
+              posts={this.getPostList()}
+              comments={this.getCommentList()}
+            />
           </div>
         </div>
       </div>
