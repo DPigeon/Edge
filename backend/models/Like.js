@@ -1,9 +1,13 @@
 const db = require('../db')
 
 class Like {
-    constructor(author_email, post_id) {
+    constructor(author_email, post_id, dislike) {
         this.author_email = author_email
         this.post_id = post_id
+        this.dislike = false
+        if (dislike == true) {
+            this.dislike = true
+        }
     }
 
     static persist({ newLike, test }) {
@@ -21,8 +25,8 @@ class Like {
 
 
         const queryStr =
-            `INSERT INTO likes (author_email,post_id) ` +
-            `VALUES('${newLike.author_email}',${newLike.post_id})`
+            `INSERT INTO likes (author_email,dislike,post_id) ` +
+            `VALUES('${newLike.author_email}','${newLike.dislike}',${newLike.post_id})`
         console.log("queryStr => \n", queryStr)
 
         let result
@@ -32,30 +36,11 @@ class Like {
         } catch (error) {
             return { success: false, message: error }
         }
+        if (newLike.dislike){
+        return { success: true, message: "Dislike was successfully saved to database" }
+        }
         return { success: true, message: "Like was successfully saved to database" }
     }
 
-    static fetchAllFromPostId({ post_id, test }) {
-        let connection = db.SyncConn
-        if (test) {
-            connection = db.TestSynConn
-        }
-        console.log("connection =>", connection)
-
-        let queryStr = null
-        if (post_id) {
-            console.log("post_id => " + post_id)
-            queryStr = `SELECT * FROM likes WHERE post_id=${post_id}`
-        } else {
-            return { success: false, message: "You did not provide a post_id" }
-        }
-        try {
-            console.log("queryStr =>", queryStr)
-            const likeList = connection.query(queryStr)
-            return { success: true, likeList }
-        } catch (error) {
-            return { success: false, message: error }
-        }
-    }
 }
 module.exports = Like

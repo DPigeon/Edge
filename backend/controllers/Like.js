@@ -11,8 +11,8 @@ module.exports.create = (req, res) => {
     console.log("isAuthorized =>", isAuthorized)
 
     if (isAuthorized) {
-        const { author_email, post_id } = req.body
-        const newLike = new Like(author_email, post_id)
+        const { author_email, post_id,dislike } = req.body
+        const newLike = new Like(author_email, post_id,dislike)
 
         const { success, message } = Like.persist({ newLike, test })
 
