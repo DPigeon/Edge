@@ -7,7 +7,9 @@ const Auth = require("./Auth");
 
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({
+    extended: true
+})); // for parsing application/x-www-form-urlencoded
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -28,21 +30,45 @@ app.get("/", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-    const { firstname, lastname, email, password, is_teacher } = req.body;
-    const user = new User({ firstname, lastname, email, password, is_teacher });
+    const {
+        firstname,
+        lastname,
+        email,
+        password,
+        is_teacher
+    } = req.body;
+    const user = new User({
+        firstname,
+        lastname,
+        email,
+        password,
+        is_teacher
+    });
     console.log("Attempt at signup:\n");
     console.log(user);
-    const { success, message } = UserController.RegisterUser(user);
-    const status = { success, message };
+    const {
+        success,
+        message
+    } = UserController.RegisterUser(user);
+    const status = {
+        success,
+        message
+    };
     console.log(status);
     res.json(status);
     res.end();
 });
 
 app.post("/login", (req, res) => {
-    const { email, password } = req.body;
+    const {
+        email,
+        password
+    } = req.body;
     const result = Auth.AuthenticateUser(email, password);
-    console.log("Attempt at login:", { email, password });
+    console.log("Attempt at login:", {
+        email,
+        password
+    });
     res.json(result);
 });
 
@@ -76,9 +102,6 @@ app.get("/groups/:groupId/requests", GroupController.getRequests);
 app.get("/groupRequests/:requestId", GroupController.getRequest);
 app.post("/groupRequests/:requestId", GroupController.processRequest);
 
-//app.get("/notifications/:notificationId", GroupController.getNotifs);
-//app.post("/notifications/:notificationId", GroupController.processNotifs);
-
 const PostController = require("./controllers/Post");
 
 // req.body  = {author_email, data, group_id}
@@ -97,6 +120,17 @@ app.get("/test/posts", PostController.retrieveAll);
 // gets all posts written by one user in the shared dashboard
 app.get("/test/posts/:author_email", PostController.retrieveByUser);
 // ------------------------------------------------------------------
+
+const NotifController = require("./controllers/Notification");
+
+// create notification
+app.post("/notifications/:userId", NotifController.getNotification);
+// gets all the notifications
+app.get("/notifications/:userId", NotifController.getAllNotifications);
+// gets a specific notification
+app.get("/notifications/:notificationId", NotifController.getNotification);
+// deletes a notification
+app.post("/notifications/:notificationId", NotifController.dismissNotification);
 
 let port = 8000;
 const api = app.listen(port, () => {
