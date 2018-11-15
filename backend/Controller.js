@@ -11,7 +11,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next()
 })
 
@@ -103,7 +103,9 @@ app.post('/comments',CommentController.create)
 
 app.post('/test/comments',CommentController.create)
 
+const LikeController = require('./controllers/Like')
 
+app.post('/likes',LikeController.create)
 
 
 module.exports.determineTestAndAuth = (req) => {

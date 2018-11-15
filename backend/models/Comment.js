@@ -13,11 +13,19 @@ class Comment {
             connection = db.TestSynConn
         }
 
-        let queryStr = ""
-
-        if (newComment.post_id == null || newComment.post_id == "") {
-            newComment.post_id == null
+        if (newComment.author_email == undefined || newComment.author_email == "") {
+            return {
+                success: false,
+                message: 'You did not provide an "author_email" field for this comment'
+            }
+        } else if (newComment.post_id == null || newComment.post_id == "") {
+            return {
+                success: false,
+                message: 'You did not provide a "post_id" field for this comment'
+            }
         }
+
+        let queryStr = ""
         queryStr =
             `INSERT INTO comments (author_email, data,post_id) ` +
             `VALUES(${db.ObjectToQuery(newComment)})`
