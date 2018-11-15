@@ -23,7 +23,7 @@ class PostEditor extends Component {
       this.setState({
         newPostBody: ""
       });
-      fetch("http://localhost:8000/test/posts", {
+      fetch("http://localhost:8000/posts", {
         method: "POST",
         headers: {
           Accept: "application/json",

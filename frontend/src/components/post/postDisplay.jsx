@@ -13,7 +13,7 @@ class PostDisplay extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/test/posts")
+    fetch("http://localhost:8000/posts")
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -43,6 +43,7 @@ class PostDisplay extends Component {
                 from={item.author_email}
                 postId={item.id}
                 by={item.author_email}
+                emailOfPost={this.props.email}
               />
             );
           })}

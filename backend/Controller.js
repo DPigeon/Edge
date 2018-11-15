@@ -132,9 +132,37 @@ app.get("/notifications/:notificationId", NotificationController.getNotification
 // deletes a notification
 app.post("/notifications/:notificationId", NotificationController.dismissNotification);
 
+const CommentController = require('./controllers/Comment')
+
+app.post('/comments', CommentController.create)
+
+app.post('/test/comments', CommentController.create)
+
+
+
+
+module.exports.determineTestAndAuth = (req) => {
+    let test = false
+    if (req.originalUrl.slice(1, 5) == 'test') {
+        test = true
+    }
+
+    const {
+        jwt
+    } = req.header
+    const {
+        isAuthorized
+    } = Auth.AuthorizeUser(jwt)
+    return {
+        test,
+        isAuthorized
+    }
+}
+
 let port = 8000;
 const api = app.listen(port, () => {
     console.log("backend started on port", port);
 });
 
-module.exports = api;
+
+module.exports = api

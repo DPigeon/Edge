@@ -6,22 +6,10 @@ class Notify extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notificationCounter: 0,
-      //notifications: 0,
-      email: ""
+      notificationCounter: 1,
+      email: "",
+      items: []
     };
-  }
-
-  componentWillReceiveProps() {
-    //GET them on navbar by email because it is unique
-
-    fetch("http://localhost:3001/signup/" + this.getEmail())
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          notifications: json
-        });
-      });
   }
 
   componentDidMount() {
@@ -30,6 +18,15 @@ class Notify extends Component {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
+    /*fetch(`http://localhost:8000/notifications/${this.props.email}`, {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          items: json
+        });
+      });*/
   }
 
   getEmail() {
@@ -82,41 +79,64 @@ class Notify extends Component {
     }
   }
 
+  receiveNotifications(email) {
+    //do it for threads and profile (else if)
+    if (this.state.notificationCounter > 0) {
+      //with the jwt token, we look if the person looking at the page is in hierarchy
+      return (
+        <div>
+          <h2>Notifications</h2>
+          {this.state.items.map(item => (
+            <div key={item.id}>
+              <ul>
+                <li>
+                  <span className="navbar-text float-xs-right ml-auto">
+                    <div className="dropdown">
+                      <button className="btn btn-success dropdown-toggle dropbtn">
+                        {this.state.notificationCounter}
+                      </button>
+                      <div className="dropdown-content">
+                        <a href="/" className="dropdown-item">
+                          {item} sent you a new message !
+                          <br />
+                          <button
+                            className="btn btn-success"
+                            onClick={() => this.dismissNotification(email)}
+                          >
+                            Dismiss
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return <div>No new notifications</div>; //if no notifications, don't show anything david
+    }
+  }
+
+  dismissNotification(email) {
+    fetch("http://localhost:8000/notifications", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: email
+      })
+    });
+  }
+
   render() {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
     //this is a simple notification example with messages, wall posts and group request
-    return (
-      <span className="navbar-text float-xs-right ml-auto">
-        <div className="dropdown">
-          <button className="btn btn-success dropdown-toggle dropbtn">
-            {this.state.notificationCounter}
-          </button>
-          <div className="dropdown-content">
-            <a className="dropdown-item" href="/threads">
-              Message from David
-            </a>
-            <a className="dropdown-item" href="/">
-              New post on your wall from Anas
-            </a>
-            <a href="/" className="dropdown-item">
-              Maria wants to join your group SOEN
-              <br />
-              <button
-                className="btn btn-success"
-                onClick={() =>
-                  this.incrementNotificationHandler("d_pig@encs.concordia.ca")
-                }
-              >
-                Accept
-              </button>
-              <button className="btn btn-danger" onClick={IndividualGroup}>
-                Reject
-              </button>
-            </a>
-          </div>
-        </div>
-      </span>
-    );
+    return <div>{this.receiveNotifications("hi")}</div>;
   }
 }
 

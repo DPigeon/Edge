@@ -20,7 +20,10 @@ class Post extends Component {
           <br />
           <br />
           <LikeDislike postId={this.props.postId} />
-          <CommentDisplay />
+          <CommentDisplay
+            email={this.props.emailOfPost}
+            postId={this.props.postId}
+          />
         </div>
       </div>
     );
