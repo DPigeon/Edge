@@ -74,6 +74,9 @@ app.get('/groups/:groupId/requests', GroupController.getRequests);
 app.get('/groupRequests/:requestId', GroupController.getRequest);
 app.post('/groupRequests/:requestId', GroupController.processRequest);
 
+
+
+
 const PostController = require('./controllers/Post')
 
 // req.body  = {author_email, data, group_id}
@@ -82,10 +85,6 @@ app.post('/posts', PostController.create)
 app.get('/posts', PostController.retrieveAll)
 // gets all posts written by one user in the shared dashboard
 app.get('/posts/:author_email,', PostController.retrieveByUser)
-
-
-
-
 
 // modify the test db only
 // ------------------------------------------------------------------
@@ -98,9 +97,30 @@ app.get('/test/posts/:author_email', PostController.retrieveByUser)
 // ------------------------------------------------------------------
 
 
+const CommentController = require('./controllers/Comment')
+
+app.post('/comments',CommentController.create)
+
+app.post('/test/comments',CommentController.create)
+
+
+
+
+module.exports.determineTestAndAuth = (req) => {
+    let test = false
+    if (req.originalUrl.slice(1, 5) == 'test') {
+        test = true
+    }
+
+    const { jwt } = req.header
+    const { isAuthorized } = Auth.AuthorizeUser(jwt)
+    return { test, isAuthorized }
+}
+
 let port = 8000;
 const api = app.listen(port, () => {
     console.log('backend started on port', port)
 });
 
-module.exports = api;
+
+module.exports = api
