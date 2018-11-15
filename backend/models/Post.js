@@ -1,6 +1,6 @@
 const db = require('../db')
 const Comment = require('./Comment')
-
+const Like = require('./Like')
 
 class Post {
     constructor(author_email, data, group_id) {
@@ -71,17 +71,77 @@ class Post {
             return { success: false, message: error }
         }
         if (postList) {
-            console.log("postList (from within model)=>\n",postList);
+            console.log("postList (from within model)=>\n", postList);
             for (let i = 0; i < postList.length; i++) {
                 let post_id = postList[i].id
-                console.log("post_id =>", post_id);
-                let { commentList } = Comment.fetchAllFromPostId({ post_id, test })
+                console.log("post_id =>", post_id)
+                let { commentList } = fetchAllFromPostId({ post_id, test, type: 'comments' })
+                let { likeList } = fetchAllFromPostId({ post_id, test, type: 'likes' })
+                let { dislikeList } = fetchAllFromPostId({ post_id, test, type: 'dislikes' })
                 postList[i].commentList = commentList
+                postList[i].likeList = likeList
+                postList[i].dislikeList = dislikeList
                 console.log("commentList =>\n" + commentList)
+                console.log("likeList =>\n" + likeList)
             }
             return { success: true, postList }
         }
         return { success: false, message: "postList is undefined" }
     }
 }
+
+// type is either 'comments', 'likes', or 'dislikes'
+const fetchAllFromPostId = ({ post_id, test, type }) => {
+    console.log("Entered fetchAllFromPostId with data:")
+    console.log(`post_id: ${post_id},test: ${test},type: ${type}`)
+
+    let connection = db.SyncConn
+    if (test) {
+        console.log("Test connection (from within fetchAllFromPostId)");
+        connection = db.TestSynConn
+    }
+    console.log("connection =>", connection)
+
+    let queryStr = null
+    if (post_id) {
+        if (type === 'comments') {
+            queryStr = `SELECT * FROM ${type} WHERE post_id=${post_id}`
+        }else{
+            queryStr = `SELECT * FROM likes WHERE post_id=${post_id}`
+        }
+        console.log("post_id => " + post_id)
+    } else {
+        return { success: false, message: "You did not provide a post_id" }
+    }
+    try {
+        console.log("queryStr =>", queryStr)
+        if (type === 'comments') {
+            const commentList = connection.query(queryStr)
+            return { success: true, commentList }
+        }
+        else if (type === 'likes') {
+            queryStr += ` AND dislike='false'`
+            const likeList = connection.query(queryStr)
+            return { success: true, likeList }
+        }
+        else if (type === 'dislikes') {
+            queryStr += ` AND dislike='true'`
+            const dislikeList = connection.query(queryStr)
+            return { success: true, dislikeList }
+        }
+        else {
+            return {
+                success: false,
+                message: "You provided the wrong type of list " +
+                    "(either 'comments', 'likes', or 'dislikes') "
+            }
+        }
+    } catch (error) {
+        return { success: false, message: error }
+    }
+
+}
+
+
+
 module.exports = Post
