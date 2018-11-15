@@ -33,11 +33,38 @@ class Reply extends Component {
         receiver: to,
         data: message
       })
+    }).then(res => {
+      res
+        .json()
+        .then(data => ({
+          aNotification: data
+        }))
+        .then(res => {
+          this.sendNotification(
+            res.aNotification.receiver,
+            res.aNotification.thread_id
+          ); //Makes a POST request to the database to send new notification to a user with proper threadid
+        });
     });
     window.location.reload();
     //send the notification to receiver here
-    this.notify.showNotifications(1, this.props.sender); //must fine who to send it to.
+    //this.notify.showNotifications(1, this.props.sender); //must fine who to send it to.
   };
+
+  sendNotification(email, threadId) {
+    //sends notification
+    fetch(`http://localhost:8000/notifications/${email}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: email,
+        thread_id: threadId
+      })
+    });
+  }
 
   render() {
     return (
