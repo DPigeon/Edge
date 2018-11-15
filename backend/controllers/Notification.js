@@ -4,24 +4,13 @@ const Notification = require("../models/Notification");
 
 class NotificationController {
     static create(req, response) {
-        let notification = new Notification(req.body.name);
-        if (!req.params.threadId) {
-            return res.status(400).json({
-                error: "Please provide a valid thread id in the route"
-            });
-        }
-        if (!notification.name) {
+        let notification = new Notification(req.body.user_id, req.body.thread_id);
+        if (!notification.user_id || !notification.thread_id) {
             return response.status(400).json({
-                error: "Please provide valid data to create a notification"
+                error: "Please provide valid data"
             });
         }
-        if (!req.body.user_id) {
-            return res.status(400).json({ error: "Please provide valid data" });
-        }
-        let query = Notification.createNotification(
-            req.params.thread_id,
-            req.body.user_id
-        );
+        let query = Notification.create(notification);
         if (!query.success) {
             return response.send(query.error);
         }
@@ -55,7 +44,7 @@ class NotificationController {
     }
 
     static dismissNotification(req, response) {
-        if (!req.params.threadId) {
+        if (!req.params.notificationId) {
             return response.status(400).json({
                 error: "Please provide a valid notification id in the route"
             });
@@ -64,7 +53,9 @@ class NotificationController {
         if (!query.success) {
             return response.send(query.error);
         }
-        response.json({ success: true });
+        response.json({
+            success: true
+        });
     }
 }
 

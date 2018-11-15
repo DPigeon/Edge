@@ -124,13 +124,11 @@ app.get("/test/posts/:author_email", PostController.retrieveByUser);
 const NotificationController = require("./controllers/Notification");
 
 // create notification
-app.post("/notifications/:userId", NotificationController.createNotification);
+app.post("/notifications", NotificationController.create); //works
 // gets all the notifications for a user id
 app.get("/notifications/:userId", NotificationController.getAllNotifications); //works
-// gets a specific notification
-app.get("/notifications/:notificationId", NotificationController.getNotification);
 // deletes a notification
-app.post("/notifications/:notificationId", NotificationController.dismissNotification);
+app.post("/notifications/:notificationId", NotificationController.dismissNotification); //works
 
 const CommentController = require('./controllers/Comment')
 

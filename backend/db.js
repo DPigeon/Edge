@@ -13,7 +13,7 @@ module.exports.SyncConn = new syncMySQL({
     host: dbHost,
     user: dbRootUser,
     password: dbRootPass,
-    database: testDbName //REMEMBER TO CHANGE THIS YO
+    database: dbName //REMEMBER TO CHANGE THIS YO
 });
 
 module.exports.TestSynConn = new syncMySQL({
@@ -28,8 +28,8 @@ module.exports.ObjectToQuery = (object) => {
     return Object.values(object).map(x => "'" + x + "'").join(',')
 }
 
-module.exports.InsertEscapeCharacters = (text)=>{
-    escapeSingleQuote = text.replace(/'/g,"\\'")
-    console.log("escapedString =>",escapeSingleQuote)
+module.exports.InsertEscapeCharacters = (text) => {
+    escapeSingleQuote = text.replace(/'/g, "\\'")
+    console.log("escapedString =>", escapeSingleQuote)
     return escapeSingleQuote
 }

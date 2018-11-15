@@ -3,12 +3,34 @@
 const db = require("../db");
 
 class Notification {
-    constructor(name) {
-        this.name = name;
+    constructor(user_id, thread_id) {
+        this.user_id = user_id;
+        this.thread_id = thread_id;
     }
 
     static notificationToQuery(notification) {
-        return `'${notification.name}'`;
+        return `'${notification.user_id}', '${notification.thread_id}'`;
+    }
+
+    static create(notification) {
+        console.log('Creating a notification with values: ', notification);
+        try {
+            const queryResult = db.SyncConn.query(`INSERT INTO notifications (user_id, thread_id) VALUES(${this.notificationToQuery(notification)})`);
+            notification.id = queryResult.insertId;
+        } catch (error) {
+            console.log('Error : ', error);
+            console.log('Error code : ', error.code);
+            return {
+                success: false,
+                error: error
+            };
+        }
+        console.log(notification);
+        console.log('---------------------------------------');
+        return {
+            success: true,
+            notification: notification
+        };
     }
 
     static dismissNotification(notificationId) {
@@ -26,29 +48,15 @@ class Notification {
         } catch (error) {
             console.log("Error: ", error);
             console.log("Error code: ", error.code);
-            return { success: false, error: error };
+            return {
+                success: false,
+                error: error
+            };
         }
         console.log("---------------------------------------");
-        return { success: true };
-    }
-
-    static createNotification(threadId, userId) {
-        let request = { user_id: userId, thread_id: threadId };
-        console.log("Creating an addition request for user of id: ", userId);
-        console.log("Into thread of id: ", threadId);
-        try {
-            const queryResult = db.SyncConn.query(
-                `INSERT INTO nofitications (user_id, thread_id) VALUES('${userId}', '${threadId}')`
-            ); //inserts the id
-            request.id = queryResult.insertId;
-        } catch (error) {
-            console.log("Error: ", error);
-            console.log("Error code: ", error.code);
-            return { success: false, error: error };
-        }
-        console.log(request);
-        console.log("---------------------------------------");
-        return { success: true, request: request };
+        return {
+            success: true
+        };
     }
 
     static getNotification(notificationId) {
@@ -66,11 +74,17 @@ class Notification {
         } catch (error) {
             console.log("Error: ", error);
             console.log("Error code: ", error.code);
-            return { success: false, error: error };
+            return {
+                success: false,
+                error: error
+            };
         }
         console.log(request);
         console.log("---------------------------------------");
-        return { success: true, request: request };
+        return {
+            success: true,
+            request: request
+        };
     }
 
     static getAllNotifications(userId) {
@@ -88,11 +102,17 @@ class Notification {
         } catch (error) {
             console.log("Error: ", error);
             console.log("Error code: ", error.code);
-            return { success: false, error: error };
+            return {
+                success: false,
+                error: error
+            };
         }
         console.log(requests);
         console.log("---------------------------------------");
-        return { success: true, requests: requests };
+        return {
+            success: true,
+            requests: requests
+        };
     }
 }
 
