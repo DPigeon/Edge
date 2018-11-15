@@ -121,16 +121,16 @@ app.get("/test/posts", PostController.retrieveAll);
 app.get("/test/posts/:author_email", PostController.retrieveByUser);
 // ------------------------------------------------------------------
 
-const NotifController = require("./controllers/Notification");
+const NotificationController = require("./controllers/Notification");
 
 // create notification
-app.post("/notifications/:userId", NotifController.getNotification);
-// gets all the notifications
-app.get("/notifications/:userId", NotifController.getAllNotifications);
+app.post("/notifications/:userId", NotificationController.createNotification);
+// gets all the notifications for a user id
+app.get("/notifications/:userId", NotificationController.getAllNotifications); //works
 // gets a specific notification
-app.get("/notifications/:notificationId", NotifController.getNotification);
+app.get("/notifications/:notificationId", NotificationController.getNotification);
 // deletes a notification
-app.post("/notifications/:notificationId", NotifController.dismissNotification);
+app.post("/notifications/:notificationId", NotificationController.dismissNotification);
 
 let port = 8000;
 const api = app.listen(port, () => {

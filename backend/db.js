@@ -13,7 +13,7 @@ module.exports.SyncConn = new syncMySQL({
     host: dbHost,
     user: dbRootUser,
     password: dbRootPass,
-    database: dbName
+    database: testDbName //REMEMBER TO CHANGE THIS YO
 });
 
 module.exports.TestSynConn = new syncMySQL({
