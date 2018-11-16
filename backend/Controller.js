@@ -84,7 +84,7 @@ app.post('/posts', PostController.create)
 // gets all post
 app.get('/posts', PostController.retrieveAll)
 // gets all posts written by one user in the shared dashboard
-app.get('/posts/:author_email,', PostController.retrieveByUser)
+app.get('/posts/:author_email', PostController.retrieveByUser)
 
 // modify the test db only
 // ------------------------------------------------------------------
