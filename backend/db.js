@@ -3,11 +3,11 @@ const syncMySQL = require('sync-mysql');
 // ----------------------------------------------------------------------------------------
 // PLEASE DO NOT TOUCH THESE CONSTANTS
 // THEY ARE USED TO CONNECT TO THE HOSTED DATABASE
-const dbHost = '18.221.83.136';
-const dbRootUser = 'root';
-const dbName = 'platform341';
-const testDbName = 'testplatform341'
-const dbRootPass = 'ribalestbeau';
+const dbHost = '18.221.83.136'
+const dbRootUser = 'root'
+const dbName = 'platform341'
+const testDbName = 'testing341'
+const dbRootPass = 'ribalestbeau'
 
 module.exports.SyncConn = new syncMySQL({
     host: dbHost,
