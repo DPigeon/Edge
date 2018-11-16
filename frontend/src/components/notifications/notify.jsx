@@ -24,13 +24,13 @@ class Notify extends Component {
     }
     fetch(`http://localhost:8000/notifications/${profile.email}`, {
       method: "GET"
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json
-        });
+    });
+    this.then(res => res.json());
+    this.then(json => {
+      this.setState({
+        items: json
       });
+    });
   }
 
   dismissNotification = (notificationId, email) => {
