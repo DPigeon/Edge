@@ -1,4 +1,4 @@
-# SOEN341-Project
+# SOEN341-Project: Edge
 
 ## Edge - A Web Application
 
