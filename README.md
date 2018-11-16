@@ -6,6 +6,15 @@ Build Test on Master Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN
 
 Build Test on Dev Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341-Project.svg?token=SsQtsx7cgdy816iVVj6c&branch=dev)](https://travis-ci.com/DPigeon/SOEN341-Project)
 
+Unit Tests on Tests Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341-Project.svg?token=SsQtsx7cgdy816iVVj6c&branch=tests)](https://travis-ci.com/DPigeon/SOEN341-Project)
+
+Unit tests on Tests Branch for:
+- Posts
+- Comments
+- Likes
+- Dislikes
+- Route "/"
+
 Our team project is a web-base application. 
 The goal of this project is to allow parents to communicate with teachers and vice-versa.
 
