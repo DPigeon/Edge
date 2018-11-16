@@ -175,21 +175,23 @@ class IndividualGroup extends Component {
           {this.notificationRequests(this.state.userProfile.email, true)}
         </div>
         <div className="GroupMembers">
-          <h2>Members of the group:</h2>
-          <ul>
-            {this.state.members.map(item2 => (
-              <div className="Group">
-                <li key={item2.id}>
-                  <div className="itemMember">
-                    {this.isGroupAdmin(item2.admin)}
-                    <h5>
-                      <a href={`/users/` + item2.group_id}>{item2.user_id}</a>
-                    </h5>
-                  </div>
-                </li>
-              </div>
-            ))}
-          </ul>
+          <center>
+            <h2>Members of the group:</h2>
+            <ul>
+              {this.state.members.map(item2 => (
+                <div className="Group">
+                  <li key={item2.id}>
+                    <div className="itemMember">
+                      {this.isGroupAdmin(item2.admin)}
+                      <h5>
+                        <a href={`/users/` + item2.group_id}>{item2.user_id}</a>
+                      </h5>
+                    </div>
+                  </li>
+                </div>
+              ))}
+            </ul>
+          </center>
         </div>
       </React.Fragment>
     );

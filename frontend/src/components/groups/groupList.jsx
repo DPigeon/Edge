@@ -100,35 +100,39 @@ class GroupList extends Component {
     } else {
       return (
         <div>
+          <center>
+            <a href={"/creategroup"}>
+              <button className=" btn-dark">Create Group</button>
+            </a>
+          </center>
+          <br />
           <SearchGroup />
           <div>
-            {groupList.map(item => (
-              <div key={item.id}>
-                <ul>
-                  <li>
-                    <a href={"/group/" + item.id}>
-                      Group Name: {item.name}
-                      <br />
-                    </a>
-                    <button
-                      onClick={() =>
-                        this.joinGroup(
-                          item.id,
-                          this.state.userProfile.email,
-                          item.name
-                        )
-                      }
-                    >
-                      Join
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            ))}
             <center>
-              <a href={"/creategroup"}>
-                <button className="newGroup">Create Group</button>
-              </a>
+              {groupList.map(item => (
+                <div key={item.id}>
+                  <ul>
+                    <li>
+                      <a href={"/group/" + item.id}>
+                        Group Name: {item.name}
+                        <br />
+                      </a>
+                      <button
+                        className="btn-success"
+                        onClick={() =>
+                          this.joinGroup(
+                            item.id,
+                            this.state.userProfile.email,
+                            item.name
+                          )
+                        }
+                      >
+                        Join Group
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              ))}
             </center>
           </div>
         </div>

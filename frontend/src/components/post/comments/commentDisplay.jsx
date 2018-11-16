@@ -11,17 +11,6 @@ class CommentDisplay extends Component {
     };
   }
 
-  /*componentDidMount() {
-    fetch("http://localhost:8000/posts")
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json.postList //posts get into a stack/array
-        });
-        //console.log(this.state.items[0]);
-      });
-  }*/
-
   addComment = newCommentBody => {
     window.location.reload();
     /*const newState = Object.assign({}, this.state);
@@ -29,7 +18,7 @@ class CommentDisplay extends Component {
     this.setState(newState);*/ //not needed anymore
   };
 
-  showComments() {
+  showComments(postId) {
     for (var i = 0; i < this.props.posts.length; i++) {
       for (var j = 0; j < this.props.comments.length; j++) {
         return (
@@ -58,7 +47,7 @@ class CommentDisplay extends Component {
             email={this.props.email}
             postId={this.props.postId}
           />
-          {this.showComments()}
+          {this.showComments(this.props.postId)}
         </div>
         <div className="postEditor" />
       </React.Fragment>
