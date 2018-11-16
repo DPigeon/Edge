@@ -21,16 +21,17 @@ class Notify extends Component {
     if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
-    }
-    fetch(`http://localhost:8000/notifications/${profile.email}`, {
-      method: "GET"
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json
+    } else {
+      fetch(`http://localhost:8000/notifications/${profile.email}`, {
+        method: "GET"
+      })
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            items: json
+          });
         });
-      });
+    }
   }
 
   dismissNotification = (notificationId, email) => {
