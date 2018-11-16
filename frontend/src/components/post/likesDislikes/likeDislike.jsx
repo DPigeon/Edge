@@ -16,31 +16,22 @@ class LikeDislike extends Component {
     };
   }
 
-  componentDidMount() {
-    //GET Likes/Dislikes
-    fetch("http://localhost:3001/likes")
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          items: json
-        });
-      });
-  }
-
-  handleLike = id => {
+  handleLike = (email, postId) => {
     this.setState({
       liked: !this.state.liked,
       counterLike: this.state.counterLike + 1,
       isDislikeButtonDisabled: true
     });
-    fetch("http://localhost:3001/posts/" + id, {
-      method: "PATCH",
+    fetch("http://localhost:8000/likes", {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        likes: this.state.counterLike
+        author_email: email,
+        dislike: true,
+        post_id: postId
       })
     });
 
@@ -50,8 +41,8 @@ class LikeDislike extends Component {
         counterLike: this.state.counterLike - 1,
         isDislikeButtonDisabled: false
       });
-      fetch("http://localhost:3001/posts" + id, {
-        method: "PATCH",
+      fetch("http://localhost:8000/likes", {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
@@ -63,11 +54,23 @@ class LikeDislike extends Component {
       });
     }
   };
-  handleDislike = id => {
+  handleDislike = (email, postId) => {
     this.setState({
       disliked: !this.state.disliked,
       counterDislike: this.state.counterDislike + 1,
       isLikeButtonDisabled: true
+    });
+    fetch("http://localhost:8000/likes", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        author_email: email,
+        dislike: false,
+        post_id: postId
+      })
     });
     if (this.state.counterDislike >= 1) {
       this.setState({
@@ -78,6 +81,13 @@ class LikeDislike extends Component {
     }
   };
 
+  getLengthOfLikes(postId) {
+    for (var i = 0; i < this.props.likes.length; i++) {
+      if (postId === this.props.likes[i].post_id)
+        return this.props.likes[i].length;
+    }
+  }
+
   render() {
     //const textLike = this.state.liked ? "liked" : "haven't liked";
     const label = this.state.liked ? "Unlike" : "Like";
@@ -86,21 +96,23 @@ class LikeDislike extends Component {
     return (
       <div className="box">
         <span className="badge m-2 badge-primary">
-          {this.state.counterLike}
+          {this.props.likes.length}
         </span>
         <button
           className="btn btn-primary"
-          onClick={() => this.handleLike(this.state.postID)}
+          onClick={() => this.handleLike(this.props.email, this.props.postId)}
           disabled={this.state.isLikeButtonDisabled}
         >
           {label}
         </button>
         <span className="badge m-2 badge-dark">
-          {this.state.counterDislike}
+          {this.props.dislikes.length}
         </span>
         <button
           className="btn badge-dark"
-          onClick={() => this.handleDislike(this.state.postID)}
+          onClick={() =>
+            this.handleDislike(this.props.email, this.props.postId)
+          }
           disabled={this.state.isDislikeButtonDisabled}
         >
           {label2}

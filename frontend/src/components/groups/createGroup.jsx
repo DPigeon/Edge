@@ -78,30 +78,39 @@ class CreateGroup extends Component {
   render() {
     return (
       <div className="createGroup">
-        <h1>Fill in the form to create a new group</h1>
+        <center>
+          <h1>Fill in the form to create a new group</h1>
 
-        <input
-          placeHolder="Title"
-          value={this.state.title}
-          onChange={this.handleTitleChange}
-        />
-        <br />
-        <br />
-        <input
-          placeHolder="Group Description"
-          value={this.state.description}
-          onChange={this.handleDescriptionChange}
-        />
-        <br />
-        <br />
-
-        <button
-          onClick={() =>
-            this.createNewGroup(this.state.title, this.state.userProfile.email)
-          }
-        >
-          Create
-        </button>
+          <input
+            className="btn alert-success"
+            placeHolder="Title"
+            value={this.state.title}
+            onChange={this.handleTitleChange}
+          />
+          <br />
+          <br />
+          <input
+            className="btn alert-success"
+            placeHolder="Group Description"
+            value={this.state.description}
+            onChange={this.handleDescriptionChange}
+          />
+          <br />
+          <br />
+          <p>You can add members later on !</p>
+          <br />
+          <button
+            className="btn btn-success"
+            onClick={() =>
+              this.createNewGroup(
+                this.state.title,
+                this.state.userProfile.email
+              )
+            }
+          >
+            Create
+          </button>
+        </center>
       </div>
     );
   }

@@ -42,6 +42,8 @@ class PostDisplay extends Component {
                 posts={this.props.posts}
                 postId={item.id}
                 comments={this.props.comments}
+                likes={this.props.likes}
+                dislikes={this.props.dislikes}
                 by={item.author_email}
                 emailOfPost={this.props.email}
               />

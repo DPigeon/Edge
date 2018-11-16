@@ -4,7 +4,7 @@ const chai = require('chai')
   chai.use(chaiHttp)
   const expect = chai.expect
 // https://mochajs.org/
-module.exports.Get =  function (APIroute, description, handler) {
+module.exports.GET =  function (APIroute, description, handler) {
 describe(`● [${APIroute}] route test`, ()=> {
   it(description, done => {
 
@@ -22,7 +22,7 @@ describe(`● [${APIroute}] route test`, ()=> {
   })
 })}
 
-module.exports.Post =  function (APIroute, description, data, handler) {
+module.exports.POST =  function (APIroute, description, data, handler) {
   describe(`● [${APIroute}] route test`, ()=> {
     it(description, done => {
 
@@ -42,7 +42,7 @@ module.exports.Post =  function (APIroute, description, data, handler) {
   })}
 
 
-module.exports.Delete =  function (APIroute, description, data, handler) {
+module.exports.DELETE =  function (APIroute, description, data, handler) {
   describe(`● [${APIroute}] route test`, ()=> {
     it(description, done => {
 
@@ -62,7 +62,7 @@ module.exports.Delete =  function (APIroute, description, data, handler) {
   })}
 
 
-  module.exports.Put =  function (APIroute, description, data, handler) {
+  module.exports.PUT =  function (APIroute, description, data, handler) {
     describe(`● [${APIroute}] route test`, ()=> {
       it(description, done => {
 

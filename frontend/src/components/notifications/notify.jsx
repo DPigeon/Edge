@@ -1,85 +1,62 @@
 import React, { Component } from "react";
-import IndividualGroup from "../groups/individualGroup";
+import decode from "jwt-decode";
 import "./styles/notify.css";
 
 class Notify extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notificationCounter: 0,
-      //notifications: 0,
-      email: ""
+      userProfile: [],
+      items: [],
+      threads: []
     };
-  }
-
-  componentWillReceiveProps() {
-    //GET them on navbar by email because it is unique
-
-    fetch("http://localhost:3001/signup/" + this.getEmail())
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          notifications: json
-        });
-      });
   }
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
+    let profile = decode(jwt); //decodes the jwt
+    this.setState({
+      userProfile: profile
+    });
     if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
     }
+    fetch(`http://localhost:8000/notifications/${profile.email}`, {
+      method: "GET"
+    });
+    this.then(res => res.json());
+    this.then(json => {
+      this.setState({
+        items: json
+      });
+    });
   }
 
-  getEmail() {
-    this.setState({
-      email: this.props.email
-    });
-    return this.state.email;
-  }
-
-  incrementNotificationHandler = email => {
-    this.setState({
-      notificationCounter: this.state.notificationCounter + 1
-    });
-    fetch("http://localhost:3001/signup?email=" + email, {
-      //need to get it by id (how do you get the id if you have the email ?)
-      method: "PATCH",
+  dismissNotification = (notificationId, email) => {
+    fetch(`http://localhost:8000/notifications/${notificationId}`, {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        notifications: this.state.notificationCounter
+        user_id: email
       })
     });
+    window.location.reload();
   };
 
-  decrementNotificationHandler = () => {
-    this.setState({
-      notificationCounter: this.state.notificationCounter - 1
-    });
-  };
-
-  showNotifications(type, name) {
-    //either of type message or post
-    switch (type) {
-      case 1:
-        return (
-          <a className="dropdown-item" href="/threads">
-            Message from {name}
-          </a>
-        );
-      case 2:
-        return (
-          <a className="dropdown-item" href="/">
-            Post in your wall from {name}
-          </a>
-        );
-      default:
-        break;
-    }
+  getAllThreadsForId() {
+    fetch(`http://localhost:8000/threads`, {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          threads: json
+        });
+      });
   }
 
   render() {
@@ -89,31 +66,25 @@ class Notify extends Component {
       <span className="navbar-text float-xs-right ml-auto">
         <div className="dropdown">
           <button className="btn btn-success dropdown-toggle dropbtn">
-            {this.state.notificationCounter}
+            {this.state.items.length}
           </button>
-          <div className="dropdown-content">
-            <a className="dropdown-item" href="/threads">
-              Message from David
-            </a>
-            <a className="dropdown-item" href="/">
-              New post on your wall from Anas
-            </a>
-            <a href="/" className="dropdown-item">
-              Maria wants to join your group SOEN
-              <br />
-              <button
-                className="btn btn-success"
-                onClick={() =>
-                  this.incrementNotificationHandler("d_pig@encs.concordia.ca")
-                }
-              >
-                Accept
-              </button>
-              <button className="btn btn-danger" onClick={IndividualGroup}>
-                Reject
-              </button>
-            </a>
-          </div>
+          {this.state.items.map(item => (
+            <div className="dropdown-content">
+              <a href className="dropdown-item">
+                New message(s) in your message center ({this.state.items.length}
+                )
+                <br />
+                <button
+                  className="btn btn-success"
+                  onClick={() =>
+                    this.dismissNotification(item.id, item.user_id)
+                  }
+                >
+                  Dismiss
+                </button>
+              </a>
+            </div>
+          ))}
         </div>
       </span>
     );

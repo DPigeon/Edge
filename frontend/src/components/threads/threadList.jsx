@@ -17,7 +17,8 @@ class ThreadList extends Component {
       title: "",
       fromMsg: "",
       toMsg: "",
-      msg1: ""
+      msg1: "",
+      aNotification: []
     };
   }
 
@@ -54,17 +55,30 @@ class ThreadList extends Component {
       <div className="col1">
         <ul className="leftopt">
           <li>
-            <button onClick={() => this.createThread()}>Compose</button>
+            <button className=" btn-dark" onClick={() => this.createThread()}>
+              Compose
+            </button>
           </li>
+          <br />
           <li>
-            <button href="/">Inbox</button>
+            <button className=" btn-dark" href="/">
+              Inbox ({this.state.threads.length})
+            </button>
           </li>
+
+          <br />
           <li>
-            <button href="/">Sent</button>
+            <button className=" btn-dark" href="/">
+              Sent
+            </button>
           </li>
+          <br />
           <li>
-            <button href="/">Contacts</button>
+            <button className=" btn-dark" href="/">
+              Contacts (0)
+            </button>
           </li>
+          <br />
         </ul>
       </div>
     );
@@ -108,7 +122,7 @@ class ThreadList extends Component {
             ))}
             <center>
               <button
-                className="newm"
+                className=" btn-success"
                 onClick={() => this.createThread(this.state.id)}
               >
                 New Message
@@ -168,6 +182,7 @@ class ThreadList extends Component {
           <br />
           <br />
           <button
+            className=" btn-success"
             onClick={() =>
               this.createMessage(
                 this.state.fromMsg,
@@ -258,11 +273,36 @@ class ThreadList extends Component {
         receiver: receiver,
         data: msg
       })
+    }).then(res => {
+      res
+        .json()
+        .then(data => ({
+          aNotification: data
+        }))
+        .then(res => {
+          this.sendNotification(
+            res.aNotification.receiver,
+            res.aNotification.thread_id
+          ); //Makes a POST request to the database to send new notification to a user with proper threadid
+        });
     });
     alert("You just sent a new message to " + receiver + " !");
-    //send the notification to receiver here
-    //this.notify.showNotifications(2, this.props.sender); //must fine who to send it to.
-    window.location.replace("/threads");
+    window.location.reload();
+  }
+
+  sendNotification(email, threadId) {
+    //sends notification
+    fetch(`http://localhost:8000/notifications`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: email,
+        thread_id: threadId
+      })
+    });
   }
 
   render() {

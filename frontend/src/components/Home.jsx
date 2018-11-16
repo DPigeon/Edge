@@ -9,7 +9,9 @@ class Home extends Component {
     this.state = {
       userProfile: [],
       items: [],
-      arrayComments: []
+      arrayComments: [],
+      arrayLikes: [],
+      arrayDislikes: []
     };
   }
 
@@ -51,7 +53,11 @@ class Home extends Component {
           items: json.postList //posts get into a stack/array
         });
         let array = [];
+        let array2 = [];
+        let array3 = [];
         this.setCommentList(this.state.items, array);
+        this.setLikeList(this.state.items, array2);
+        this.setDislikeList(this.state.items, array3);
       });
   }
 
@@ -64,12 +70,38 @@ class Home extends Component {
     this.setState({ arrayComments: array });
   }
 
+  setLikeList(newArray) {
+    let array = [];
+
+    for (var i = 0; i < newArray.length; i++) {
+      array[i] = newArray[i].likeList;
+    }
+    this.setState({ arrayLikes: array });
+  }
+
+  setDislikeList(newArray) {
+    let array = [];
+
+    for (var i = 0; i < newArray.length; i++) {
+      array[i] = newArray[i].dislikeList;
+    }
+    this.setState({ arrayDislikes: array });
+  }
+
   getPostList() {
     return this.state.items;
   }
 
   getCommentList() {
     return this.state.arrayComments;
+  }
+
+  getLikeList() {
+    return this.state.arrayLikes;
+  }
+
+  getDislikeList() {
+    return this.state.arrayDislikes;
   }
 
   showLeftColumn() {
@@ -122,6 +154,8 @@ class Home extends Component {
               email={this.state.userProfile.email}
               posts={this.getPostList()}
               comments={this.getCommentList()}
+              likes={this.getLikeList()}
+              dislikes={this.getDislikeList()}
             />
           </div>
         </div>
