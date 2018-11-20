@@ -55,9 +55,9 @@ class Home extends Component {
         let array = [];
         let array2 = [];
         let array3 = [];
-        this.setCommentList(this.state.items, array);
-        this.setLikeList(this.state.items, array2);
-        this.setDislikeList(this.state.items, array3);
+        this.setCommentList(this.state.arrayComments, array);
+        this.setLikeList(this.state.arrayLikes, array2);
+        this.setDislikeList(this.state.arrayDislikes, array3);
       });
   }
 

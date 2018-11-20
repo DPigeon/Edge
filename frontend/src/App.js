@@ -120,7 +120,7 @@ class App extends Component {
             return (
                 <li className="right">
                     <Notify email={this.state.userProfile.email} />
-                    <button className="" onClick={() => this.handleLogout()}>
+                    <button className="out" onClick={() => this.handleLogout()}>
                         Logout
                     </button>
                 </li>
@@ -155,6 +155,7 @@ class App extends Component {
 
                     {this.showUserInfo()}
                 </ul>
+                <br />
                 <div className="logooo">
                     <center>
                         <img

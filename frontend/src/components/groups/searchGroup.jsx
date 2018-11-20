@@ -28,15 +28,15 @@ class SearchGroup extends Component {
       return (
         <ul>
           {filteredSearch.map(item => (
-            <div className="cardmessage">
+            <div className="searchresult">
               <li key={item.id}>
                 <h5>
-                  <div className="title">
+                  <div className="grptitle">
                     <a href={"/group/" + item.id}>{item.name}</a>
                   </div>
                 </h5>
                 <h10>
-                  <div className="description">{item.description}</div>
+                  <div className="grpdescription">{item.description}</div>
                 </h10>
               </li>
             </div>
@@ -56,6 +56,7 @@ class SearchGroup extends Component {
         <center>
           <h4>Group Search</h4>
           <input
+            className="searchinput"
             type="text"
             value={this.state.search}
             onChange={this.updateSearch.bind(this)}

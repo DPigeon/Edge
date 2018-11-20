@@ -4,10 +4,15 @@ body {
 
 .topnav {
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 15px 0;
   padding: 0;
+  top: 0;
   overflow: hidden;
   background-color: #4caf50;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  z-index: 10;
 }
 .homez {
   float: left;
@@ -53,6 +58,7 @@ ul.topnav li.right {
 .logoo {
   width: 600px;
   height: 160px;
+  margin-top: 30px;
 }
 
 .logo {
@@ -70,4 +76,22 @@ ul.topnav li.right {
   to {
     transform: rotate(360deg);
   }
+}
+.out {
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #d80c2e;
+  text-align: center;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+  margin: 10px 15px 0 0;
+  float: right;
+}
+.out:hover {
+  background-color: #fb052e;
 }

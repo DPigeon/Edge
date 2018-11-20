@@ -41,7 +41,7 @@ class CommentDisplay extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="comment-body">
+        <div className="">
           <CommentEditor
             addComment={this.addComment}
             email={this.props.email}
@@ -49,7 +49,6 @@ class CommentDisplay extends Component {
           />
           {this.showComments(this.props.postId)}
         </div>
-        <div className="postEditor" />
       </React.Fragment>
     );
   }

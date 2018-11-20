@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import decode from "jwt-decode";
-
+import "./styles/groups.css";
 class CreateGroup extends Component {
   state = {
     aGroup: [],
@@ -79,28 +79,30 @@ class CreateGroup extends Component {
     return (
       <div className="createGroup">
         <center>
-          <h1>Fill in the form to create a new group</h1>
-
+          <h5>Fill in the form to create a new group</h5>
+          <br />
+          <h6>Group Name:</h6>
           <input
-            className="btn alert-success"
-            placeHolder="Title"
+            className="grpn"
+            placeHolder="Groupe Name"
             value={this.state.title}
             onChange={this.handleTitleChange}
           />
           <br />
           <br />
+          <h6>Group Description:</h6>
           <input
-            className="btn alert-success"
+            className="grpd"
             placeHolder="Group Description"
             value={this.state.description}
             onChange={this.handleDescriptionChange}
           />
           <br />
           <br />
-          <p>You can add members later on !</p>
+          <h6>You can add members later on !</h6>
           <br />
           <button
-            className="btn btn-success"
+            className="grpbtn"
             onClick={() =>
               this.createNewGroup(
                 this.state.title,
@@ -108,7 +110,7 @@ class CreateGroup extends Component {
               )
             }
           >
-            Create
+            Create a New Group
           </button>
         </center>
       </div>

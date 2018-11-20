@@ -1,13 +1,64 @@
-.btn-primary {
-    background-color: #23aa4e;
-    border-color: #177d37;
-    margin: 0.5em;
+.likebox {
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+  min-width: 600px;
 }
-
-#example {
-    margin: 3rem;
+.like {
+  float: left;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-top: 15px;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #0442a0;
+  text-align: center;
+  cursor: pointer;
+  width: 10%;
 }
+.dislike {
+  float: left;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-top: 15px;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #db1414;
+  text-align: center;
+  cursor: pointer;
+  width: 10%;
+}
+.likecount {
+  float: left;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-top: 15px;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #0442a0;
+  text-align: center;
+  width: 5%;
+}
+.dislikecount {
+  float: left;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-top: 15px;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #db1414;
+  text-align: center;
 
-.boxContainer {
-    border: 1px solid black;
+  width: 5%;
 }

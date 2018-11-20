@@ -1,7 +1,54 @@
-.createGroup {
-  text-align: center;
+.searchinput {
+  width: 80%;
+}
+.addgrp {
+  width: 100%;
+  height: auto;
 }
 
-.groups {
+.creategrp {
+  padding: 10px;
+  border-radius: 0px;
+  box-sizing: border-box;
+  margin-left: 14px;
+  border: none;
+  outline: 0;
+  background-color: #d4d5d8;
   text-align: center;
+  cursor: pointer;
+  width: 400px;
+  height: auto;
+  border: 2px solid rgb(197, 195, 195);
+}
+.creategrp:hover {
+  background-color: rgb(192, 192, 192);
+}
+.createGroup {
+  margin: 20px 0 20px 0;
+  width: 90%;
+  margin-left: 20px;
+}
+.createGroup h6 {
+  text-align: left;
+}
+.grpn {
+  padding: 15px;
+  width: 100%;
+}
+.grpd {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+}
+.grpbtn {
+  border-radius: 2px;
+  box-sizing: border-box;
+  border: none;
+  outline: 0;
+  padding: 8px;
+  color: white;
+  background-color: #3baa3b;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
 }
