@@ -27,12 +27,12 @@ class Like {
         const queryStr =
             `INSERT INTO likes (author_email,dislike,post_id) ` +
             `VALUES('${newLike.author_email}','${newLike.dislike}',${newLike.post_id})`
-        console.log("queryStr => \n", queryStr)
+        // console.log("queryStr => \n", queryStr)
 
         let result
         try {
             result = connection.query(queryStr)
-            console.log("query result => " + result)
+            // console.log("query result => " + result)
         } catch (error) {
             return { success: false, message: error }
         }

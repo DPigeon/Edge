@@ -30,13 +30,13 @@ class Post {
                 `INSERT INTO posts (author_email,data,group_id) ` +
                 `VALUES(${db.ObjectToQuery(newPost)})`;
         }
-        console.log("query string => \n" + queryStr);
+        // console.log("query string => \n" + queryStr);
         let result;
         try {
             result = connection.query(queryStr);
-            console.log("query result => " + result);
+            // console.log("query result => " + result);
         } catch (error) {
-            console.log("Error: query result => " + error);
+            // console.log("Error: query result => " + error);
             return { success: false, message: error };
         }
         return {
@@ -49,7 +49,7 @@ class Post {
     static fetchAll({ author_email, group_id, test }) {
         let connection = db.SyncConn;
         if (test) {
-            console.log("connection to test db");
+            // console.log("connection to test db");
             connection = db.TestSynConn;
         }
 
@@ -57,7 +57,7 @@ class Post {
 
         // if group_id is provided, assume that post belongs to a certain group
         if (group_id != null && group_id != undefined && group_id != "") {
-            console.log("group_id =>", group_id);
+            // console.log("group_id =>", group_id);
             // select posts related to a group
             queryStr = `SELECT * FROM posts WHERE group_id=${group_id}`;
         }
@@ -70,16 +70,16 @@ class Post {
         }
         let postList;
         try {
-            console.log("queryStr =>", queryStr);
+            // console.log("queryStr =>", queryStr);
             postList = connection.query(queryStr);
         } catch (error) {
             return { success: false, message: error };
         }
         if (postList) {
-            console.log("postList (from within model)=>\n", postList);
+            // console.log("postList (from within model)=>\n", postList);
             for (let i = 0; i < postList.length; i++) {
                 let post_id = postList[i].id;
-                console.log("post_id =>", post_id);
+                // console.log("post_id =>", post_id);
                 let { commentList } = fetchAllFromPostId({
                     post_id,
                     test,
@@ -98,8 +98,8 @@ class Post {
                 postList[i].commentList = commentList;
                 postList[i].likeList = likeList;
                 postList[i].dislikeList = dislikeList;
-                console.log("commentList =>\n" + commentList);
-                console.log("likeList =>\n" + likeList);
+                // console.log("commentList =>\n" + commentList);
+                // console.log("likeList =>\n" + likeList);
             }
             return { success: true, postList };
         }
@@ -109,15 +109,14 @@ class Post {
 
 // type is either 'comments', 'likes', or 'dislikes'
 const fetchAllFromPostId = ({ post_id, test, type }) => {
-    console.log("Entered fetchAllFromPostId with data:");
-    console.log(`post_id: ${post_id},test: ${test},type: ${type}`);
+    // console.log("Entered fetchAllFromPostId with data:");
+    // console.log(`post_id: ${post_id}, test: ${test}, type: ${type}`);
 
-    let connection = db.SyncConn;
+    let connection = db.SyncConn
     if (test) {
-        console.log("Test connection (from within fetchAllFromPostId)");
+        // console.log("Test connection (from within fetchAllFromPostId)");
         connection = db.TestSynConn;
     }
-    console.log("connection =>", connection);
 
     let queryStr = null;
     if (post_id) {
@@ -126,12 +125,12 @@ const fetchAllFromPostId = ({ post_id, test, type }) => {
         } else {
             queryStr = `SELECT * FROM likes WHERE post_id=${post_id}`;
         }
-        console.log("post_id => " + post_id);
+        // console.log("post_id => " + post_id);
     } else {
         return { success: false, message: "You did not provide a post_id" };
     }
     try {
-        console.log("queryStr =>", queryStr);
+        // console.log("queryStr =>", queryStr);
         if (type === "comments") {
             const commentList = connection.query(queryStr);
             return { success: true, commentList };

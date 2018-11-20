@@ -43,7 +43,7 @@ module.exports.retrieveByUser = (req, res) => {
         if (author_email) { // return all posts from a given person
             const { success, postList } = Post.fetchAll({ author_email, test })
             console.log("success =>", success)
-            console.log("postList (from within controller) => \n" + postList)
+            // console.log("postList (from within controller) => \n" + postList)
             return res.status(200).json({success, postList })
         }
         return res.status(400).json({ error: "Have to provide author_email" })
@@ -55,7 +55,7 @@ module.exports.retrieveAll = (req, res) => {
     if (isAuthorized) {
         const { success, postList } = Post.fetchAll({ test })
         console.log("success =>", success)
-        console.log("postList =>\n", postList)
+        // console.log("postList =>\n", postList)
         if(success){
         return res.status(200).json({ success, postList })
         }

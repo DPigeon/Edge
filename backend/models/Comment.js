@@ -29,14 +29,14 @@ class Comment {
         queryStr =
             `INSERT INTO comments (author_email, data,post_id) ` +
             `VALUES(${db.ObjectToQuery(newComment)})`
-        console.log("queryStr => \n" + queryStr)
+        // console.log("queryStr => \n" + queryStr)
 
         let result
         try {
             result = connection.query(queryStr)
-            console.log("query result => " + result);
+            // console.log("query result => " + result);
         } catch (error) {
-            console.log("Error: query result => " + error)
+            // console.log("Error: query result => " + error)
             return { success: false, message: error }
         }
         return { success: true, message: "Comment successfully saved to database" }
