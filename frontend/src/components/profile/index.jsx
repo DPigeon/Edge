@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Home from "../Home";
-import UploadImages from "./uploadImages";
+import Popup from "reactjs-popup";
 import decode from "jwt-decode";
 import "./styles/profile.css";
+import PostDisplay from "../post/postDisplay";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -14,9 +15,29 @@ export default class Profile extends Component {
       lastName: "",
       email: "",
       password: "",
-      isTeacher: false
+      isTeacher: false,
+      selectedFile: null,
+      items: [],
+      arrayComments: [],
+      arrayLikes: [],
+      arrayDislikes: []
     };
   }
+  fileChangedHandler = event => {
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  uploadHandler = () => {
+    console.log(this.state.selectedFile);
+  };
+
+  fileChangedHandler = event => {
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  uploadHandler = () => {
+    console.log(this.state.selectedFile);
+  };
 
   decodeJwtToken() {
     try {
@@ -73,6 +94,7 @@ export default class Profile extends Component {
     this.props.onSubmit(this.state);
     console.log(this.state);
   };
+
   onEdit = e => {
     this.setState({
       firstName: e.target.value,
@@ -84,92 +106,160 @@ export default class Profile extends Component {
 
   render() {
     const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
+    const modalStyle = {
+      width: "500px"
+    };
     return (
       <React.Fragment>
-        <center>
-          <UploadImages />
-        </center>
-        <br />
         <div className="profilecontainer">
-          <img
-            src={require("./images/banner.jpg")}
-            alt="Welcome"
-            className="banner"
-          />
-          <center>
+          <div className="imagecontainer">
             <img
               src={require("./images/profile.png")}
               alt="profile"
               className="pp"
             />
-          </center>
-          <h3>
-            {this.state.userProfile.firstname} {this.state.userProfile.lastname}
-          </h3>
-          <button className="editpic">Update Info</button>
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-        <h6> This user is a {labelTeacher}</h6>
-        <div className="profile">
-          <form>
-            <p>First Name</p>
-            <input
-              className=""
-              name="firstName"
-              placeholder="First Name"
-              value={this.state.userProfile.firstname}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Last Name</p>
-            <input
-              className=""
-              name="lastName"
-              placeholder="Last Name"
-              value={this.state.userProfile.lastname}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Email</p>
-            <input
-              className=""
-              name="email"
-              placeholder="Email"
-              value={this.state.userProfile.email}
-              onChange={e => this.change(e)}
-            />
-            <br />
-            <br />
-            <p>Password</p>
-            <input
-              className=""
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={this.state.userProfile.password}
-              onChange={e => this.change(e)}
-            />
-            <br />
+            <Popup
+              contentStyle={modalStyle}
+              trigger={<button className="editpic"> Update Info </button>}
+              modal
+              closeOnDocumentClick
+            >
+              <div className="editcontainer">
+                <div className="profile">
+                  <h4>
+                    <b>Edit your profile</b>
+                  </h4>
+                  <br />
 
-            <div className="App">
-              <input
-                type="file"
-                name=""
-                id=""
-                onChange={this.handleselectedFile}
-              />
-              <button onClick={this.handleUpload}>Upload</button>
-              <div> {Math.round(this.state.loaded, 2)} %</div>
-            </div>
-            <br />
-            <button onClick={e => this.onEdit(e)}> Edit </button>
-            <button onClick={e => this.onSubmit(e)}> Save </button>
-          </form>
+                  <form>
+                    <div className="mod">
+                      <b>First Name</b> <br />
+                      <input
+                        name="firstName"
+                        placeholder="First Name"
+                        onChange={e => this.change(e)}
+                      />
+                    </div>
+                    <br />
+                    <br />
+
+                    <div className="mod">
+                      <b> Last Name </b> <br />
+                      <input
+                        className=""
+                        name="lastName"
+                        placeholder="Last Name"
+                        onChange={e => this.change(e)}
+                      />
+                    </div>
+                    <br />
+                    <br />
+
+                    <div className="mod">
+                      <b>Email </b>
+                      <br />
+                      <input
+                        className=""
+                        name="email"
+                        placeholder="Email"
+                        onChange={e => this.change(e)}
+                      />
+                    </div>
+                    <br />
+                    <br />
+
+                    <div className="mod">
+                      <b> Password </b>
+                      <br />
+                      <input
+                        className=""
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        onChange={e => this.change(e)}
+                      />
+                    </div>
+                    <br />
+                    <br />
+                    <div className="imageedit">
+                      <b>Profile Picture</b>
+                      <br />
+                      <input
+                        type="file"
+                        name="profile"
+                        className=""
+                        accept="image/png, image/jpeg"
+                      />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div className="imageedit">
+                      <b>Banner Picture</b>
+                      <br />
+                      <input
+                        type="file"
+                        name="banner"
+                        className="hi"
+                        accept="image/png, image/jpeg"
+                      />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+
+                    <button className="uploadbutton">
+                      Update informations
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </Popup>
+            <h3>
+              {this.state.userProfile.firstname}{" "}
+              {this.state.userProfile.lastname}
+              <br />
+              <h5> {labelTeacher}</h5>
+            </h3>
+            <img
+              src={require("./images/banner.jpg")}
+              alt="Welcome"
+              className="banner"
+            />
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
+
+          <div className="picbox">
+            <h2>Pictures</h2>
+            <img
+              src={require("./images/image1.jpg")}
+              alt="img"
+              className="pic"
+            />
+            <img
+              src={require("./images/image2.jpg")}
+              alt="img"
+              className="pic"
+            />
+            <img
+              src={require("./images/image3.jpg")}
+              alt="img"
+              className="pic"
+            />
+          </div>
+
+          <div className="postspace">
+            <PostDisplay
+              email={this.state.userProfile}
+              posts={this.state.items}
+              comments={this.state.arrayComments}
+              likes={this.state.arrayLikes}
+              dislikes={this.state.arrayDislikes}
+            />
+          </div>
         </div>
       </React.Fragment>
     );

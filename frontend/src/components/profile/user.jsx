@@ -28,7 +28,6 @@ class User extends Component {
       <div className="users">
         This is the profile of {this.props.match.params.email}.
         <Profile />
-        <PostDisplay />
       </div>
     );
   }

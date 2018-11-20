@@ -50,7 +50,7 @@ class Home extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          items: json.postList //posts get into a stack/array
+          items: json.postList.reverse() //posts get into a stack/array
         });
         let array = [];
         let array2 = [];
