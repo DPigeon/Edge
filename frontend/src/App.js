@@ -48,7 +48,7 @@ class App extends Component {
             //"nav-item"
             //"nav-link"
             return (
-                <li className="nael">
+                <li className="navel">
                     <a href="/login">Login</a>
                 </li>
             );
@@ -77,7 +77,9 @@ class App extends Component {
             //"nav-link"
             return (
                 <li className="navel">
-                    <a href="/profile">Profile</a>
+                    <a href={"/user/" + this.state.userProfile.email}>
+                        Profile
+                    </a>
                 </li>
             );
         }
@@ -130,7 +132,7 @@ class App extends Component {
 
     handleLogout = () => {
         localStorage.removeItem("jwt");
-        window.location.reload();
+        window.location.replace("/");
     };
 
     render() {

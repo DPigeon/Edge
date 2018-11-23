@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import decode from "jwt-decode";
+import PostDisplay from "../post/postDisplay";
 import SearchUser from "./searchUser";
 
 //The notification group request are going to be implemented in this page
@@ -12,7 +13,8 @@ class IndividualGroup extends Component {
       members: [],
       groupInfo: [],
       requests: [],
-      groupId: ""
+      groupId: "",
+      groupPosts: []
     };
   }
 
@@ -97,7 +99,7 @@ class IndividualGroup extends Component {
         });
       return (
         <div>
-          <h2>Group Requests</h2>
+          <h2>Group Requests ({this.state.requests.length})</h2>
           {this.state.requests.map(item => (
             <div key={item.id}>
               <ul>
@@ -176,7 +178,7 @@ class IndividualGroup extends Component {
         </div>
         <div className="GroupMembers">
           <center>
-            <h2>Members of the group:</h2>
+            <h2>{this.state.members.length} member(s) in this group:</h2>
             <ul>
               {this.state.members.map(item2 => (
                 <div className="Group">
@@ -192,6 +194,12 @@ class IndividualGroup extends Component {
               ))}
             </ul>
           </center>
+        </div>
+        <div className="postspace">
+          <PostDisplay
+            email={this.state.userProfile}
+            posts={this.state.groupPosts}
+          />
         </div>
       </React.Fragment>
     );

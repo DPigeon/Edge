@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Messager from "./messager";
+import decode from "jwt-decode";
 import "./styles/messages.css";
 
 class ThreadList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userProfile: [],
       threads: [],
       isLoaded: false,
       currentId: "",
@@ -24,6 +26,10 @@ class ThreadList extends Component {
 
   componentDidMount() {
     let jwt = localStorage.getItem("jwt");
+    let profile = decode(jwt); //decodes the jwt
+    this.setState({
+      userProfile: profile
+    });
     if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
@@ -92,7 +98,7 @@ class ThreadList extends Component {
       return (
         <div className="col2">
           <div className="ThreadList">
-            {threads.map(item => (
+            {[...threads].reverse().map(item => (
               <div className="containermessage">
                 <h10>
                   <div className="boxmessage" key={item.id}>
@@ -136,14 +142,9 @@ class ThreadList extends Component {
 
   showMessagesOrNewMessageColumn() {
     var { currentId, from, to, name, clickedThread } = this.state;
-    if (this.state.clickedThread) {
+    if (clickedThread) {
       return (
         <div className="col3">
-          <ul className="rightsend">
-            <li>
-              <a href="/">Send</a>
-            </li>
-          </ul>
           <Messager id={currentId} sender={from} receiver={to} name={name} />
         </div>
       );
@@ -152,40 +153,34 @@ class ThreadList extends Component {
         <div className="col3">
           <ul className="rightsend" />
           <h1>Send a new message</h1>
-
-          <input
-            placeHolder="Title"
-            value={this.state.title}
-            onChange={this.handleTitleChange}
-          />
+          Message Title
+          <br />
+          <input value={this.state.title} onChange={this.handleTitleChange} />
           <br />
           <br />
+          From
+          <br />
           <input
-            placeHolder="From"
-            value={this.state.fromMsg}
+            value={this.state.userProfile.email}
             onChange={this.handleFromChange}
           />
           <br />
           <br />
-          <input
-            placeHolder="To"
-            value={this.state.toMsg}
-            onChange={this.handleToChange}
-          />
+          To
+          <br />
+          <input value={this.state.toMsg} onChange={this.handleToChange} />
           <br />
           <br />
-          <input
-            placeHolder="Message"
-            value={this.state.msg1}
-            onChange={this.handleMsgChange}
-          />
+          Type in a message...
+          <br />
+          <input value={this.state.msg1} onChange={this.handleMsgChange} />
           <br />
           <br />
           <button
             className=" btn-success"
             onClick={() =>
               this.createMessage(
-                this.state.fromMsg,
+                this.userProfile,
                 this.state.toMsg,
                 this.state.title,
                 this.state.msg1
@@ -229,34 +224,37 @@ class ThreadList extends Component {
   };
 
   createMessage = (from, receiver, name, msg) => {
-    fetch(`http://localhost:8000/threads`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sender: from,
-        receiver: receiver,
-        name: name
-      })
-    }).then(res => {
-      res
-        .json()
-        .then(data => ({
-          aConversation: data
-        }))
-        .then(res => {
-          this.createFirstMessageInConversation(
-            res.aConversation.id,
-            from,
-            receiver,
-            msg
-          );
-        });
-    });
-
-    //AFTER, CREATE A NEW REQUEST TO ADD THE FIRST MESSAGE IN CONVERSATION MESSAGE BETWEEN THE 2 USERS
+    if (msg !== "" && receiver !== "" && name !== "") {
+      // if the fields are not empty, send message
+      fetch(`http://localhost:8000/threads`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          sender: from,
+          receiver: receiver,
+          name: name
+        })
+      }).then(res => {
+        res
+          .json()
+          .then(data => ({
+            aConversation: data
+          }))
+          .then(res => {
+            this.createFirstMessageInConversation(
+              res.aConversation.id,
+              from,
+              receiver,
+              msg
+            );
+          });
+      });
+    } else {
+      alert("Fields must not be empty !");
+    }
   };
 
   createFirstMessageInConversation(threadId, from, receiver, msg) {

@@ -107,86 +107,85 @@ class GroupList extends Component {
       return (
         <div>
           <center>
-            <a href={"/creategroup"} />
             <br />
-          </center>
-          <br />
-          <Popup
-            contentStyle={modalStyle}
-            trigger={
-              <button className="creategrp">
-                <img
-                  src={require("./styles/add.png")}
-                  alt="add group"
-                  className="addgrp"
-                />
-              </button>
-            }
-            modal
-            closeOnDocumentClick
-          >
-            <CreateGroup />
-          </Popup>
+            <br />
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/add.png")}
+                    alt="add group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <CreateGroup />
+            </Popup>
 
-          <Popup
-            contentStyle={modalStyle}
-            trigger={
-              <button className="creategrp">
-                <img
-                  src={require("./styles/search.png")}
-                  alt="search group"
-                  className="addgrp"
-                />
-              </button>
-            }
-            modal
-            closeOnDocumentClick
-          >
-            <SearchGroup />
-          </Popup>
-          <Popup
-            contentStyle={modalStyle}
-            trigger={
-              <button className="creategrp">
-                <img
-                  src={require("./styles/list.png")}
-                  alt="search group"
-                  className="addgrp"
-                />
-              </button>
-            }
-            modal
-            closeOnDocumentClick
-          >
-            <div>
-              <center>
-                {groupList.map(item => (
-                  <div key={item.id}>
-                    <ul>
-                      <li>
-                        <a href={"/group/" + item.id}>
-                          Group Name: {item.name}
-                          <br />
-                        </a>
-                        <button
-                          className="btn-success"
-                          onClick={() =>
-                            this.joinGroup(
-                              item.id,
-                              this.state.userProfile.email,
-                              item.name
-                            )
-                          }
-                        >
-                          Join Group
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                ))}
-              </center>
-            </div>
-          </Popup>
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/search.png")}
+                    alt="search group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <SearchGroup />
+            </Popup>
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/list.png")}
+                    alt="search group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <div>
+                <center>
+                  {groupList.map(item => (
+                    <div key={item.id}>
+                      <ul>
+                        <li>
+                          <a href={"/group/" + item.id}>
+                            Group Name: {item.name}
+                            <br />
+                          </a>
+                          <button
+                            className="btn-success"
+                            onClick={() =>
+                              this.joinGroup(
+                                item.id,
+                                this.state.userProfile.email,
+                                item.name
+                              )
+                            }
+                          >
+                            Join Group
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  ))}
+                </center>
+              </div>
+            </Popup>
+          </center>
         </div>
       );
     }

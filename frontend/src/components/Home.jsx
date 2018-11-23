@@ -105,6 +105,24 @@ class Home extends Component {
   }
 
   showLeftColumn() {
+    var date = new Date().getDate(); //gets the date
+    var month = new Date().getMonth(); //gets the month
+    var year = new Date().getFullYear(); //gets the year
+    const monthName = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
     return (
       <div className="column">
         <div className="card">
@@ -136,9 +154,13 @@ class Home extends Component {
           </center>
           <div className="container">
             <h2>Calendar</h2>
-            <p className="title">2018-2019</p>
-            <p>Some text that describes</p>
-            <p>Academic calendar</p>
+            <p className="title">
+              {year}-{year + 1}
+            </p>
+            <p>
+              {monthName[month]} {date}
+            </p>
+            <p>Academic Calendar</p>
           </div>
         </div>
       </div>
