@@ -3,7 +3,9 @@ import "./style/comment.css";
 
 const Comments = props => (
   <div className="commentcard">
-    <h8 className="commentname">Comment by {localStorage.getItem("email")}</h8>
+    <h8 className="commentname">
+      Comment by <a href={"/user/" + this.props.by}>{this.props.by}</a>
+    </h8>
     <br />
 
     {props.commentBody}
