@@ -145,7 +145,12 @@ class ThreadList extends Component {
     if (clickedThread) {
       return (
         <div className="col3">
-          <Messager id={currentId} sender={from} receiver={to} name={name} />
+          <Messager
+            id={currentId}
+            sender={this.state.userProfile.email}
+            receiver={to}
+            name={name}
+          />
         </div>
       );
     } else {
@@ -180,7 +185,7 @@ class ThreadList extends Component {
             className=" btn-success"
             onClick={() =>
               this.createMessage(
-                this.userProfile,
+                this.state.userProfile.email,
                 this.state.toMsg,
                 this.state.title,
                 this.state.msg1
@@ -224,6 +229,7 @@ class ThreadList extends Component {
   };
 
   createMessage = (from, receiver, name, msg) => {
+    console.log(from, receiver, name, msg);
     if (msg !== "" && receiver !== "" && name !== "") {
       // if the fields are not empty, send message
       fetch(`http://localhost:8000/threads`, {
@@ -285,7 +291,7 @@ class ThreadList extends Component {
         });
     });
     alert("You just sent a new message to " + receiver + " !");
-    window.location.reload();
+    //window.location.reload();
   }
 
   sendNotification(email, threadId) {

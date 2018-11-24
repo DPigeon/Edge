@@ -64,7 +64,7 @@ class Notify extends Component {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
     //this is a simple notification example with messages, wall posts and group request
     return (
-      <span className="navbar-text float-xs-right ml-auto">
+      <div className="navbar-text float-xs-right ml-auto">
         <div className="dropdown">
           <button className="btn btn-success dropdown-toggle dropbtn">
             {this.state.items.length}
@@ -76,7 +76,7 @@ class Notify extends Component {
                 )
                 <br />
                 <button
-                  className="btn btn-success"
+                  className="btn btn-danger"
                   onClick={() =>
                     this.dismissNotification(item.id, item.user_id)
                   }
@@ -87,7 +87,7 @@ class Notify extends Component {
             </div>
           ))}
         </div>
-      </span>
+      </div>
     );
   }
 }

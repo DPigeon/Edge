@@ -14,9 +14,11 @@ body {
   width: 100%;
   z-index: 10;
 }
+
 .homez {
   float: left;
 }
+
 .homez a {
   padding: 8px 15px 8px 15px;
 }
@@ -46,15 +48,18 @@ ul.topnav li.right {
 }
 
 @media screen and (max-width: 600px) {
+
   ul.topnav li.right,
   ul.topnav li {
     float: none;
   }
 }
+
 .logooo {
   width: 100%;
   color: rgb(60, 194, 55);
 }
+
 .logoo {
   width: 600px;
   height: 160px;
@@ -77,6 +82,7 @@ ul.topnav li.right {
     transform: rotate(360deg);
   }
 }
+
 .out {
   border-radius: 4px;
   box-sizing: border-box;
@@ -92,6 +98,7 @@ ul.topnav li.right {
   margin: 10px 15px 0 0;
   float: right;
 }
+
 .out:hover {
   background-color: #fb052e;
 }
