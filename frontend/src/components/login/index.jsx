@@ -70,30 +70,30 @@ export default class Login extends Component {
       <div className="modal-login">
         <h1>Login</h1>
         <form id="FormLogin" onSubmit={this.handleAccountForm} noValidate>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="email"
               value={this.state.email}
               onChange={this.handleEmailChange}
-              class="form-control"
+              className="form-control"
               placeholder="Email"
             />
             <input
               type="password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
-              class="form-control"
+              className="form-control"
               placeholder="Password"
             />
           </div>
-          <div class="form-group form-check">
+          <div className="form-group form-check">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value=""
               id="CheckBoxTeacher"
             />
-            <label class="form-check-label" htmlFor="CheckBoxTeacher">
+            <label className="form-check-label" htmlFor="CheckBoxTeacher">
               Remember Me
             </label>
           </div>
