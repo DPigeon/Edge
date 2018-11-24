@@ -22,27 +22,31 @@ class CommentDisplay extends Component {
   setCommentsById(comments, postId) {
     var commentsById = [];
     for (var i = 0; i < comments.length; i++) {
-      if (postId === comments[i].post_id) commentsById[i] = comments[i];
+      if (postId === comments[i].post_id) {
+        this.setState({ arrayOfComments: comments[i] });
+        //commentsById[i] = comments[i];
+      }
     }
     //this.setState({ arrayOfComments: commentsById });
   }
 
   showComments(postId) {
     this.setCommentsById(this.props.comments, postId);
-    console.log(this.state.arrayOfComments);
-    return (
-      <div>
-        {this.state.arrayOfComments.map((item, idx) => {
-          return (
-            <Comment
-              key={item.post_id}
-              commentBody={item.data}
-              by={item.author_email}
-            />
-          );
-        })}
-      </div>
-    );
+    if (this.state.arrayOfComments !== null) {
+      return (
+        <div>
+          {this.state.arrayOfComments.map((item, idx) => {
+            return (
+              <Comment
+                key={item.post_id}
+                commentBody={item.data}
+                by={item.author_email}
+              />
+            );
+          })}
+        </div>
+      );
+    }
   }
 
   render() {
