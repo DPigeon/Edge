@@ -158,7 +158,7 @@ class ThreadList extends Component {
           <input value={this.state.title} onChange={this.handleTitleChange} />
           <br />
           <br />
-          From
+          From:
           <br />
           <input
             value={this.state.userProfile.email}
@@ -166,7 +166,7 @@ class ThreadList extends Component {
           />
           <br />
           <br />
-          To
+          To:
           <br />
           <input value={this.state.toMsg} onChange={this.handleToChange} />
           <br />
