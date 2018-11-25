@@ -50,14 +50,14 @@ class Thread {
         return { success: true, thread: thread };
     }
 
-    static getAll() {
+    static getAll(userId) {
 
         let threads = null;
 
         console.log('Getting all threads');
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM threads`);
+            const queryResult = db.SyncConn.query(`SELECT * FROM threads WHERE sender = '${userId}' OR receiver = '${userId}'`);
             threads = queryResult;
         } catch (error) {
             console.log('Error : ', error);

@@ -151,16 +151,15 @@ module.exports.determineTestAndAuth = (req) => {
         test = true
     }
 
+    const jwt = req.get('jwt');
     const {
-        jwt
-    } = req.header
-    const {
-        isAuthorized
-    } = Auth.AuthorizeUser(jwt)
+        isAuthorized,
+        token
+    } = Auth.AuthorizeUser(jwt);
     return {
         test,
         isAuthorized,
-        jwt
+        token
     }
 }
 
