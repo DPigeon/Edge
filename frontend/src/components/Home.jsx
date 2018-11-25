@@ -136,7 +136,6 @@ class Home extends Component {
               {this.state.userProfile.lastname}
             </h2>
             <p className="title">Parent A</p>
-            <p>Successfully decoded the JWT Token</p>
             <p>{this.state.userProfile.email}</p>
           </div>
         </div>
