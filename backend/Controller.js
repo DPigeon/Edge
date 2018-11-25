@@ -74,6 +74,8 @@ app.post("/login", (req, res) => {
 
 const MessageController = require("./controllers/Message");
 
+app.get("/users", UserController.getAll);
+
 app.post("/messages", MessageController.create);
 app.get("/messages/:messageId", MessageController.getById);
 //app.put('/messages/:messageId', messageController.updateById); NOT NEEDED FOR NOW
@@ -157,7 +159,8 @@ module.exports.determineTestAndAuth = (req) => {
     } = Auth.AuthorizeUser(jwt)
     return {
         test,
-        isAuthorized
+        isAuthorized,
+        jwt
     }
 }
 

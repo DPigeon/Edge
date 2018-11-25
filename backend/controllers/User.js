@@ -1,4 +1,4 @@
-const User = require('./User');
+const User = require('../models/User');
 const db = require('../db')
 
 
@@ -49,6 +49,17 @@ class UserController {
             isTeacher = 1
         }
         return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${isTeacher}`
+    }
+
+    static getAll(req, res) {
+
+        let query = User.getAll();
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json(query.users);
     }
 
 }
