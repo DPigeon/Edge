@@ -132,8 +132,10 @@ app.post("/notifications/:notificationId", NotificationController.dismissNotific
 
 const CommentController = require('./controllers/Comment')
 
+app.get("/comments",CommentController.retrieve)
 app.post('/comments', CommentController.create)
 
+app.get("/test/comments",CommentController.retrieve)
 app.post('/test/comments', CommentController.create)
 
 const LikeController = require('./controllers/Like')

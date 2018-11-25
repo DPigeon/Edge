@@ -21,3 +21,29 @@ module.exports.create = (req, res) => {
     }
     return res.status(403).json({ success: false, message: 'UnAuthorized' })
 }
+
+module.exports.retrieve = (req, res) => {
+    console.log("GET request at " + req.originalUrl)
+    console.log("Entering CommentController.retrieve handler")
+    const { test, isAuthorized } = BaseController.determineTestAndAuth(req)
+    console.log("test =>", test)
+    console.log("isAuthorized =>", isAuthorized)
+    let status, success, message, commentList
+
+    if (isAuthorized) {
+        commentList = Comment.fetch({ test })
+        status = 400
+        success = false
+        message = "could not fetch comments"
+        if (commentList) {
+            status = 200
+            success = true
+            message = undefined
+        }
+    } else {
+        status = 403
+        success = false
+        message = "unauthorized"
+    }
+    return res.status(status).json({ success, message, commentList })
+}

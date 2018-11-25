@@ -42,5 +42,29 @@ class Comment {
         return { success: true, message: "Comment successfully saved to database" }
     }
 
+    static fetch({ post_id, test }) {
+        let connection = db.SyncConn;
+        if (test) {
+            // console.log("connection to test db");
+            connection = db.TestSynConn;
+        }
+
+        let queryStr = `SELECT * from comments`
+
+        if (post_id) {
+            queryStr += ` WHERE post_id=${post_id}`
+        }
+
+        let commentList = null
+
+        try{
+        commentList = connection.query(queryStr)
+
+        }catch(error){
+            console.log(error)
+            return {status:false, message:error}
+        }
+        return {success:true, commentList}
+    }
 }
 module.exports = Comment
