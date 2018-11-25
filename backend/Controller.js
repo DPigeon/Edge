@@ -144,6 +144,10 @@ app.post('/likes', LikeController.create)
 
 app.post('/test/likes', LikeController.create)
 
+const RecoverPasswordController = require("./controllers/RecoverPassword");
+
+app.post('/sendRecoverEmail', RecoverPasswordController.sendRecoverEmail);
+
 
 module.exports.determineTestAndAuth = (req) => {
     let test = false
