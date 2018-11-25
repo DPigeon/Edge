@@ -3,7 +3,7 @@ const BaseController = require('../Controller')
 
 
 module.exports.create = (req, res) => {
-    const {test,isAuthorized} = BaseController.determineTestAndAuth(req)
+    const { test, isAuthorized } = BaseController.determineTestAndAuth(req)
     // const { jwt } = req.header
     // const { isAuthorized } = Auth.AuthorizeUser(jwt)
     if (isAuthorized) {
@@ -33,8 +33,8 @@ module.exports.create = (req, res) => {
 
 module.exports.retrieveByUser = (req, res) => {
     const { test, isAuthorized } = BaseController.determineTestAndAuth(req)
-    console.log("test =>",test)
-    console.log ("isAuthorized =>",isAuthorized)
+    console.log("test =>", test)
+    console.log("isAuthorized =>", isAuthorized)
     if (isAuthorized) {
 
         author_email = req.params.author_email
@@ -44,7 +44,7 @@ module.exports.retrieveByUser = (req, res) => {
             const { success, postList } = Post.fetchAll({ author_email, test })
             console.log("success =>", success)
             console.log("postList (from within controller) => \n" + postList)
-            return res.status(200).json({success, postList })
+            return res.status(200).json({ success, postList })
         }
         return res.status(400).json({ error: "Have to provide author_email" })
 
@@ -56,12 +56,12 @@ module.exports.retrieveAll = (req, res) => {
         const { success, postList } = Post.fetchAll({ test })
         console.log("success =>", success)
         console.log("postList =>\n", postList)
-        if(success){
-        return res.status(200).json({ success, postList })
+        if (success) {
+            return res.status(200).json({ success, postList })
         }
-        return res.status(500).json({success, message:"Unable to retrieve posts"})
+        return res.status(500).json({ success, message: "Unable to retrieve posts", postList })
     }
-    return res.status(403).json({success:false,message:"UnAuthorized"})
+    return res.status(403).json({ success: false, message: "UnAuthorized", postList: [] })
 
 }
 
