@@ -8,11 +8,13 @@
   left: 0;
   font-size: 1vw;
 }
+
 .imagecontainer {
   position: relative;
   width: 100%;
   height: auto;
 }
+
 .banner {
   width: 100%;
   max-height: 350px;
@@ -46,33 +48,45 @@
   height: auto;
   z-index: 2;
 }
+
 .imagecontainer h5 {
   font-size: 1.5vw;
 }
+
+.imageconter h6 {
+  font-size: 1.2vw;
+}
+
 .imagecontainer h3 {
   font-size: 2vw;
   position: absolute;
   left: 30%;
   top: 105%;
 }
+
 .edit {
   color: blue;
 }
+
 .editcontainer {
   margin: 15px;
 }
+
 .mod {
   text-align: left;
   margin-top: 0;
 }
+
 .mod input {
   float: left;
   width: 100%;
 }
+
 .imageedit {
   float: left;
   text-align: left;
 }
+
 .uploadbutton {
   display: block;
   width: 100%;
@@ -84,6 +98,7 @@
   cursor: pointer;
   text-align: center;
 }
+
 .uploadbutton:hover {
   background-color: rgb(56, 56, 56);
 }
@@ -95,6 +110,7 @@
 
   display: inline-block;
 }
+
 .picbox {
   background-color: white;
   padding: 15px 15px 15px 15px;
@@ -102,6 +118,7 @@
   margin: 35px 15px 20px 15px;
   width: 98%;
 }
+
 .postspace {
   background-color: white;
   padding: 15px 15px 15px 15px;
@@ -109,6 +126,7 @@
   margin: 15px 20px 0 15px;
   width: 98%;
 }
+
 input[type="file"],
 input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;

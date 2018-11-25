@@ -74,6 +74,8 @@ app.post("/login", (req, res) => {
 
 const MessageController = require("./controllers/Message");
 
+app.get("/users", UserController.getAll);
+
 app.post("/messages", MessageController.create);
 app.get("/messages/:messageId", MessageController.getById);
 //app.put('/messages/:messageId', messageController.updateById); NOT NEEDED FOR NOW
@@ -124,11 +126,11 @@ app.get("/test/posts/:author_email", PostController.retrieveByUser);
 const NotificationController = require("./controllers/Notification");
 
 // create notification
-app.post("/notifications", NotificationController.create); //works
+app.post("/notifications", NotificationController.create);
 // gets all the notifications for a user id
-app.get("/notifications/:userId", NotificationController.getAllNotifications); //works
+app.get("/notifications/:userId", NotificationController.getAllNotifications);
 // deletes a notification
-app.post("/notifications/:notificationId", NotificationController.dismissNotification); //works
+app.post("/notifications/:notificationId", NotificationController.dismissNotification);
 
 const CommentController = require('./controllers/Comment')
 
@@ -157,7 +159,8 @@ module.exports.determineTestAndAuth = (req) => {
     } = Auth.AuthorizeUser(jwt)
     return {
         test,
-        isAuthorized
+        isAuthorized,
+        jwt
     }
 }
 

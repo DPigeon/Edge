@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Profile from "./index";
 import PostDisplay from "../post/postDisplay";
 
+//others profile page
 class User extends Component {
   //fetches any users from database
   state = {

@@ -5,11 +5,13 @@ import decode from "jwt-decode";
 import "./styles/profile.css";
 import PostDisplay from "../post/postDisplay";
 
+//your profile page
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.infos = new Home();
     this.state = {
+      users: [],
       userProfile: [],
       firstName: "",
       lastName: "",
@@ -23,6 +25,31 @@ export default class Profile extends Component {
       arrayDislikes: []
     };
   }
+
+  componentDidMount() {
+    const { emailName } = this.props.match.params; //gets the username from the url
+    this.setState({
+      email: emailName
+    });
+    let jwt = localStorage.getItem("jwt");
+    if (jwt === undefined || jwt === null) {
+      //if the user not logged in
+      this.props.history.replace("/login"); //go login
+    } else {
+      // if is logged in, get user profile
+      this.decodeJwtToken();
+    }
+    //To finish profiles, we need the backend now to GET /signup or /users or whatever to be able to show any profiles
+
+    /*fetch(`http://localhost:8000/user/${this.props.match.params.email}`) 
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          user: json //stores the user info of that page url into an array to get the info easily
+        });
+      });*/
+  }
+
   fileChangedHandler = event => {
     this.setState({ selectedFile: event.target.files[0] });
   };
@@ -73,17 +100,6 @@ export default class Profile extends Component {
       });
   }
 
-  componentDidMount() {
-    let jwt = localStorage.getItem("jwt");
-    if (jwt === undefined || jwt === null) {
-      //if the user not logged in
-      this.props.history.replace("/login"); //go login
-    } else {
-      // if is logged in, get user profile
-      this.decodeJwtToken();
-    }
-  }
-
   change = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -104,6 +120,26 @@ export default class Profile extends Component {
     });
   };
 
+  showUpdateInfoButton() {
+    if (this.state.userProfile.email === this.props.match.params.email) {
+      // if the email on jwt matches the email on the user/url
+      return <button className="editpic"> Update Info </button>;
+    } else {
+    }
+  }
+
+  //to use the following above, you do {findTheUserToShow().email, .lastname, .firstname, etc}
+  findTheUserToShow() {
+    //Finds the user profile (array) on the database and outputs an array of the user to show
+    var newArray = [];
+    for (var i = 0; i < this.state.users.length; i++) {
+      if (this.props.match.params.email === this.state.users[i].email) {
+        newArray = this.state.user[i];
+      }
+    }
+    return newArray;
+  }
+
   render() {
     const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
     const modalStyle = {
@@ -120,7 +156,7 @@ export default class Profile extends Component {
             />
             <Popup
               contentStyle={modalStyle}
-              trigger={<button className="editpic"> Update Info </button>}
+              trigger={this.showUpdateInfoButton()}
               modal
               closeOnDocumentClick
             >
@@ -220,6 +256,12 @@ export default class Profile extends Component {
               {this.state.userProfile.lastname}
               <br />
               <h5> {labelTeacher}</h5>
+              <h6>
+                <a href={"/threads?toMsg=" + this.props.match.params.email}>
+                  {this.props.match.params.email}
+                </a>
+              </h6>
+              <br />
             </h3>
             <img
               src={require("./images/banner.jpg")}

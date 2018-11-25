@@ -4,6 +4,7 @@
   width: 100%;
   min-width: 600px;
 }
+
 .like {
   float: left;
   border-radius: 4px;
@@ -19,6 +20,7 @@
   cursor: pointer;
   width: 10%;
 }
+
 .dislike {
   float: left;
   border-radius: 4px;
@@ -34,6 +36,7 @@
   cursor: pointer;
   width: 10%;
 }
+
 .likecount {
   float: left;
   border-radius: 4px;
@@ -48,6 +51,12 @@
   text-align: center;
   width: 5%;
 }
+
+.likecount:hover {
+  background-color: #012866;
+  cursor: pointer;
+}
+
 .dislikecount {
   float: left;
   box-sizing: border-box;
@@ -59,6 +68,10 @@
   color: white;
   background-color: #db1414;
   text-align: center;
-
   width: 5%;
+}
+
+.dislikecount:hover {
+  background-color: #7c0404;
+  cursor: pointer;
 }
