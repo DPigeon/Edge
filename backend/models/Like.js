@@ -36,10 +36,35 @@ class Like {
         } catch (error) {
             return { success: false, message: error }
         }
-        if (newLike.dislike){
-        return { success: true, message: "Dislike was successfully saved to database" }
+        if (newLike.dislike) {
+            return { success: true, message: "Dislike was successfully saved to database" }
         }
         return { success: true, message: "Like was successfully saved to database" }
+    }
+
+    static fetch({ post_id, test }) {
+        let connection = db.SyncConn
+        if (test) {
+            // console.log("connection to test db");
+            connection = db.TestSynConn
+        }
+
+        let queryStr = `SELECT * FROM likes`
+
+        if (post_id) {
+            queryStr += ` WHERE post_id=${post_id}`
+        }
+
+        let likeList
+
+        try {
+            likeList = connection.query(queryStr)
+
+        }catch (error){
+            console.log(error)
+            return {status:false,message:error}
+        }
+        return {success:true,likeList}
     }
 
 }

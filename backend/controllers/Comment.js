@@ -31,19 +31,13 @@ module.exports.retrieve = (req, res) => {
     let status, success, message, commentList
 
     if (isAuthorized) {
-        commentList = Comment.fetch({ test })
-        status = 400
-        success = false
-        message = "could not fetch comments"
-        if (commentList) {
-            status = 200
-            success = true
-            message = undefined
+        let { success, message, commentList } = Comment.fetch({ test })
+
+        if (success) {
+            return res.status(200).json({ success, message, commentList })
         }
-    } else {
-        status = 403
-        success = false
-        message = "unauthorized"
+        return res.status(400).json({success,message})
     }
-    return res.status(status).json({ success, message, commentList })
+    return res.status(403).json({ success, message: "unauthorized" })
+
 }

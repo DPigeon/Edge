@@ -49,7 +49,7 @@ class Comment {
             connection = db.TestSynConn;
         }
 
-        let queryStr = `SELECT * from comments`
+        let queryStr = `SELECT * FROM comments`
 
         if (post_id) {
             queryStr += ` WHERE post_id=${post_id}`
