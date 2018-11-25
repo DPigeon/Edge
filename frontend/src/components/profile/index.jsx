@@ -260,6 +260,7 @@ export default class Profile extends Component {
               dislikes={this.state.arrayDislikes}
             />
           </div>
+          <br />
         </div>
       </React.Fragment>
     );
