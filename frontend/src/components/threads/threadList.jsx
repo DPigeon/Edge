@@ -35,7 +35,12 @@ class ThreadList extends Component {
       this.props.history.replace("/login"); //go login
     }
     fetch("http://localhost:8000/threads", {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
     })
       .then(res => res.json())
       .then(json => {
