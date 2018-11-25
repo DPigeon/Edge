@@ -150,6 +150,7 @@ class ThreadList extends Component {
             sender={this.state.userProfile.email}
             receiver={to}
             name={name}
+            //updateOnReply={this.handleClickItem(currentId, from, to, )}
           />
         </div>
       );
@@ -161,14 +162,6 @@ class ThreadList extends Component {
           Message Title
           <br />
           <input value={this.state.title} onChange={this.handleTitleChange} />
-          <br />
-          <br />
-          From:
-          <br />
-          <input
-            value={this.state.userProfile.email}
-            onChange={this.handleFromChange}
-          />
           <br />
           <br />
           To:

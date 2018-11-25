@@ -12,7 +12,7 @@ class SearchUser extends Component {
 
   componentDidMount() {
     //signup ---> user on 8000 (David's notes)
-    fetch("http://localhost:3001/signup") //gets all the user into an array to use
+    fetch("http://localhost:8000/users") //gets all the user into an array to use
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -75,6 +75,7 @@ class SearchUser extends Component {
   };
 
   getList() {
+    //search by first name
     if (this.state.search !== "") {
       let filteredSearch = this.state.users.filter(user => {
         //if you cannot find this search within it, do not return it
@@ -93,14 +94,13 @@ class SearchUser extends Component {
                     </a>
                   </div>
                 </h5>
-
                 <div className="isTeacher">
                   {this.getTeacher(item.isTeacher)}
                 </div>
                 <button
                   className="btn btn-success"
                   onClick={() =>
-                    this.addThisMemberToTheGroup(item.firstname, item.id)
+                    this.addThisMemberToTheGroup(item.email, item.id)
                   }
                 >
                   Add Member
