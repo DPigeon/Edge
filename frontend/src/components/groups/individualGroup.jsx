@@ -170,7 +170,20 @@ class IndividualGroup extends Component {
     return membersObject;
   }
 
+  showSearch(email, isAdmin) {
+    if (this.isTheCurrentUserAnAdmin(email, isAdmin) === true) {
+      return (
+        <div>
+          <h3>Search users to add to the group...</h3>
+          <SearchUser />
+          <br />
+        </div>
+      );
+    }
+  }
+
   render() {
+    //requests sends a network request every 1 second on the frontend. Will fix this later
     return (
       <React.Fragment>
         <div className="GroupRequests">
@@ -178,6 +191,7 @@ class IndividualGroup extends Component {
         </div>
         <div className="GroupMembers">
           <center>
+            {this.showSearch(this.state.userProfile.email, true)}
             <h2>{this.state.members.length} member(s) in this group:</h2>
             <ul>
               {this.state.members.map(item2 => (

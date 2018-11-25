@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./styles/messages.css";
+import ThreadList from "./threadList";
 import Notify from "../notifications/notify";
 
 class Reply extends Component {
@@ -47,7 +48,7 @@ class Reply extends Component {
           ); //Makes a POST request to the database to send new notification to a user with proper threadid
         });
     });
-    window.location.reload();
+    //Make it so replyOnUpdate works here
   };
 
   sendNotification(email, threadId) {

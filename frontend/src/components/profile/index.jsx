@@ -41,13 +41,13 @@ export default class Profile extends Component {
     }
     //To finish profiles, we need the backend now to GET /signup or /users or whatever to be able to show any profiles
 
-    /*fetch(`http://localhost:8000/user/${this.props.match.params.email}`) 
+    fetch(`http://localhost:8000/users`)
       .then(res => res.json())
       .then(json => {
         this.setState({
-          user: json //stores the user info of that page url into an array to get the info easily
+          users: json //stores the user info of that page url into an array to get the info easily
         });
-      });*/
+      });
   }
 
   fileChangedHandler = event => {
@@ -89,15 +89,14 @@ export default class Profile extends Component {
   }
 
   getTeacher() {
-    if (this.state.userProfile.is_teacher === 0)
+    var labelTeacher = "";
+    if (this.findTheUserToShow().is_teacher === 0) {
       //if it is not a teacher
-      this.setState({
-        isTeacher: false
-      });
-    else
-      this.setState({
-        isTeacher: true
-      });
+      labelTeacher = "Parent";
+    } else {
+      labelTeacher = "Teacher";
+    }
+    return labelTeacher;
   }
 
   change = e => {
@@ -134,17 +133,17 @@ export default class Profile extends Component {
     var newArray = [];
     for (var i = 0; i < this.state.users.length; i++) {
       if (this.props.match.params.email === this.state.users[i].email) {
-        newArray = this.state.user[i];
+        newArray = this.state.users[i];
       }
     }
     return newArray;
   }
 
   render() {
-    const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
     const modalStyle = {
       width: "500px"
     };
+    //console.log(this.findTheUserToShow());
     return (
       <React.Fragment>
         <div className="profilecontainer">
@@ -252,10 +251,10 @@ export default class Profile extends Component {
               </div>
             </Popup>
             <h3>
-              {this.state.userProfile.firstname}{" "}
-              {this.state.userProfile.lastname}
+              {this.findTheUserToShow().firstname}{" "}
+              {this.findTheUserToShow().lastname}
               <br />
-              <h5> {labelTeacher}</h5>
+              <h5> {this.getTeacher()}</h5>
               <h6>
                 <a href={"/threads?toMsg=" + this.props.match.params.email}>
                   {this.props.match.params.email}

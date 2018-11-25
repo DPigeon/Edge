@@ -46,7 +46,14 @@ class Home extends Component {
       // if is logged in, get user profile
       this.decodeJwtToken();
     }
-    fetch("http://localhost:8000/posts")
+    fetch("http://localhost:8000/posts", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({

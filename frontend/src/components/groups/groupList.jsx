@@ -165,6 +165,7 @@ class GroupList extends Component {
                           <a href={"/group/" + item.id}>
                             Group Name: {item.name}
                             <br />
+                            <u>Description:</u> {item.description}
                           </a>
                           <button
                             className="btn-success"
