@@ -68,3 +68,6 @@ fabric.properties
 
 # Ignore node_modules for npm projects
 node_modules/
+
+#ignore image folder for uploading images
+images/
