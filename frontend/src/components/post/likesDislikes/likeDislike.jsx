@@ -26,7 +26,8 @@ class LikeDislike extends Component {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         author_email: email,
@@ -45,7 +46,8 @@ class LikeDislike extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           author_email: email,
@@ -67,7 +69,8 @@ class LikeDislike extends Component {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         author_email: email,
@@ -85,7 +88,8 @@ class LikeDislike extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           author_email: email,

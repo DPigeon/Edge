@@ -23,7 +23,12 @@ class Notify extends Component {
       this.props.history.replace("/login"); //go login
     } else {
       fetch(`http://localhost:8000/notifications/${profile.email}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        }
       })
         .then(res => res.json())
         .then(json => {
@@ -39,7 +44,8 @@ class Notify extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: email
@@ -50,7 +56,12 @@ class Notify extends Component {
 
   getAllThreadsForId() {
     fetch(`http://localhost:8000/threads`, {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
     })
       .then(res => res.json())
       .then(json => {

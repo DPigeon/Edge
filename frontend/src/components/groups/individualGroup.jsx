@@ -40,7 +40,15 @@ class IndividualGroup extends Component {
       });
   }*/
     fetch(
-      `http://localhost:8000/groups/${this.props.match.params.groupId}/members`
+      `http://localhost:8000/groups/${this.props.match.params.groupId}/members`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        }
+      }
     )
       .then(res => res.json())
       .then(json => {
@@ -88,7 +96,12 @@ class IndividualGroup extends Component {
           this.props.match.params.groupId
         }/requests`,
         {
-          method: "GET"
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            jwt: localStorage.getItem("jwt")
+          }
         }
       )
         .then(res => res.json())
@@ -139,7 +152,8 @@ class IndividualGroup extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         accept: response
@@ -175,7 +189,7 @@ class IndividualGroup extends Component {
       return (
         <div>
           <h3>Search users to add to the group...</h3>
-          <SearchUser />
+          <SearchUser id={this.props.match.params.groupId} />
           <br />
         </div>
       );

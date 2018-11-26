@@ -18,7 +18,14 @@ class Messager extends Component {
     let newId = this.newProps.id;*/
     if (newProps.id !== this.props.id) {
       this.setState({ id: newProps.id });
-      fetch(`http://localhost:8000/threads/${newProps.id}/messages`)
+      fetch(`http://localhost:8000/threads/${newProps.id}/messages`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        }
+      })
         .then(res => res.json())
         .then(json => {
           this.setState({
@@ -27,7 +34,14 @@ class Messager extends Component {
           });
         });
     } else {
-      fetch(`http://localhost:8000/threads/${this.state.id}/messages`)
+      fetch(`http://localhost:8000/threads/${this.state.id}/messages`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        }
+      })
         .then(res => res.json())
         .then(json => {
           this.setState({
@@ -37,7 +51,14 @@ class Messager extends Component {
         });
     }
     /*if (id !== undefined || id != null || id !== "") {
-      fetch(`http://localhost:8000/threads/${id}/messages`)
+      fetch(`http://localhost:8000/threads/${id}/messages` {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
         .then(res => res.json())
         .then(json => {
           this.setState({
