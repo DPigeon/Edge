@@ -72,6 +72,7 @@ export default class Login extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
+        //no jwt here since we do not have one when we sign up
       },
       body: JSON.stringify({
         firstname: fname,

@@ -31,7 +31,12 @@ class GroupList extends Component {
       this.props.history.replace("/login"); //go login
     }
     fetch("http://localhost:8000/groups", {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
     })
       .then(res => res.json())
       .then(json => {
@@ -51,7 +56,14 @@ class GroupList extends Component {
 
   joinGroup = (id, email, name) => {
     //make it so if user already exists in the group, alert(You cannot join cause you are already inside this group)
-    fetch(`http://localhost:8000/groups/${id}/members`) //gets all the members inside the group
+    fetch(`http://localhost:8000/groups/${id}/members`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    }) //gets all the members inside the group
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -78,7 +90,8 @@ class GroupList extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: email

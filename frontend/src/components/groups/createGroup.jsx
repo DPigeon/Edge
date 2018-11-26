@@ -41,7 +41,8 @@ class CreateGroup extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         name: title,
@@ -65,7 +66,8 @@ class CreateGroup extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: user,

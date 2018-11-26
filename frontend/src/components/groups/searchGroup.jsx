@@ -10,7 +10,14 @@ class SearchGroup extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/groups")
+    fetch("http://localhost:8000/groups", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({

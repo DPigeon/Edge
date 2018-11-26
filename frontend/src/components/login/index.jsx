@@ -42,9 +42,8 @@ export default class Login extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-        //Send the jwt token
-        //jwt: localStorage.getItem('jwt');
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         email: this.state.email,

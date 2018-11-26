@@ -12,14 +12,28 @@ class SearchUser extends Component {
 
   componentDidMount() {
     //signup ---> user on 8000 (David's notes)
-    fetch("http://localhost:8000/users") //gets all the user into an array to use
+    fetch("http://localhost:8000/users", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    }) //gets all the user into an array to use
       .then(res => res.json())
       .then(json => {
         this.setState({
           users: json
         });
       });
-    fetch("http://localhost:8000/groups") //gets all the groups into an array to use
+    fetch("http://localhost:8000/groups", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({

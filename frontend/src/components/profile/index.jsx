@@ -41,7 +41,14 @@ export default class Profile extends Component {
     }
     //To finish profiles, we need the backend now to GET /signup or /users or whatever to be able to show any profiles
 
-    fetch(`http://localhost:8000/users`)
+    fetch(`http://localhost:8000/users`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
