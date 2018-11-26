@@ -6,7 +6,8 @@ class SearchUser extends Component {
     this.state = {
       search: "",
       users: [],
-      groups: []
+      groups: [],
+      members: []
     };
   }
 
@@ -61,32 +62,36 @@ class SearchUser extends Component {
     return false;
   }
 
-  addThisMemberToTheGroup = (name, id) => {
-    //add the name by id and retreive them ?
-
-    //var obj2 = JSON.parse(this.state.groups);
-    var { objectGroup } = "";
-    /*for (var i = 0; i < this.state.groups.length; i++) {
-      objectGroup[i] = this.state.groups;
-    }*/
-    objectGroup = JSON.parse(this.state.groups);
-    console.log(objectGroup);
-    //var objectInJSON = JSON.parse(objectGroup);
-    objectGroup[id - 1].members.push(name);
-    console.log(objectGroup);
-    //this adds the member to the group if not in the group
-    //if (!this.isInTheGroup(name))
-    //ERROR: I CANNOT ACCESS THE SPECIFIC GROUP MEMBERS AND ADD NEW MEMBER TO IT
-    /*fetch("http://localhost:3001/groups/" + id, {
-      method: "PATCH",
+  addThisMemberToTheGroup = (id, email, name) => {
+    fetch(`http://localhost:8000/groups/${id}/members`, {
+      method: "GET",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(objectGroup)
-    });
-    alert(name + " has been added to the group !");*/
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    }) //gets all the members inside the group
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          members: json
+        });
+        this.addMember(this.state.members, email, id, name); //We did not have access to the members (fixed David)
+      });
   };
+
+  memberAlreadyExistsInGroup(membersArray, email) {
+    for (var i = 0; i < membersArray.length; i++) {
+      if (email === membersArray[i].user_id) return true; //does not exist
+    }
+    return false; //exists
+  }
+
+  addMember(members, email, id, name) {
+    if (this.memberAlreadyExistsInGroup(members, email) === false) {
+      //to do (add the member to the new group on the backend)
+    }
+  }
 
   getList() {
     //search by first name
@@ -114,7 +119,7 @@ class SearchUser extends Component {
                 <button
                   className="btn btn-success"
                   onClick={() =>
-                    this.addThisMemberToTheGroup(item.email, item.id)
+                    this.addThisMemberToTheGroup(this.props.id, item.email)
                   }
                 >
                   Add Member

@@ -189,7 +189,7 @@ class IndividualGroup extends Component {
       return (
         <div>
           <h3>Search users to add to the group...</h3>
-          <SearchUser />
+          <SearchUser id={this.props.match.params.groupId} />
           <br />
         </div>
       );
