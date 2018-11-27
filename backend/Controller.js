@@ -5,6 +5,7 @@ const User = require("./models/User");
 const UserController = require("./controllers/User");
 const Auth = require("./Auth");
 
+
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
@@ -150,6 +151,12 @@ app.post('/test/likes', LikeController.create)
 // app.post('/sendRecoverEmail', RecoverPasswordController.sendRecoverEmail);
 
 
+
+
+// uploading Images
+const ImageController = require('./controllers/Images')
+app.post("/images", ImageController.saveImage)
+
 module.exports.determineTestAndAuth = (req) => {
     let test = false
     if (req.originalUrl.slice(1, 5) == 'test') {
@@ -157,15 +164,8 @@ module.exports.determineTestAndAuth = (req) => {
     }
 
     const jwt = req.get('jwt');
-    const {
-        isAuthorized,
-        token
-    } = Auth.AuthorizeUser(jwt);
-    return {
-        test,
-        isAuthorized,
-        token
-    }
+    const { isAuthorized, token } = Auth.AuthorizeUser(jwt);
+    return { test, isAuthorized, token }
 }
 
 let port = 8000;

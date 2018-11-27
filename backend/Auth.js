@@ -32,27 +32,26 @@ class AuthService {
                 is_teacher: user.is_teacher
             },
                 superSecret,
-                { expiresIn: 60 * 60 })
+                { expiresIn: 60 * 60 * 24 * 7 })
             return { success: true, token }
         }
     }
 
     static AuthorizeUser(token) {
         let decoded = null;
-        console.log("token",token);
-         if (token == null || token == undefined) {
-             return { isAuthorized: false }
-         }
-         try {
-             decoded = jwt.verify(token, superSecret)
-         } catch (error) {
-             return {isAuthorized:false}
-         }
-         return {isAuthorized: true, token: decoded}
+        if (token == null || token == undefined) {
+            return { isAuthorized: false }
+        }
+        try {
+            decoded = jwt.verify(token, superSecret)
+        } catch (error) {
+            return { isAuthorized: false }
+        }
+        return { isAuthorized: true, token: decoded }
 
 
         // for now accept all tokens in order not to break the whole API
-//        return {isAuthorized: true}
+        //        return {isAuthorized: true}
     }
 
 }
