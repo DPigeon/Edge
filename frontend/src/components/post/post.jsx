@@ -20,12 +20,15 @@ class Post extends Component {
           {this.props.postBody}
         </div>
         <LikeDislike
+          id={this.props.id}
           email={this.props.emailOfPost}
+          posts={this.props.posts}
           postId={this.props.postId}
           likes={this.props.likes}
           dislikes={this.props.dislikes}
         />
         <CommentDisplay
+          id={this.props.id}
           email={this.props.emailOfPost}
           posts={this.props.posts}
           comments={this.props.comments}
