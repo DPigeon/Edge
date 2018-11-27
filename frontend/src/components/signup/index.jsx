@@ -99,7 +99,7 @@ export default class Login extends Component {
     return (
       <div className="modal-login">
         <h1>Register now !</h1>
-        <form id="FormRegister" onSubmit={this.handleSubmit} novalidate>
+        <form id="FormRegister" onSubmit={this.handleSubmit} noValidate>
           <div className="form-group">
             <input
               type="firstname"
@@ -151,7 +151,7 @@ export default class Login extends Component {
               defaultChecked={this.state.isTeacher}
               onChange={this.handleChangeCheckBox}
             />
-            <label className="form-check-label" for="CheckBoxTeacher">
+            <label className="form-check-label" htmlFor="CheckBoxTeacher">
               Are you a teacher ?
             </label>
           </div>

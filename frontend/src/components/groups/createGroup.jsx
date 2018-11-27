@@ -87,7 +87,7 @@ class CreateGroup extends Component {
           <h6>Group Name:</h6>
           <input
             className="grpn"
-            placeHolder="Groupe Name"
+            placeholder="Groupe Name"
             value={this.state.title}
             onChange={this.handleTitleChange}
           />

@@ -20,7 +20,7 @@ class CommentDisplay extends Component {
   };
 
   setCommentsById(comments, postId) {
-    var commentsById = [];
+    //var commentsById = [];
     for (var i = 0; i < comments.length; i++) {
       if (postId === comments[i].post_id) {
         this.setState({ arrayOfComments: comments[i] });

@@ -208,8 +208,8 @@ class IndividualGroup extends Component {
             {this.showSearch(this.state.userProfile.email, true)}
             <h2>{this.state.members.length} member(s) in this group:</h2>
             <ul>
-              {this.state.members.map(item2 => (
-                <div className="Group">
+              {this.state.members.map((item2, id) => (
+                <div className="Group" key={id}>
                   <li key={item2.id}>
                     <div className="itemMember">
                       {this.isGroupAdmin(item2.admin)}

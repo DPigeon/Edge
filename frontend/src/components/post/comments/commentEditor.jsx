@@ -40,11 +40,12 @@ class CommentEditor extends Component {
   render() {
     return (
       <div className="commentcontainer">
-        <form className="commentfield" onChange={this.handleCommentChange}>
+        <form className="commentfield">
           <input
             className="commentinput"
             value={this.state.newCommentBody}
             placeholder="Comment something here.."
+            onChange={this.handleCommentChange}
           />
           <button
             className="commentbtn"

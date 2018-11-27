@@ -103,32 +103,30 @@ class ThreadList extends Component {
       return (
         <div className="col2">
           <div className="ThreadList">
-            {[...threads].reverse().map(item => (
-              <div className="containermessage">
-                <h10>
-                  <div className="boxmessage" key={item.id}>
-                    <ul>
-                      <li>
-                        <button
-                          onClick={() =>
-                            this.handleClickItem(
-                              item.id,
-                              item.sender,
-                              item.receiver,
-                              item.name
-                            )
-                          }
-                        >
-                          {item.name}
-                          <br />
-                          Message from {item.sender}
-                          <br />
-                          03/06/18
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </h10>
+            {[...threads].reverse().map((item, id) => (
+              <div className="containermessage" key={id}>
+                <div className="boxmessage" key={item.id}>
+                  <ul>
+                    <li>
+                      <button
+                        onClick={() =>
+                          this.handleClickItem(
+                            item.id,
+                            item.sender,
+                            item.receiver,
+                            item.name
+                          )
+                        }
+                      >
+                        {item.name}
+                        <br />
+                        Message from {item.sender}
+                        <br />
+                        28/11/18
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             ))}
             <center>
@@ -145,8 +143,15 @@ class ThreadList extends Component {
     }
   }
 
+  updateOnReply = messageId => {
+    this.setState({
+      currentId: messageId,
+      clickedThread: true
+    });
+  };
+
   showMessagesOrNewMessageColumn() {
-    var { currentId, from, to, name, clickedThread } = this.state;
+    var { currentId, to, name, clickedThread } = this.state;
     if (clickedThread) {
       return (
         <div className="col3">
@@ -155,7 +160,7 @@ class ThreadList extends Component {
             sender={this.state.userProfile.email}
             receiver={to}
             name={name}
-            //updateOnReply={this.handleClickItem(currentId, from, to, )}
+            updateOnReply={() => this.updateOnReply(currentId)}
           />
         </div>
       );
@@ -176,7 +181,11 @@ class ThreadList extends Component {
           <br />
           Type in a message...
           <br />
-          <input value={this.state.msg1} onChange={this.handleMsgChange} />
+          <input
+            className="newMessage"
+            value={this.state.msg1}
+            onChange={this.handleMsgChange}
+          />
           <br />
           <br />
           <button

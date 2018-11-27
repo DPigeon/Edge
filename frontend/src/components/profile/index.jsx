@@ -261,7 +261,7 @@ export default class Profile extends Component {
               {this.findTheUserToShow().firstname}{" "}
               {this.findTheUserToShow().lastname}
               <br />
-              <h5> {this.getTeacher()}</h5>
+              <h5>{this.getTeacher()}</h5>
               <h6>
                 <a href={"/threads?toMsg=" + this.props.match.params.email}>
                   {this.props.match.params.email}

@@ -14,8 +14,6 @@ class Messager extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    /*let id = this.props.id;
-    let newId = this.newProps.id;*/
     if (newProps.id !== this.props.id) {
       this.setState({ id: newProps.id });
       fetch(`http://localhost:8000/threads/${newProps.id}/messages`, {
@@ -50,23 +48,6 @@ class Messager extends Component {
           });
         });
     }
-    /*if (id !== undefined || id != null || id !== "") {
-      fetch(`http://localhost:8000/threads/${id}/messages` {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        jwt: localStorage.getItem("jwt")
-      }
-    })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({
-            isLoaded: true,
-            items: json
-          });
-        });
-    }*/
   }
 
   componentDidMount() {
@@ -88,8 +69,8 @@ class Messager extends Component {
           <div>
             <ul>
               <h4>{this.props.name} Conversation</h4>
-              {items.map(item => (
-                <div className="cardmessage">
+              {items.map((item, id) => (
+                <div className="cardmessage" key={id}>
                   <li key={item.id}>
                     <h5>
                       <div className="messagefrom">
@@ -108,6 +89,7 @@ class Messager extends Component {
               id={this.props.id}
               sender={this.props.sender}
               receiver={this.props.receiver}
+              updateOnReply={() => this.props.updateOnReply()}
             />
           </div>
         </React.Fragment>

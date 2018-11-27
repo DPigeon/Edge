@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./styles/messages.css";
-import ThreadList from "./threadList";
 import Notify from "../notifications/notify";
 
 class Reply extends Component {
@@ -23,33 +22,37 @@ class Reply extends Component {
   };
 
   addMessage = (id, from, to, message) => {
-    fetch(`http://localhost:8000/messages`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        jwt: localStorage.getItem("jwt")
-      },
-      body: JSON.stringify({
-        thread_id: id,
-        sender: from,
-        receiver: to,
-        data: message
-      })
-    }).then(res => {
-      res
-        .json()
-        .then(data => ({
-          aNotification: data
-        }))
-        .then(res => {
-          this.sendNotification(
-            res.aNotification.receiver,
-            res.aNotification.thread_id
-          ); //Makes a POST request to the database to send new notification to a user with proper threadid
-        });
-    });
-    //Make it so replyOnUpdate works here
+    if (message !== "") {
+      fetch(`http://localhost:8000/messages`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          thread_id: id,
+          sender: from,
+          receiver: to,
+          data: message
+        })
+      }).then(res => {
+        res
+          .json()
+          .then(data => ({
+            aNotification: data
+          }))
+          .then(res => {
+            this.sendNotification(
+              res.aNotification.receiver,
+              res.aNotification.thread_id
+            ); //Makes a POST request to the database to send new notification to a user with proper threadid
+          });
+      });
+      this.props.updateOnReply();
+    } else {
+      alert("Enter a message !");
+    }
   };
 
   sendNotification(email, threadId) {

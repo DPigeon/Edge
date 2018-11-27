@@ -34,17 +34,15 @@ class SearchGroup extends Component {
       });
       return (
         <ul>
-          {filteredSearch.map(item => (
-            <div className="searchresult">
+          {filteredSearch.map((item, id) => (
+            <div className="searchresult" key={id}>
               <li key={item.id}>
                 <h5>
                   <div className="grptitle">
                     <a href={"/group/" + item.id}>{item.name}</a>
                   </div>
                 </h5>
-                <h10>
-                  <div className="grpdescription">{item.description}</div>
-                </h10>
+                <div className="grpdescription">{item.description}</div>
               </li>
             </div>
           ))}

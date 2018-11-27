@@ -88,9 +88,20 @@ class SearchUser extends Component {
   }
 
   addMember(members, email, id, name) {
-    if (this.memberAlreadyExistsInGroup(members, email) === false) {
-      //to do (add the member to the new group on the backend)
-    }
+    fetch(`http://localhost:8000/groups/${id}/requests`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          requests: json
+        });
+      });
   }
 
   getList() {
