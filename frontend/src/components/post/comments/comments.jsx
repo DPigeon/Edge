@@ -1,15 +1,23 @@
-import React from "react";
-import "./style/comment.css";
+import React, { Component } from "react";
 
-const Comments = props => (
-  <div className="commentcard">
-    <h8 className="commentname">
-      Comment by <a href={"/user/" + this.props.by}>{this.props.by}</a>
-    </h8>
-    <br />
+class Comments extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    {props.commentBody}
-  </div>
-);
+  render() {
+    return (
+      <div className="commentcard">
+        <div className="commentname">
+          <h6>
+            Comment by <a href={"/user/" + this.props.by}>{this.props.by}</a>
+          </h6>
+          {this.props.commentBody}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Comments;

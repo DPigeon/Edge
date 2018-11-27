@@ -14,40 +14,7 @@ class CommentDisplay extends Component {
 
   addComment = newCommentBody => {
     window.location.reload();
-    /*const newState = Object.assign({}, this.state);
-    newState.comments.unshift(newCommentBody);
-    this.setState(newState);*/ //not needed anymore
   };
-
-  setCommentsById(comments, postId) {
-    //var commentsById = [];
-    for (var i = 0; i < comments.length; i++) {
-      if (postId === comments[i].post_id) {
-        this.setState({ arrayOfComments: comments[i] });
-        //commentsById[i] = comments[i];
-      }
-    }
-    //this.setState({ arrayOfComments: commentsById });
-  }
-
-  showComments(postId) {
-    this.setCommentsById(this.props.comments, postId);
-    if (this.state.arrayOfComments !== null) {
-      return (
-        <div>
-          {this.state.arrayOfComments.map((item, idx) => {
-            return (
-              <Comment
-                key={item.post_id}
-                commentBody={item.data}
-                by={item.author_email}
-              />
-            );
-          })}
-        </div>
-      );
-    }
-  }
 
   render() {
     return (
@@ -58,7 +25,15 @@ class CommentDisplay extends Component {
             email={this.props.email}
             postId={this.props.postId}
           />
-          {this.showComments(this.props.postId)}
+          <div className="">
+            {this.props.posts[this.props.id].commentList.map((item, id) => (
+              <Comment
+                key={id}
+                commentBody={item.data}
+                by={item.author_email}
+              />
+            ))}
+          </div>
         </div>
       </React.Fragment>
     );
