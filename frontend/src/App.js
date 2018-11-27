@@ -158,16 +158,8 @@ class App extends Component {
                     {this.showUserInfo()}
                 </ul>
                 <br />
-                <div className="logooo">
-                    <center>
-                        <img
-                            src={require("./components/profile/images/logo2.png")}
-                            alt="logo"
-                            className="logoo"
-                        />
-                        <h2>Edge Portal, Parent-Teacher Social Media </h2>
-                    </center>
-                </div>
+                <br />
+
                 <Routes />
             </div>
         );

@@ -97,7 +97,9 @@ class GroupList extends Component {
   groupList() {
     const modalStyle = {
       width: "500px",
-      backgroundColor: "rgba(255, 255, 255, .9)"
+      maxHeight: "600px",
+      backgroundColor: "rgba(255, 255, 255, .9)",
+      overflow: "auto"
     };
     //decodes the jwt
     var { isLoaded, groupList } = this.state;
