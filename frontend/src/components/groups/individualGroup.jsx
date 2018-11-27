@@ -40,7 +40,15 @@ class IndividualGroup extends Component {
       });
   }*/
     fetch(
-      `http://localhost:8000/groups/${this.props.match.params.groupId}/members`
+      `http://localhost:8000/groups/${this.props.match.params.groupId}/members`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        }
+      }
     )
       .then(res => res.json())
       .then(json => {
@@ -88,7 +96,12 @@ class IndividualGroup extends Component {
           this.props.match.params.groupId
         }/requests`,
         {
-          method: "GET"
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            jwt: localStorage.getItem("jwt")
+          }
         }
       )
         .then(res => res.json())
@@ -139,7 +152,8 @@ class IndividualGroup extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         accept: response
@@ -170,7 +184,20 @@ class IndividualGroup extends Component {
     return membersObject;
   }
 
+  showSearch(email, isAdmin) {
+    if (this.isTheCurrentUserAnAdmin(email, isAdmin) === true) {
+      return (
+        <div>
+          <h3>Search users to add to the group...</h3>
+          <SearchUser id={this.props.match.params.groupId} />
+          <br />
+        </div>
+      );
+    }
+  }
+
   render() {
+    //requests sends a network request every 1 second on the frontend. Will fix this later
     return (
       <React.Fragment>
         <div className="GroupRequests">
@@ -178,10 +205,11 @@ class IndividualGroup extends Component {
         </div>
         <div className="GroupMembers">
           <center>
+            {this.showSearch(this.state.userProfile.email, true)}
             <h2>{this.state.members.length} member(s) in this group:</h2>
             <ul>
-              {this.state.members.map(item2 => (
-                <div className="Group">
+              {this.state.members.map((item2, id) => (
+                <div className="Group" key={id}>
                   <li key={item2.id}>
                     <div className="itemMember">
                       {this.isGroupAdmin(item2.admin)}

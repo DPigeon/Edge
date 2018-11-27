@@ -18,6 +18,10 @@ class LikeDislike extends Component {
     };
   }
 
+  componentDidMount() {
+    //TODO: looks at your jwt email, if it is inside any likelist/dislikelist, put like or unlike
+  }
+
   handleLike = (email, postId) => {
     console.log(email, postId); //gets the post id
     if (this.state.liked === true) {
@@ -26,7 +30,8 @@ class LikeDislike extends Component {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         author_email: email,
@@ -45,7 +50,8 @@ class LikeDislike extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           author_email: email,
@@ -62,12 +68,14 @@ class LikeDislike extends Component {
   };
 
   handleDislike = (email, postId) => {
+    console.log(email, postId); //gets the post id
     if (this.state.disliked === true) {
       /*fetch("http://localhost:8000/likes", {
       method: "DELETE",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         author_email: email,
@@ -85,7 +93,8 @@ class LikeDislike extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           author_email: email,
@@ -101,63 +110,6 @@ class LikeDislike extends Component {
     }
   };
 
-  getLengthOfLikes(postId) {
-    var length = this.state.counterLike;
-    for (var i = 0; i < this.props.likes.length; i++) {
-      if (postId === this.props.likes[i].post_id) {
-        this.setState({
-          counterLike: this.state.counterLike + 1
-        }); //calculates the length every time it sees a post with same post id
-      }
-      return length;
-    }
-  }
-
-  getLengthOfDislikes(postId) {
-    var length = this.state.counterDislike;
-    for (var i = 0; i < this.props.dislikes.length; i++) {
-      if (postId === this.props.dislikes[i].post_id) {
-        length = length + 1; //calculates the length every time it sees a post with same post id
-      }
-      return length;
-    }
-  }
-
-  setWhoLikedByPostId(postId) {
-    var emails = [];
-    for (var i = 0; i < this.props.likes.length; i++) {
-      if (postId === this.props.likes[i].post_id) {
-        emails = this.props.likes[i].email;
-        this.setState({ arrayEmails: emails });
-      }
-    }
-    //this.setState({ arrayEmails: emails });
-    //console.log(this.state.arrayEmails);
-    return this.state.arrayEmails;
-  }
-
-  getWhoDislikedByPostId(postId) {
-    for (var i = 0; i < this.props.dislikes.length; i++) {
-      if (postId === this.props.dislikes[i].post_id)
-        return this.props.dislikes[i].email;
-    }
-  }
-
-  getLikes(email, postId) {
-    //must show your linked/disliked and the length on them
-    for (var i = 0; i < this.props.likes.length; i++) {
-      if (postId === this.props.likes[i].post_id)
-        return this.props.likes[i].email;
-    }
-  }
-
-  getDislikes(email, postId) {
-    for (var i = 0; i < this.props.likes.length; i++) {
-      if (postId === this.props.likes[i].post_id)
-        return this.props.likes[i].email;
-    }
-  }
-
   showPopUpLike() {
     const modalStyle = {
       width: "500px"
@@ -170,17 +122,13 @@ class LikeDislike extends Component {
         closeOnDocumentClick
       >
         <div className="editcontainer">
-          {this.getLengthOfLikes(this.props.postId)} people liked this post
-          {this.setWhoLikedByPostId(this.props.postId).map(item => (
-            <div className="Like List">
-              <li key={item.id}>
-                <div className="itemLike">
-                  {item}
-                  <h5>
-                    <a href={`/users/` + item}>{item}</a>
-                  </h5>
-                </div>
-              </li>
+          {this.props.posts[this.props.id].likeList.length} people liked this
+          post
+          {this.props.posts[this.props.id].likeList.map((item, id) => (
+            <div className="Like List" key={id}>
+              <div className="itemLike">
+                <a href={`/user/` + item.author_email}>{item.author_email}</a>
+              </div>
             </div>
           ))}
         </div>
@@ -191,7 +139,7 @@ class LikeDislike extends Component {
   triggerLikeButton() {
     return (
       <div className="likecount">
-        {this.getLengthOfLikes(this.props.postId)}
+        {this.props.posts[this.props.id].likeList.length}
       </div>
     );
   }
@@ -208,8 +156,15 @@ class LikeDislike extends Component {
         closeOnDocumentClick
       >
         <div className="editcontainer">
-          {this.getLengthOfDislikes(this.props.postId)} people disliked this
-          post
+          {this.props.posts[this.props.id].dislikeList.length} people disliked
+          this post
+          {this.props.posts[this.props.id].dislikeList.map((item, id) => (
+            <div className="Dislike List" key={id}>
+              <div className="itemDislike">
+                <a href={`/user/` + item.author_email}>{item.author_email}</a>
+              </div>
+            </div>
+          ))}
         </div>
       </Popup>
     );
@@ -218,7 +173,7 @@ class LikeDislike extends Component {
   triggerDislikeButton() {
     return (
       <div className="dislikecount">
-        {this.getLengthOfDislikes(this.props.postId)}
+        {this.props.posts[this.props.id].dislikeList.length}
       </div>
     );
   }

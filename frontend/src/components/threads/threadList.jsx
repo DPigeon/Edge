@@ -35,7 +35,12 @@ class ThreadList extends Component {
       this.props.history.replace("/login"); //go login
     }
     fetch("http://localhost:8000/threads", {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
     })
       .then(res => res.json())
       .then(json => {
@@ -98,32 +103,30 @@ class ThreadList extends Component {
       return (
         <div className="col2">
           <div className="ThreadList">
-            {[...threads].reverse().map(item => (
-              <div className="containermessage">
-                <h10>
-                  <div className="boxmessage" key={item.id}>
-                    <ul>
-                      <li>
-                        <button
-                          onClick={() =>
-                            this.handleClickItem(
-                              item.id,
-                              item.sender,
-                              item.receiver,
-                              item.name
-                            )
-                          }
-                        >
-                          {item.name}
-                          <br />
-                          Message from {item.sender}
-                          <br />
-                          03/06/18
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </h10>
+            {[...threads].reverse().map((item, id) => (
+              <div className="containermessage" key={id}>
+                <div className="boxmessage" key={item.id}>
+                  <ul>
+                    <li>
+                      <button
+                        onClick={() =>
+                          this.handleClickItem(
+                            item.id,
+                            item.sender,
+                            item.receiver,
+                            item.name
+                          )
+                        }
+                      >
+                        {item.name}
+                        <br />
+                        Message from {item.sender}
+                        <br />
+                        28/11/18
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             ))}
             <center>
@@ -140,8 +143,15 @@ class ThreadList extends Component {
     }
   }
 
+  updateOnReply = messageId => {
+    this.setState({
+      currentId: messageId,
+      clickedThread: true
+    });
+  };
+
   showMessagesOrNewMessageColumn() {
-    var { currentId, from, to, name, clickedThread } = this.state;
+    var { currentId, to, name, clickedThread } = this.state;
     if (clickedThread) {
       return (
         <div className="col3">
@@ -150,6 +160,7 @@ class ThreadList extends Component {
             sender={this.state.userProfile.email}
             receiver={to}
             name={name}
+            updateOnReply={() => this.updateOnReply(currentId)}
           />
         </div>
       );
@@ -163,14 +174,6 @@ class ThreadList extends Component {
           <input value={this.state.title} onChange={this.handleTitleChange} />
           <br />
           <br />
-          From:
-          <br />
-          <input
-            value={this.state.userProfile.email}
-            onChange={this.handleFromChange}
-          />
-          <br />
-          <br />
           To:
           <br />
           <input value={this.state.toMsg} onChange={this.handleToChange} />
@@ -178,7 +181,11 @@ class ThreadList extends Component {
           <br />
           Type in a message...
           <br />
-          <input value={this.state.msg1} onChange={this.handleMsgChange} />
+          <input
+            className="newMessage"
+            value={this.state.msg1}
+            onChange={this.handleMsgChange}
+          />
           <br />
           <br />
           <button
@@ -236,7 +243,8 @@ class ThreadList extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           sender: from,
@@ -269,7 +277,8 @@ class ThreadList extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         thread_id: threadId,
@@ -300,7 +309,8 @@ class ThreadList extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: email,

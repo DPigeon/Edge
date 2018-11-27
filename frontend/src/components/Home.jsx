@@ -46,7 +46,14 @@ class Home extends Component {
       // if is logged in, get user profile
       this.decodeJwtToken();
     }
-    fetch("http://localhost:8000/posts")
+    fetch("http://localhost:8000/posts", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -59,12 +66,14 @@ class Home extends Component {
   }
 
   setCommentList(newArray) {
-    let array = [];
+    // let array = []; //this is making an array of an array
+    //we want one array
 
     for (var i = 0; i < newArray.length; i++) {
-      array[i] = newArray[i].commentList;
+      this.state.arrayComments.push(newArray[i].commentList);
+      //this.setState({ arrayComments: newArray[i].commentList });
     }
-    this.setState({ arrayComments: array });
+    //this.setState({ arrayComments:  });
   }
 
   setLikeList(newArray) {
