@@ -145,10 +145,11 @@ app.post('/likes', LikeController.create)
 
 app.post('/test/likes', LikeController.create)
 
-// will uncomment because there is no recoverPassword file
-// const RecoverPasswordController = require("./controllers/RecoverPassword");
-//
-// app.post('/sendRecoverEmail', RecoverPasswordController.sendRecoverEmail);
+ const RecoverPasswordController = require("./controllers/RecoverPassword");
+
+ app.post('/recover', RecoverPasswordController.sendRecoveryEmail);
+ app.post('/recover/verify', RecoverPasswordController.verifyRecoveryCode);
+
 
 
 
