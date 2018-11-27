@@ -111,10 +111,19 @@ export default class Profile extends Component {
       [e.target.name]: e.target.value
     });
   };
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    console.log(this.state);
+  onSubmit = event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    console.log(data);
+    fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      },
+      body: data
+    });
   };
 
   onEdit = e => {
@@ -147,6 +156,31 @@ export default class Profile extends Component {
   }
 
   render() {
+    /*<br />
+                    <br />
+                    <div className="imageedit">
+                      <b>Profile Picture</b>
+                      <br />
+                      <input
+                        type="file"
+                        name="profile"
+                        className=""
+                        accept="image/png, image/jpeg"
+                      />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div className="imageedit">
+                      <b>Banner Picture</b>
+                      <br />
+                      <input
+                        type="file"
+                        name="banner"
+                        className="hi"
+                        accept="image/png, image/jpeg"
+                      />
+                    </div>*/
     const modalStyle = {
       width: "500px"
     };
@@ -173,11 +207,12 @@ export default class Profile extends Component {
                   </h4>
                   <br />
 
-                  <form>
+                  <form onSubmit={() => this.onSubmit}>
                     <div className="mod">
                       <b>First Name</b> <br />
                       <input
-                        name="firstName"
+                        id="firstname"
+                        name="firstname"
                         placeholder="First Name"
                         onChange={e => this.change(e)}
                       />
@@ -188,8 +223,9 @@ export default class Profile extends Component {
                     <div className="mod">
                       <b> Last Name </b> <br />
                       <input
+                        id="lastname"
                         className=""
-                        name="lastName"
+                        name="lastname"
                         placeholder="Last Name"
                         onChange={e => this.change(e)}
                       />
@@ -201,51 +237,14 @@ export default class Profile extends Component {
                       <b>Email </b>
                       <br />
                       <input
+                        id="email"
                         className=""
                         name="email"
                         placeholder="Email"
-                        onChange={e => this.change(e)}
+                        value={this.state.userProfile.email}
                       />
                     </div>
-                    <br />
-                    <br />
 
-                    <div className="mod">
-                      <b> Password </b>
-                      <br />
-                      <input
-                        className=""
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Profile Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="profile"
-                        className=""
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Banner Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="banner"
-                        className="hi"
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
                     <br />
                     <br />
                     <br />
