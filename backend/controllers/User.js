@@ -77,6 +77,22 @@ class UserController {
         res.json({success: true});
     }
 
+    static update(req, res) {
+
+        if (!req.body.email || !req.body.firstname || !req.body.lastname) {
+            return res.status(400).json({error: "Please provide the user email and his name/lastname"});
+        }
+
+        let query = User.update(req.body.email, req.body.firstname, req.body.lastname);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json({success: true});
+
+    }
+
 }
 
 module.exports = UserController;

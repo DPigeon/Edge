@@ -46,7 +46,20 @@ class User{
         }
 
         return { success:true };
+    }
 
+    static update(userId, firstname, lastname) {
+        console.log('Updating user : ', userId);
+
+        try {
+            const queryResult = db.SyncConn.query(`UPDATE user SET firstname = '${firstname}', lastname = '${lastname}' WHERE email = '${userId}'`);
+        } catch (error) {
+            console.log('Error : ', error);
+            console.log('Error code : ', error.code);
+            return { success: false, error: error };
+        }
+
+        return { success:true };
     }
 }
 
