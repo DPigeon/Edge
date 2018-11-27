@@ -32,6 +32,22 @@ class User{
         console.log('---------------------------------------');
         return { success: true, users: users };
     }
+
+    static modifyPassword(userId, newPassword) {
+
+        console.log('Modifying password for : ', userId);
+
+        try {
+            const queryResult = db.SyncConn.query(`UPDATE user SET password = '${newPassword}' WHERE email = '${userId}'`);
+        } catch (error) {
+            console.log('Error : ', error);
+            console.log('Error code : ', error.code);
+            return { success: false, error: error };
+        }
+
+        return { success:true };
+
+    }
 }
 
 module.exports = User

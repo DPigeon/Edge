@@ -62,6 +62,21 @@ class UserController {
         res.json(query.users);
     }
 
+    static modifyPassword(req, res) {
+
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({error: "Please provide the user email and new password"});
+        }
+
+        let query = User.modifyPassword(req.body.email, req.body.password);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json({success: true});
+    }
+
 }
 
 module.exports = UserController;

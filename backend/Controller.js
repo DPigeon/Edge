@@ -76,6 +76,7 @@ app.post("/login", (req, res) => {
 const MessageController = require("./controllers/Message");
 
 app.get("/users", UserController.getAll);
+app.post("/users/password", UserController.modifyPassword);
 
 app.post("/messages", MessageController.create);
 app.get("/messages/:messageId", MessageController.getById);
