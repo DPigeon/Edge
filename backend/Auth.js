@@ -39,7 +39,6 @@ class AuthService {
 
     static AuthorizeUser(token) {
         let decoded = null;
-        console.log("token",token);
          if (token == null || token == undefined) {
              return { isAuthorized: false }
          }

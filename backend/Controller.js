@@ -164,15 +164,8 @@ module.exports.determineTestAndAuth = (req) => {
     }
 
     const jwt = req.get('jwt');
-    const {
-        isAuthorized,
-        token
-    } = Auth.AuthorizeUser(jwt);
-    return {
-        test,
-        isAuthorized,
-        token
-    }
+    const { isAuthorized, token } = Auth.AuthorizeUser(jwt);
+    return { test, isAuthorized, token }
 }
 
 let port = 8000;
