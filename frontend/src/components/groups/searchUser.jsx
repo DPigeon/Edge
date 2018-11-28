@@ -88,20 +88,33 @@ class SearchUser extends Component {
   }
 
   addMember(members, email, id, name) {
+    //create a request
     fetch(`http://localhost:8000/groups/${id}/requests`, {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         jwt: localStorage.getItem("jwt")
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          requests: json
-        });
-      });
+      },
+      body: JSON.stringify({
+        user_id: email
+      })
+      //this.acceptRequest(id, true);
+    });
+  }
+
+  acceptRequest(requestId, response) {
+    fetch(`http://localhost:8000/groupRequests/${requestId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        accept: response
+      })
+    });
   }
 
   getList() {

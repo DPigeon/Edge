@@ -20,6 +20,7 @@ export default class Profile extends Component {
       isTeacher: false,
       selectedFile: null,
       items: [],
+      posts: [],
       arrayComments: [],
       arrayLikes: [],
       arrayDislikes: []
@@ -53,6 +54,20 @@ export default class Profile extends Component {
       .then(json => {
         this.setState({
           users: json //stores the user info of that page url into an array to get the info easily
+        });
+      });
+    fetch(`http://localhost:8000/posts/${this.props.match.params.email}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          posts: json //stores the user info of that page url into an array to get the info easily
         });
       });
   }
@@ -159,6 +174,23 @@ export default class Profile extends Component {
   }
 
   render() {
+    /*{this.state.posts.map((item, id) => (
+            <div className="cardmessage" key={id}>
+              <li key={item.id}>
+                <h5>
+                  <div className="messagefrom">
+                    Post from
+                    <a href={"/user/" + item.author_email}>
+                      {item.author_email}
+                    </a>
+                  </div>
+                </h5>
+                <div className="itemmsg">
+                  <p className="mess">{item.data}</p>
+                </div>
+              </li>
+            </div>
+          ))}*/
     const modalStyle = {
       width: "500px"
     };
