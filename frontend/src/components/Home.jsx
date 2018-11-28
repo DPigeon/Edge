@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PostDisplay from "./post/postDisplay";
 import decode from "jwt-decode";
 import "./Home.css";
+import Calendar from "react-calendar";
+import Clock from "react-live-clock";
 
 class Home extends Component {
   constructor(props) {
@@ -131,6 +133,7 @@ class Home extends Component {
 
     return (
       <div className="column">
+        <br />
         <div className="card">
           <center>
             <img
@@ -150,23 +153,11 @@ class Home extends Component {
         </div>
 
         <div className="card">
-          <center>
-            <img
-              src={require("./images/cal.jpg")}
-              alt="Calendar"
-              className="img1"
-            />
-          </center>
-          <div className="container">
-            <h2>Calendar</h2>
-            <p className="title">
-              {year}-{year + 1}
-            </p>
-            <p>
-              {monthName[month]} {date}
-            </p>
-            <p>Academic Calendar</p>
-          </div>
+          <b className="date">
+            {month + 1} / {date} / {year}
+          </b>
+
+          <Calendar />
         </div>
       </div>
     );
@@ -175,16 +166,16 @@ class Home extends Component {
   showMiddleColumn() {
     return (
       <div className="column2">
-        <div className="card">
-          <div id="con" className="containernode">
-            <PostDisplay
-              email={this.state.userProfile.email}
-              posts={this.getPostList()}
-              comments={this.getCommentList()}
-              likes={this.getLikeList()}
-              dislikes={this.getDislikeList()}
-            />
-          </div>
+        <br />
+
+        <div id="con" className="containernode">
+          <PostDisplay
+            email={this.state.userProfile.email}
+            posts={this.getPostList()}
+            comments={this.getCommentList()}
+            likes={this.getLikeList()}
+            dislikes={this.getDislikeList()}
+          />
         </div>
       </div>
     );
@@ -193,27 +184,28 @@ class Home extends Component {
   showRightColumn() {
     return (
       <div className="column3">
+        <br />
         <div className="card">
           <center>
-            <img
-              src={require("./images/profile.png")}
-              alt="Profile"
-              className="img1"
+            <b className="current">Current Time</b>
+            <br />
+            <Clock
+              className="time"
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"Canada/Eastern"}
             />
           </center>
-          <div className="container">
-            <h2>Child Name A </h2>
-            <p className="title">className A</p>
-            <p>Some text that describes</p>
-            <p>example@example.com</p>
-          </div>
         </div>
         <div className="card">
           <div className="container">
-            <h2>Announcement</h2>
-            <p className="title">Midterm</p>
-            <p>Some text that describes</p>
-            <p>Midterms are next week</p>
+            <center>
+              <b className="current"> Announcements</b>
+
+              <br />
+              <br />
+              <p>Nothing for the moment</p>
+            </center>
           </div>
         </div>
       </div>

@@ -110,7 +110,9 @@ class GroupList extends Component {
   groupList() {
     const modalStyle = {
       width: "500px",
-      backgroundColor: "rgba(255, 255, 255, .9)"
+      maxHeight: "600px",
+      backgroundColor: "rgba(255, 255, 255, .9)",
+      overflow: "auto"
     };
     //decodes the jwt
     var { isLoaded, groupList } = this.state;
@@ -199,6 +201,12 @@ class GroupList extends Component {
                 </center>
               </div>
             </Popup>
+
+            <div className="grpins">
+              Welcome to the edge group page. <br />
+              Please choose one of the three options to create, search or access
+              the list of the groups
+            </div>
           </center>
         </div>
       );
