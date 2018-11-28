@@ -106,24 +106,36 @@ export default class Profile extends Component {
     return labelTeacher;
   }
 
-  change = e => {
+  changeFirstName = event => {
     this.setState({
-      [e.target.name]: e.target.value
+      firstName: event.target.value
     });
-  };
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    console.log(this.state);
   };
 
-  onEdit = e => {
+  changeLastName = event => {
     this.setState({
-      firstName: e.target.value,
-      lastName: "",
-      email: "",
-      password: ""
+      lastName: event.target.value
     });
+  };
+  onSubmit = (firstname, lastname, email) => {
+    if (firstname !== "" && lastname !== "") {
+      fetch("http://localhost:8000/user", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          email: email,
+          firstname: firstname,
+          lastname: lastname
+        })
+      });
+      window.location.reload();
+    } else {
+      alert("Fill in the fields please.");
+    }
   };
 
   showUpdateInfoButton() {
@@ -172,88 +184,84 @@ export default class Profile extends Component {
                     <b>Edit your profile</b>
                   </h4>
                   <br />
-
-                  <form>
-                    <div className="mod">
-                      <b>First Name</b> <br />
-                      <input
-                        name="firstName"
-                        placeholder="First Name"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
+                  <div className="mod">
+                    <b>First Name</b> <br />
+                    <input
+                      id="firstname"
+                      name="firstname"
+                      value={this.state.firstName}
+                      placeholder="First Name"
+                      onChange={this.changeFirstName}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <div className="mod">
+                    <b> Last Name </b> <br />
+                    <input
+                      id="lastname"
+                      className=""
+                      name="lastname"
+                      value={this.state.lastName}
+                      placeholder="Last Name"
+                      onChange={this.changeLastName}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <div className="mod">
+                    <b>Email </b>
+                    <br />
+                    <input
+                      id="email"
+                      className=""
+                      name="email"
+                      placeholder="Email"
+                      value={this.state.userProfile.email}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <button
+                    className="uploadbutton"
+                    onClick={() =>
+                      this.onSubmit(
+                        this.state.firstName,
+                        this.state.lastName,
+                        this.state.userProfile.email
+                      )
+                    }
+                  >
+                    Update Informations
+                  </button>
+                  <br />
+                  <div className="imageedit">
+                    <b>Profile Picture</b>
+                    <br />
+                    <input
+                      type="file"
+                      name="profile"
+                      className=""
+                      accept="image/png, image/jpeg"
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <br />
+                  <div className="imageedit">
+                    <b>Banner Picture</b>
+                    <br />
+                    <input
+                      type="file"
+                      name="banner"
+                      className="hi"
+                      accept="image/png, image/jpeg"
+                    />
                     <br />
                     <br />
-
-                    <div className="mod">
-                      <b> Last Name </b> <br />
-                      <input
-                        className=""
-                        name="lastName"
-                        placeholder="Last Name"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-
-                    <div className="mod">
-                      <b>Email </b>
-                      <br />
-                      <input
-                        className=""
-                        name="email"
-                        placeholder="Email"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-
-                    <div className="mod">
-                      <b> Password </b>
-                      <br />
-                      <input
-                        className=""
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Profile Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="profile"
-                        className=""
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Banner Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="banner"
-                        className="hi"
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-
-                    <button className="uploadbutton">
-                      Update informations
-                    </button>
-                  </form>
+                  </div>
+                  <br />
+                  <button className="uploadbutton">Update Pictures</button>
                 </div>
               </div>
             </Popup>
