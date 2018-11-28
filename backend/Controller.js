@@ -6,6 +6,7 @@ const UserController = require("./controllers/User");
 const Auth = require("./Auth");
 
 
+
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
@@ -19,6 +20,14 @@ app.use((req, res, next) => {
     );
     next();
 });
+// ===========================================================
+
+// ============ Allow Parsing of multipart/form-data==========
+// const multer = require('multer')
+// const upload = multer()
+// app.use(upload.array())
+// app.use(express.static('public'))
+// ===========================================================
 
 app.get("/", (req, res) => {
     res.status(200);

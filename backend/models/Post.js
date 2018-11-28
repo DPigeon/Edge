@@ -19,7 +19,7 @@ class Post {
         let queryStr = "";
         if (
             newPost.group_id == null ||
-            (newPost.group_id == undefined) | (newPost.group_id == "")
+            (newPost.group_id == undefined) || (newPost.group_id == "")
         ) {
             newPost.group_id = null;
             queryStr =
