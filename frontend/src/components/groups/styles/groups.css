@@ -1,5 +1,6 @@
 .searchinput {
-  width: 80%;
+  padding: 5px;
+  width: 100%;
 }
 .addgrp {
   width: 100%;
@@ -51,4 +52,26 @@
   text-align: center;
   cursor: pointer;
   width: 100%;
+}
+.grpins {
+  font-size: 20px;
+  margin-top: 90px;
+  width: 900px;
+  border: 2px solid rgb(209, 209, 209);
+  padding: 15px;
+  background-color: rgb(233, 233, 233);
+}
+.grpsearch {
+  min-height: 150px;
+  padding: 10px;
+}
+.grpcsg {
+  width: 80%;
+}
+.grp {
+  float: left;
+  margin-left: 200px;
+  border: 2px solid rgb(209, 209, 209);
+  padding: 15px;
+  background-color: rgb(233, 233, 233);
 }

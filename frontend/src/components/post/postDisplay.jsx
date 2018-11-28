@@ -30,9 +30,11 @@ class PostDisplay extends Component {
   render() {
     return (
       <React.Fragment>
-        <PostEditor addPost={this.addPost} email={this.props.email} />
+        <div className="card">
+          <PostEditor addPost={this.addPost} email={this.props.email} />
+        </div>
 
-        <div className="postEditor">
+        <div className="postEdit">
           {this.props.posts.reverse().map((item, id) => {
             return (
               <Post

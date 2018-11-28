@@ -22,32 +22,8 @@ export default class Profile extends Component {
       items: [],
       arrayComments: [],
       arrayLikes: [],
-      arrayDislikes: [],
-      file: "",
-      imagePreviewUrl: ""
+      arrayDislikes: []
     };
-  }
-
-  _handleSubmit(e) {
-    e.preventDefault();
-    // TODO: do something with -> this.state.file
-    console.log("handle uploading-", this.state.file);
-  }
-
-  _handleImageChange(e) {
-    e.preventDefault();
-
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
-    };
-
-    reader.readAsDataURL(file);
   }
 
   componentDidMount() {
@@ -336,23 +312,6 @@ export default class Profile extends Component {
             />
           </div>
           <br />
-          <div className="previewComponent">
-            <form onSubmit={e => this._handleSubmit(e)}>
-              <input
-                className="fileInput"
-                type="file"
-                onChange={e => this._handleImageChange(e)}
-              />
-              <button
-                className="submitButton"
-                type="submit"
-                onClick={e => this._handleSubmit(e)}
-              >
-                Upload Image
-              </button>
-            </form>
-            <div className="imgPreview">{$imagePreview}</div>
-          </div>
         </div>
       </React.Fragment>
     );
