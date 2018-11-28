@@ -4,7 +4,7 @@
   float: left;
   background-color: #9ea19e;
   height: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
   margin-bottom: 15px;
 }
 .col2 {
@@ -14,7 +14,7 @@
   overflow: auto;
   height: 500px;
   overflow: auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(218, 217, 217);
   margin-bottom: 15px;
 }
 .col3 {
@@ -25,7 +25,7 @@
   padding: 0px 20px 15px 20px;
   overflow: auto;
   height: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(218, 217, 217);
 }
 .itemmsg {
   text-align: justify;
@@ -85,4 +85,8 @@ li a:hover {
   margin-top: 10px;
   margin-bottom: 5px;
   text-align: left;
+}
+.thread {
+  background-color: rgb(233, 233, 233);
+  border: 1px solid rgb(218, 217, 217);
 }

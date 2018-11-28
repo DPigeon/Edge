@@ -61,40 +61,6 @@ class ThreadList extends Component {
     });
   };
 
-  showColumn1() {
-    return (
-      <div className="col1">
-        <ul className="leftopt">
-          <li>
-            <button className=" btn-dark" onClick={() => this.createThread()}>
-              Compose
-            </button>
-          </li>
-          <br />
-          <li>
-            <button className=" btn-dark" href="/">
-              Inbox ({this.state.threads.length})
-            </button>
-          </li>
-
-          <br />
-          <li>
-            <button className=" btn-dark" href="/">
-              Sent
-            </button>
-          </li>
-          <br />
-          <li>
-            <button className=" btn-dark" href="/">
-              Contacts (0)
-            </button>
-          </li>
-          <br />
-        </ul>
-      </div>
-    );
-  }
-
   showColumn2() {
     var { isLoaded, threads } = this.state;
     if (!isLoaded) {
@@ -102,42 +68,27 @@ class ThreadList extends Component {
     } else {
       return (
         <div className="col2">
-          <div className="ThreadList">
-            {[...threads].reverse().map((item, id) => (
-              <div className="containermessage" key={id}>
-                <div className="boxmessage" key={item.id}>
-                  <ul>
-                    <li>
-                      <button
-                        onClick={() =>
-                          this.handleClickItem(
-                            item.id,
-                            item.sender,
-                            item.receiver,
-                            item.name
-                          )
-                        }
-                      >
-                        {item.name}
-                        <br />
-                        Message from {item.sender}
-                        <br />
-                        28/11/18
-                      </button>
-                    </li>
-                  </ul>
+          {[...threads].reverse().map((item, id) => (
+            <div className="" key={id}>
+              <div className="" key={item.id}>
+                <div
+                  className="thread"
+                  onClick={() =>
+                    this.handleClickItem(
+                      item.id,
+                      item.sender,
+                      item.receiver,
+                      item.name
+                    )
+                  }
+                >
+                  {item.name}
+                  <br />
+                  Message from {item.sender}
                 </div>
               </div>
-            ))}
-            <center>
-              <button
-                className=" btn-success"
-                onClick={() => this.createThread(this.state.id)}
-              >
-                New Message
-              </button>
-            </center>
-          </div>
+            </div>
+          ))}
         </div>
       );
     }
@@ -323,7 +274,6 @@ class ThreadList extends Component {
     return (
       <React.Fragment>
         <div className="containerbox">
-          {this.showColumn1()}
           {this.showColumn2()}
           {this.showMessagesOrNewMessageColumn()}
         </div>
