@@ -24,7 +24,7 @@ class PostDisplay extends Component {
         </div>
 
         <div className="postEdit">
-          {this.props.posts.reverse().map((item, id) => {
+          {this.props.posts.map((item, id) => {
             return (
               <Post
                 id={id}
