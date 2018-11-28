@@ -67,6 +67,8 @@ export default class Login extends Component {
   render() {
     return (
       <div className="modal-login">
+        <br />
+        <br />
         <h1>Login</h1>
         <form id="FormLogin" onSubmit={this.handleAccountForm} noValidate>
           <div className="form-group">

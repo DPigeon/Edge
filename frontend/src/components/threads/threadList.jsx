@@ -82,9 +82,10 @@ class ThreadList extends Component {
                     )
                   }
                 >
-                  {item.name}
+                  <b>{item.sender}</b>
                   <br />
-                  Message from {item.sender}
+
+                  {item.name}
                 </div>
               </div>
             </div>
@@ -118,41 +119,48 @@ class ThreadList extends Component {
     } else {
       return (
         <div className="col3">
-          <ul className="rightsend" />
-          <h1>Send a new message</h1>
-          Message Title
-          <br />
-          <input value={this.state.title} onChange={this.handleTitleChange} />
-          <br />
-          <br />
-          To:
-          <br />
-          <input value={this.state.toMsg} onChange={this.handleToChange} />
-          <br />
-          <br />
-          Type in a message...
-          <br />
-          <input
-            className="newMessage"
-            value={this.state.msg1}
-            onChange={this.handleMsgChange}
-          />
-          <br />
-          <br />
-          <button
-            className=" btn-success"
-            onClick={() =>
-              this.createMessage(
-                this.state.userProfile.email,
-                this.state.toMsg,
-                this.state.title,
-                this.state.msg1
-              )
-            }
-          >
-            Send Message
-          </button>
-          <br />
+          <div className="send">
+            <br />
+            Subject:
+            <br />
+            <input
+              className="in"
+              value={this.state.title}
+              onChange={this.handleTitleChange}
+            />
+            <br />
+            To:
+            <br />
+            <input
+              className="in"
+              value={this.state.toMsg}
+              onChange={this.handleToChange}
+            />
+            <br />
+            Message:
+            <br />
+            <textarea
+              className="inm"
+              tyoe="text"
+              value={this.state.msg1}
+              onChange={this.handleMsgChange}
+            />
+            <br />
+            <button
+              className="btnn"
+              onClick={() =>
+                this.createMessage(
+                  this.state.userProfile.email,
+                  this.state.toMsg,
+                  this.state.title,
+                  this.state.msg1
+                )
+              }
+            >
+              Send Message
+            </button>
+            <br />
+          </div>
         </div>
       );
     }
@@ -216,6 +224,7 @@ class ThreadList extends Component {
               msg
             );
           });
+        window.location.reload();
       });
     } else {
       alert("Fields must not be empty !");
