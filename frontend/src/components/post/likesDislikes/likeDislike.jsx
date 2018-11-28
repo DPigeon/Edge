@@ -159,7 +159,7 @@ class LikeDislike extends Component {
           {this.props.posts[this.props.id].dislikeList.length} people disliked
           this post
           {this.props.posts[this.props.id].dislikeList.map((item, id) => (
-            <div className="Dislike List" key={id}>
+            <div className="dislikelist" key={id}>
               <div className="itemDislike">
                 <a href={`/user/` + item.author_email}>{item.author_email}</a>
               </div>

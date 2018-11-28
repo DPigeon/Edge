@@ -57,7 +57,7 @@ class SearchGroup extends Component {
 
   render() {
     return (
-      <div>
+      <div className="grpsearch">
         <center>
           <h4>Group Search</h4>
           <input

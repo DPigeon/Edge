@@ -1,69 +1,57 @@
 .col1 {
+  margin-top: 50px;
   width: 10%;
   float: left;
   background-color: #9ea19e;
   height: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
   margin-bottom: 15px;
 }
-
 .col2 {
+  margin-top: 50px;
   width: 30%;
   float: left;
   overflow: auto;
   height: 500px;
   overflow: auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(218, 217, 217);
   margin-bottom: 15px;
 }
-
 .col3 {
+  margin-top: 50px;
   width: 60%;
   float: left;
   margin-bottom: 16px;
   padding: 0px 20px 15px 20px;
   overflow: auto;
   height: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
+  border: 1px solid rgb(218, 217, 217);
 }
-
 .itemmsg {
   text-align: justify;
   text-justify: inter-word;
 }
-
-.containerbox {
-  width: 100%;
-  background-color: #979797fd;
-}
-
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-
 li a {
   display: block;
   color: #000000;
   padding: 20px 16px;
   text-decoration: none;
 }
-
 li a:hover {
   background-color: #555;
   color: white;
 }
-
 .listThread-editor {
   margin: 1em 30%;
 }
-
 .messager-editor {
   margin: 3em 15%;
 }
-
 .messager-editor-button {
   float: right;
   margin-top: 1em;
@@ -79,13 +67,11 @@ li a:hover {
 .rightsend {
   background-color: aquamarine;
 }
-
 @media (max-width: 1000px) {
   .listThread-editor {
     margin: 1em;
   }
 }
-
 @media (max-width: 900px) {
   .messager-editor {
     margin: 3em;
@@ -99,4 +85,8 @@ li a:hover {
   margin-top: 10px;
   margin-bottom: 5px;
   text-align: left;
+}
+.thread {
+  background-color: rgb(233, 233, 233);
+  border: 1px solid rgb(218, 217, 217);
 }
