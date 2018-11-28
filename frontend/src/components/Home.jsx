@@ -10,10 +10,7 @@ class Home extends Component {
     super(props);
     this.state = {
       userProfile: [],
-      items: [],
-      arrayComments: [],
-      arrayLikes: [],
-      arrayDislikes: []
+      items: []
     };
   }
 
@@ -59,78 +56,19 @@ class Home extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          items: json.postList.reverse() //posts get into a stack/array
+          items: json.postList.reverse() //reversing the array of posts
         });
-        this.setCommentList(this.state.items);
-        this.setLikeList(this.state.items);
-        this.setDislikeList(this.state.items);
       });
-  }
-
-  setCommentList(newArray) {
-    // let array = []; //this is making an array of an array
-    //we want one array
-
-    for (var i = 0; i < newArray.length; i++) {
-      this.state.arrayComments.push(newArray[i].commentList);
-      //this.setState({ arrayComments: newArray[i].commentList });
-    }
-    //this.setState({ arrayComments:  });
-  }
-
-  setLikeList(newArray) {
-    let array = [];
-
-    for (var i = 0; i < newArray.length; i++) {
-      array[i] = newArray[i].likeList;
-    }
-    this.setState({ arrayLikes: array });
-  }
-
-  setDislikeList(newArray) {
-    let array = [];
-
-    for (var i = 0; i < newArray.length; i++) {
-      array[i] = newArray[i].dislikeList;
-    }
-    this.setState({ arrayDislikes: array });
   }
 
   getPostList() {
     return this.state.items;
   }
 
-  getCommentList() {
-    return this.state.arrayComments;
-  }
-
-  getLikeList() {
-    return this.state.arrayLikes;
-  }
-
-  getDislikeList() {
-    return this.state.arrayDislikes;
-  }
-
   showLeftColumn() {
     var date = new Date().getDate(); //gets the date
     var month = new Date().getMonth(); //gets the month
     var year = new Date().getFullYear(); //gets the year
-    const monthName = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ];
-
     return (
       <div className="column">
         <br />
@@ -172,9 +110,6 @@ class Home extends Component {
           <PostDisplay
             email={this.state.userProfile.email}
             posts={this.getPostList()}
-            comments={this.getCommentList()}
-            likes={this.getLikeList()}
-            dislikes={this.getDislikeList()}
           />
         </div>
       </div>
