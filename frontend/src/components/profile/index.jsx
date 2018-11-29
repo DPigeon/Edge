@@ -3,7 +3,6 @@ import Home from "../Home";
 import Popup from "reactjs-popup";
 import decode from "jwt-decode";
 import PostDisplay from "../post/postDisplay";
-import "../post/styles/post.css";
 import "./styles/profile.css";
 
 //your profile page
@@ -90,7 +89,7 @@ export default class Profile extends Component {
       return (
         <div className="card">
           <div className="posttext">
-            {this.state.posts.postList.map((item, id) => (
+            {this.state.posts.postList.reverse().map((item, id) => (
               <div className="cardmessage" key={id}>
                 <h5>
                   <div className="messagefrom">
