@@ -28,17 +28,6 @@ class IndividualGroup extends Component {
     this.setState({
       userProfile: profile
     });
-    //Must get the users for profile id of each email
-    /*fetch(
-      `http://localhost:8000/users`
-    )
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          users: json
-        });
-      });
-  }*/
     fetch(
       `http://localhost:8000/groups/${this.props.match.params.groupId}/members`,
       {
@@ -214,7 +203,7 @@ class IndividualGroup extends Component {
                     <div className="itemMember">
                       {this.isGroupAdmin(item2.admin)}
                       <h5>
-                        <a href={`/users/` + item2.group_id}>{item2.user_id}</a>
+                        <a href={`/user/` + item2.user_id}>{item2.user_id}</a>
                       </h5>
                     </div>
                   </li>

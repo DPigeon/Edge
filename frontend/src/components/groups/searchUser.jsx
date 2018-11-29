@@ -7,7 +7,8 @@ class SearchUser extends Component {
       search: "",
       users: [],
       groups: [],
-      members: []
+      members: [],
+      aRequest: []
     };
   }
 
@@ -45,7 +46,7 @@ class SearchUser extends Component {
 
   getTeacher(isTeacher) {
     var teacherOrParent = "";
-    if (!isTeacher) teacherOrParent = "Parent";
+    if (isTeacher === 0) teacherOrParent = "Parent";
     else teacherOrParent = "Teacher";
     return teacherOrParent;
   }
@@ -62,7 +63,7 @@ class SearchUser extends Component {
     return false;
   }
 
-  addThisMemberToTheGroup = (id, email, name) => {
+  addThisMemberToTheGroup = (id, email) => {
     fetch(`http://localhost:8000/groups/${id}/members`, {
       method: "GET",
       headers: {
@@ -76,7 +77,7 @@ class SearchUser extends Component {
         this.setState({
           members: json
         });
-        this.addMember(this.state.members, email, id, name); //We did not have access to the members (fixed David)
+        this.addMember(this.state.members, email, id);
       });
   };
 
@@ -87,7 +88,7 @@ class SearchUser extends Component {
     return false; //exists
   }
 
-  addMember(members, email, id, name) {
+  addMember(members, email, id) {
     //create a request
     fetch(`http://localhost:8000/groups/${id}/requests`, {
       method: "POST",
@@ -99,11 +100,21 @@ class SearchUser extends Component {
       body: JSON.stringify({
         user_id: email
       })
-      //this.acceptRequest(id, true);
+    }).then(res => {
+      res
+        .json()
+        .then(data => ({
+          aRequest: data
+        }))
+        .then(res => {
+          this.acceptRequestToAddMember(res.aRequest.id, true);
+        });
     });
+    //window.location.reload();
   }
 
-  acceptRequest(requestId, response) {
+  acceptRequestToAddMember(requestId, response) {
+    //accepts the request and deletes it (automaticly adds the members in the group from the backend)
     fetch(`http://localhost:8000/groupRequests/${requestId}`, {
       method: "POST",
       headers: {
@@ -138,7 +149,7 @@ class SearchUser extends Component {
                   </div>
                 </h5>
                 <div className="isTeacher">
-                  {this.getTeacher(item.isTeacher)}
+                  {this.getTeacher(item.is_teacher)}
                 </div>
                 <button
                   className="btn btn-success"
