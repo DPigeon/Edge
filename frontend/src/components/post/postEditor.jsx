@@ -79,7 +79,7 @@ class PostEditor extends Component {
             placeholder="Post something here.."
             onChange={this.handlePostChange}
           />
-          <label class="ibtn">
+          <label className="ibtn">
             <input type="file" onChange={this.fileChangedHandler} />
             Upload Image
           </label>

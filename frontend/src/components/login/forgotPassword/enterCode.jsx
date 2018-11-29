@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ChangePassword from "./changePassword";
 
 class EnterCode extends Component {
   state = {
