@@ -26,8 +26,8 @@ export default () => (
       <Route path="/groups" component={GroupList} />
       <Route path="/creategroup" component={CreateGroup} />
       <Route path="/forgotpassword" component={ForgotPassword} />
-      <Route path="/code" component={EnterCode} />
-      <Route path="/newpassword" component={NewPassword} />
+      <Route path="/code/:email" component={EnterCode} />
+      <Route path="/newpassword/:email" component={NewPassword} />
       <Route path="/group/:groupId" component={IndividualGroup} />
       <Route component={NotFound} />
     </Switch>
