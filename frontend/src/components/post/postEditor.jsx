@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Mentions from "../mentions/mention";
 import "./styles/post.css";
 
 class PostEditor extends Component {
@@ -23,7 +24,7 @@ class PostEditor extends Component {
       this.state.selectedFile.name
     );
     //axios.post("my-domain.com/file-upload", formData);
-    const h = {};
+    //const h = {};
 
     fetch("http://localhost:8000/images", {
       method: "POST",
@@ -43,6 +44,11 @@ class PostEditor extends Component {
     this.setState({
       newPostBody: event.target.value
     });
+    return (
+      <div>
+        <Mentions newPostBody={this.state.newPostBody} />
+      </div>
+    );
   };
 
   createPost = email => {
@@ -79,16 +85,11 @@ class PostEditor extends Component {
             placeholder="Post something here.."
             onChange={this.handlePostChange}
           />
-          <label class="ibtn">
+          <label className="ibtn">
             <input type="file" onChange={this.fileChangedHandler} />
             Upload Image
           </label>
-          <button
-            className="btnn"
-            onClick={this.uploadHandler}
-            onClick={() => this.createPost(this.props.email)}
-            type="button"
-          >
+          <button className="btnn" onClick={this.uploadHandler} type="button">
             Post
           </button>
         </form>
