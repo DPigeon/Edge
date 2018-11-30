@@ -6,6 +6,7 @@ const UserController = require("./controllers/User");
 const Auth = require("./Auth");
 
 
+
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
@@ -19,6 +20,11 @@ app.use((req, res, next) => {
     );
     next();
 });
+// ===========================================================
+
+// ============ Allow fetching of images =====================
+app.use('/images', express.static('./images/'))
+// ===========================================================
 
 app.get("/", (req, res) => {
     res.status(200);
@@ -164,6 +170,7 @@ module.exports.determineTestAndAuth = (req) => {
     let test = false
     if (req.originalUrl.slice(1, 5) == 'test') {
         test = true
+        return { test, isAuthorized: true }
     }
 
     const jwt = req.get('jwt');
