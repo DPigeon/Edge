@@ -80,17 +80,17 @@ class Post {
             for (let i = 0; i < postList.length; i++) {
                 let post_id = postList[i].id;
                 console.log("post_id =>", post_id);
-                let { commentList } = fetchAllFromPostId({
+                let { commentList } = this.fetchAllFromPostId({
                     post_id,
                     test,
                     type: "comments"
                 });
-                let { likeList } = fetchAllFromPostId({
+                let { likeList } = this.fetchAllFromPostId({
                     post_id,
                     test,
                     type: "likes"
                 });
-                let { dislikeList } = fetchAllFromPostId({
+                let { dislikeList } = this.fetchAllFromPostId({
                     post_id,
                     test,
                     type: "dislikes"

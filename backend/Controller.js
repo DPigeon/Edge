@@ -167,6 +167,7 @@ module.exports.determineTestAndAuth = (req) => {
     let test = false
     if (req.originalUrl.slice(1, 5) == 'test') {
         test = true
+        return { test, isAuthorized: true }
     }
 
     const jwt = req.get('jwt');
