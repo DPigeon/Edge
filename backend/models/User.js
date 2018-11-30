@@ -47,7 +47,6 @@ class User {
                 success: false,
                 message: "you did not provide an email"
             }
-
         }
         else if (!profile_pic && !cover_pic) {
             return {
@@ -72,13 +71,13 @@ class User {
         try {
             result = connection.query(queryStr)
         } catch (error) {
-            console.log(`sql query error => ${error}`);
+            console.log(`sql query error => ${error}`)
             return {
                 success: false,
                 message: error.message
             }
         }
-        console.log(`sql query result => ${JSON.stringify(result)}`);
+        console.log(`sql query result => ${JSON.stringify(result)}`)
         return {
             success: true,
             message: 'picture succesfully added'

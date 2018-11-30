@@ -22,8 +22,8 @@ app.use((req, res, next) => {
 });
 // ===========================================================
 
-// ============ Allow Parsing of multipart/form-data==========
-app.use('/images',express.static('./images/'))
+// ============ Allow fetching of images =====================
+app.use('/images', express.static('./images/'))
 // ===========================================================
 
 app.get("/", (req, res) => {

@@ -1,6 +1,7 @@
 const BaseController = require('../Controller')
 const multer = require('multer')
 const User = require('../models/User')
+const Post = require('../models/Post')
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -90,11 +91,11 @@ module.exports.saveImage = (req, res) => {
             }
             else if (profile_pic != 'true' && cover_pic != 'true' && post_id) {
                 // save the picture name with the post_id associated to it.
-
-                /*
-                *** NOT YET IMPLEMENTED
-                */
+                result = Post.addPic({ email, post_id, imageName, test })
             }
+
+
+
             if (!result) {
                 return res.status(400).json({
                     success: false,
