@@ -23,10 +23,7 @@ app.use((req, res, next) => {
 // ===========================================================
 
 // ============ Allow Parsing of multipart/form-data==========
-// const multer = require('multer')
-// const upload = multer()
-// app.use(upload.array())
-// app.use(express.static('public'))
+app.use('/images',express.static('./images/'))
 // ===========================================================
 
 app.get("/", (req, res) => {
