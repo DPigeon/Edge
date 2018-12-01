@@ -73,9 +73,27 @@ input[type="file"] {
 }
 
 .suggestions {
-  padding: 10px 30px;
+  padding: 5px 10px;
 }
 
 .suggestions:hover {
   background-color: #eee;
+}
+
+.suggestions a {
+  color: blue;
+  border: none;
+}
+
+.suggestionsButton {
+
+  color: black;
+  background-color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.suggestionsButton:focus {
+  background-color: #2980B9
 }

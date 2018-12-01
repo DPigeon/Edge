@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Parser from "html-react-parser";
 
 class Comments extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Comments extends Component {
           <h6>
             Comment by <a href={"/user/" + this.props.by}>{this.props.by}</a>
           </h6>
-          {this.props.commentBody}
+          {Parser(this.props.commentBody)}
         </div>
       </div>
     );

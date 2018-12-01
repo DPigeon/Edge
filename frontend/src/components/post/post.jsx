@@ -10,19 +10,20 @@ class Post extends Component {
     this.state = { postBody: "" };
   }
 
-  replaceAt(string, index, replace) {
+  /*replaceAt(string, index, replace) {
+    //for (var i = 0; i < string.length; i++) {
     return string.substring(0, index) + replace + string.substring(index + 1);
+    //}
   }
 
   findAtIndexInPosts() {
     var string = this.props.postBody;
     var at = string.indexOf("@");
-    console.log(at);
     return at;
-  }
+  }*/
 
   replaceByMention() {
-    if (this.props.postBody.includes("@") === true) {
+    /*if (this.props.postBody.includes("@") === true) {
       return Parser(
         this.replaceAt(
           this.props.postBody,
@@ -30,9 +31,9 @@ class Post extends Component {
           `<a href="">[@]</a>`
         )
       );
-    } else {
-      return <div>{Parser(this.props.postBody)}</div>;
-    }
+    } else {*/
+    return <div>{Parser(this.props.postBody)}</div>;
+    //}
   }
 
   render() {
@@ -55,6 +56,7 @@ class Post extends Component {
           email={this.props.emailOfPost}
           posts={this.props.posts}
           postId={this.props.postId}
+          users={this.props.users}
         />
       </div>
     );
