@@ -3,6 +3,7 @@ import Home from "../Home";
 import Popup from "reactjs-popup";
 import decode from "jwt-decode";
 import PostDisplay from "../post/postDisplay";
+import Parser from "html-react-parser";
 import "./styles/profile.css";
 
 //your profile page
@@ -26,8 +27,6 @@ export default class Profile extends Component {
       arrayDislikes: []
     };
   }
-
-  component;
 
   componentDidMount() {
     const { emailName } = this.props.match.params; //gets the username from the url
@@ -101,7 +100,7 @@ export default class Profile extends Component {
                   </div>
                 </h5>
                 <div className="itemmsg">
-                  <p className="mess">{item.data}</p>
+                  <p className="mess">{Parser(item.data)}</p>
                 </div>
               </div>
             ))}
