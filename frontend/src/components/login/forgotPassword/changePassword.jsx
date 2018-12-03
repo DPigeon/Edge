@@ -19,7 +19,6 @@ class ChangePassword extends Component {
 
   hasAccessToThePage() {
     //looks if the user is logout and has access (TODO)
-    var access = false;
   }
 
   handleChange = event => {
