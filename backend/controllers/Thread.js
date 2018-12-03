@@ -41,10 +41,10 @@ class ThreadController {
             }
             res.json(query.thread);
         }
-        res.json({
+        /*res.json({
             success: false,
             message: "UnAuthorized"
-        })
+        })*/
     }
 
     static getAll(req, res) {

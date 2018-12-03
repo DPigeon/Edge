@@ -8,7 +8,8 @@ class Notify extends Component {
     this.state = {
       userProfile: [],
       items: [],
-      threads: []
+      threads: [],
+      getThreads: true
     };
   }
 
@@ -54,7 +55,7 @@ class Notify extends Component {
     window.location.reload();
   };
 
-  getAllThreadsForId(id) {
+  /*getAllThreadsForId(id) {
     fetch(`http://localhost:8000/threads/${id}`, {
       method: "GET",
       headers: {
@@ -70,7 +71,7 @@ class Notify extends Component {
         });
       });
     return this.state.threads;
-  }
+  }*/
 
   getUsers(email) {
     fetch(`http://localhost:8000/user/`, {
@@ -114,8 +115,7 @@ class Notify extends Component {
             } else {
               return (
                 <a href className="dropdown-item">
-                  New message from{" "}
-                  {this.getAllThreadsForId(item.thread_id).receiver}
+                  New message from with thread id {item.thread_id}
                   <br />
                   <button
                     className="btn btn-danger"
