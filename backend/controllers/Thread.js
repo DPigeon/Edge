@@ -8,7 +8,9 @@ class ThreadController {
         let thread = new Thread(req.body.sender, req.body.receiver, req.body.name);
 
         if (!thread.sender || !thread.receiver || !thread.name) {
-            return res.status(400).json({error: "Please provide valid data"});
+            return res.status(400).json({
+                error: "Please provide valid data"
+            });
         }
 
         let query = Thread.create(thread);
@@ -21,17 +23,28 @@ class ThreadController {
     }
 
     static getById(req, res) {
-        if (!req.params.threadId) {
-            return res.status(400).json({error: "Please provide a valid thread id in the route"});
+        const {
+            isAuthorized
+        } = Controller.determineTestAndAuth(req)
+        if (isAuthorized) {
+            console.log("isAuthorized => " + isAuthorized)
+            if (!req.params.threadId) {
+                return res.status(400).json({
+                    error: "Please provide a valid thread id in the route"
+                });
+            }
+
+            let query = Thread.getById(req.params.threadId);
+
+            if (!query.success) {
+                return res.send(query.error);
+            }
+            res.json(query.thread);
         }
-
-        let query = Thread.getById(req.params.threadId);
-
-        if (!query.success) {
-            return res.send(query.error);
-        }
-
-        res.json(query.thread);
+        res.json({
+            success: false,
+            message: "UnAuthorized"
+        })
     }
 
     static getAll(req, res) {
@@ -39,7 +52,9 @@ class ThreadController {
         let authorization = Controller.determineTestAndAuth(req);
 
         if (!authorization.isAuthorized) {
-            return res.status(400).json({error: "Wrong authentication token"})
+            return res.status(400).json({
+                error: "Wrong authentication token"
+            })
         }
 
         let query = Thread.getAll(authorization.token.email);
@@ -57,7 +72,9 @@ class ThreadController {
 
     static getAllMessagesById(req, res) {
         if (!req.params.threadId) {
-            return res.status(400).json({error: "Please provide a valid thread id in the route"});
+            return res.status(400).json({
+                error: "Please provide a valid thread id in the route"
+            });
         }
 
         let query = Thread.getAllMessagesById(req.params.threadId);

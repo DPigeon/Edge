@@ -33,7 +33,7 @@ class Notify extends Component {
         .then(res => res.json())
         .then(json => {
           this.setState({
-            items: json
+            items: json.reverse()
           });
         });
     }
@@ -54,8 +54,8 @@ class Notify extends Component {
     window.location.reload();
   };
 
-  getAllThreadsForId() {
-    fetch(`http://localhost:8000/threads`, {
+  getAllThreadsForId(id) {
+    fetch(`http://localhost:8000/threads/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -69,6 +69,69 @@ class Notify extends Component {
           threads: json
         });
       });
+    return this.state.threads;
+  }
+
+  getUsers(email) {
+    fetch(`http://localhost:8000/user/`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          users: json
+        });
+      });
+    return this.state.threads;
+  }
+
+  showNotifications() {
+    return (
+      <div className="dropdown-content">
+        <li>
+          {this.state.items.map((item, id) => {
+            if (item.thread_id === 90) {
+              //if not a tag, show new messages
+              return (
+                <a href className="dropdown-item">
+                  Your friend {item.tag_id} tagged you on a post
+                  <br />
+                  <button
+                    className="btn btn-danger"
+                    onClick={() =>
+                      this.dismissNotification(item.id, item.user_id)
+                    }
+                  >
+                    Dismiss
+                  </button>
+                </a>
+              );
+            } else {
+              return (
+                <a href className="dropdown-item">
+                  New message from{" "}
+                  {this.getAllThreadsForId(item.thread_id).receiver}
+                  <br />
+                  <button
+                    className="btn btn-danger"
+                    onClick={() =>
+                      this.dismissNotification(item.id, item.user_id)
+                    }
+                  >
+                    Dismiss
+                  </button>
+                </a>
+              );
+            }
+          })}{" "}
+        </li>
+      </div>
+    );
   }
 
   render() {
@@ -80,23 +143,7 @@ class Notify extends Component {
           <button className="btn btn-success dropdown-toggle dropbtn">
             {this.state.items.length}
           </button>
-          {this.state.items.map(item => (
-            <div className="dropdown-content">
-              <a href className="dropdown-item">
-                New message(s) in your message center ({this.state.items.length}
-                )
-                <br />
-                <button
-                  className="btn btn-danger"
-                  onClick={() =>
-                    this.dismissNotification(item.id, item.user_id)
-                  }
-                >
-                  Dismiss
-                </button>
-              </a>
-            </div>
-          ))}
+          {this.showNotifications()}
         </div>
       </div>
     );

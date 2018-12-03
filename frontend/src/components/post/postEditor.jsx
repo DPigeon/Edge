@@ -15,7 +15,8 @@ class PostEditor extends Component {
       selectUser: 0,
       position: null,
       hasMentions: false,
-      showSuggestions: false
+      showSuggestions: false,
+      userTagged: ""
     };
     //Binders
     this.handleMention = this.handleMention.bind(this);
@@ -77,6 +78,8 @@ class PostEditor extends Component {
           data: this.state.newPostBody
         })
       });
+      //sends a tag notif if any tags in the post
+      this.sendTagNotification(email, this.state.userTagged);
     }
   };
 
@@ -152,9 +155,9 @@ class PostEditor extends Component {
       mentionPost: null,
       position: null,
       newPostBody: newText,
-      hasMentions: true
+      hasMentions: true,
+      userTagged: user.email
     });
-    //will send a notification passing user.email here
     this.endHandler();
   }
 
@@ -178,10 +181,31 @@ class PostEditor extends Component {
       mentionPost: null,
       position: null,
       newPostBody: newText,
-      hasMentions: true
+      hasMentions: true,
+      userTagged: user.email
     });
-    //will send a notification passing user.email here with who tagged you (userProfile.email)
     this.endHandler();
+  }
+
+  sendTagNotification(taggedUser, userTagging) {
+    //works but needs rework (look at comment below)
+    if (this.state.hasMentions === true) {
+      console.log(userTagging, taggedUser);
+      //looks if the user tagged someone
+      fetch(`http://localhost:8000/notifications`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          user_id: userTagging,
+          thread_id: 90, //thread ids cannot be undefined or null, must find a way to make this better
+          tag_id: taggedUser
+        })
+      });
+    }
   }
 
   handleMention(metaInformation) {

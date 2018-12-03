@@ -3,30 +3,31 @@
 const db = require("../db");
 
 class Notification {
-    constructor(user_id, thread_id) {
+    constructor(user_id, thread_id, tag_id) {
         this.user_id = user_id;
         this.thread_id = thread_id;
+        this.tag_id = tag_id;
     }
 
     static notificationToQuery(notification) {
-        return `'${notification.user_id}', '${notification.thread_id}'`;
+        return `'${notification.user_id}', '${notification.thread_id}', '${notification.tag_id}'`;
     }
 
     static create(notification) {
-        console.log('Creating a notification with values: ', notification);
+        console.log("Creating a notification with values: ", notification);
         try {
-            const queryResult = db.SyncConn.query(`INSERT INTO notifications (user_id, thread_id) VALUES(${this.notificationToQuery(notification)})`);
+            const queryResult = db.SyncConn.query(`INSERT INTO notifications (user_id, thread_id, tag_id) VALUES(${this.notificationToQuery(notification)})`);
             notification.id = queryResult.insertId;
         } catch (error) {
-            console.log('Error : ', error);
-            console.log('Error code : ', error.code);
+            console.log("Error : ", error);
+            console.log("Error code : ", error.code);
             return {
                 success: false,
                 error: error
             };
         }
         console.log(notification);
-        console.log('---------------------------------------');
+        console.log("---------------------------------------");
         return {
             success: true,
             notification: notification
@@ -89,7 +90,7 @@ class Notification {
 
     static getAllNotifications(userId) {
         //Logic: threadId will be either NULL or an integer.
-        //If NULL: means it is a notification from profile walls.
+        //If NULL: means it is a notification from profile walls or tags
         //If not NULL: means it is a notification from a message received
 
         let requests = null;

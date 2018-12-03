@@ -4,8 +4,8 @@ const Notification = require("../models/Notification");
 
 class NotificationController {
     static create(req, response) {
-        let notification = new Notification(req.body.user_id, req.body.thread_id);
-        if (!notification.user_id || !notification.thread_id) {
+        let notification = new Notification(req.body.user_id, req.body.thread_id, req.body.tag_id);
+        if ((!notification.user_id || (!notification.thread_id && !notification.tag_id))) {
             return response.status(400).json({
                 error: "Please provide valid data"
             });
