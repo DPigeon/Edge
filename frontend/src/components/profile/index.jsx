@@ -24,7 +24,8 @@ export default class Profile extends Component {
       posts: [],
       arrayComments: [],
       arrayLikes: [],
-      arrayDislikes: []
+      arrayDislikes: [],
+      fileProfile: ""
     };
   }
 
@@ -211,6 +212,103 @@ export default class Profile extends Component {
     return newArray;
   }
 
+  handleUploadProfile = image => {
+    let data = new FormData();
+    data.append("myimage", image);
+    console.log(data);
+    fetch("http://localhost:8000/images", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt"),
+        profile_pic: true
+      },
+      body: data
+    });
+  };
+
+  handleProfilePic = event => {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        fileProfile: file
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  handleUploadCover = image => {
+    if (this.findTheUserToShow().profile_pic != null) {
+      let data = new FormData();
+      data.append("myimage", image);
+      fetch("http://localhost:8000/images", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt"),
+          cover_pic: true
+        },
+        body: data
+      });
+    }
+  };
+
+  showProfilePic() {
+    if (this.findTheUserToShow().profile_pic != null) {
+      return (
+        <div>
+          <img
+            src={require(`../../../../backend/images/${
+              this.findTheUserToShow().profile_pic
+            }`)}
+            alt="profile"
+            className="pp"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <img
+            src={require("./images/profile.png")}
+            alt="profile"
+            className="pp"
+          />
+        </div>
+      );
+    }
+  }
+
+  showCoverPic() {
+    if (this.findTheUserToShow().cover_pic != null) {
+      return (
+        <div>
+          <img
+            src={require(`../../../../backend/images/${
+              this.findTheUserToShow().cover_pic
+            }`)}
+            alt="Welcome"
+            className="banner"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <img
+            src={require("./images/banner.jpg")}
+            alt="Welcome"
+            className="banner"
+          />
+        </div>
+      );
+    }
+  }
+
   render() {
     const modalStyle = {
       width: "500px"
@@ -219,11 +317,7 @@ export default class Profile extends Component {
       <React.Fragment>
         <div className="profilecontainer">
           <div className="imagecontainer">
-            <img
-              src={require("./images/profile.png")}
-              alt="profile"
-              className="pp"
-            />
+            {this.showProfilePic()}
             <Popup
               contentStyle={modalStyle}
               trigger={this.showUpdateInfoButton()}
@@ -289,31 +383,50 @@ export default class Profile extends Component {
                   <br />
                   <div className="imageedit">
                     <b>Profile Picture</b>
-                    <br />
                     <input
                       type="file"
-                      name="profile"
-                      className=""
-                      accept="image/png, image/jpeg"
+                      name="profile_pic"
+                      id="fileId1"
+                      onChange={event => this.handleProfilePic(event)}
                     />
+                    <label for="fileId1" className="choosebutton">
+                      Choose a File...
+                    </label>
                   </div>
                   <br />
                   <br />
+                  <br />
+                  <button
+                    className="uploadbutton"
+                    onClick={() =>
+                      this.handleUploadProfile(this.state.fileProfile)
+                    }
+                  >
+                    Update Profile Picture
+                  </button>
                   <br />
                   <div className="imageedit">
                     <b>Banner Picture</b>
-                    <br />
+
                     <input
                       type="file"
-                      name="banner"
-                      className="hi"
-                      accept="image/png, image/jpeg"
+                      name="cover_pic"
+                      id="fileId1"
+                      onChange={this.handleCoverPic}
                     />
+                    <label for="fileId1" className="choosebutton">
+                      Choose a File...
+                    </label>
                     <br />
                     <br />
                   </div>
                   <br />
-                  <button className="uploadbutton">Update Pictures</button>
+                  <button
+                    className="uploadbutton"
+                    onClick={() => this.handleUploadBanner()}
+                  >
+                    Update Banner
+                  </button>
                 </div>
               </div>
             </Popup>
@@ -329,11 +442,7 @@ export default class Profile extends Component {
               </h6>
               <br />
             </h3>
-            <img
-              src={require("./images/banner.jpg")}
-              alt="Welcome"
-              className="banner"
-            />
+            {this.showCoverPic()}
           </div>
           <br />
           <br />
