@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, jwt"
+        "Origin, X-Requested-With, Content-Type, Accept, jwt, profile_pic, cover_pic, post_id"
     );
     next();
 });
@@ -153,10 +153,10 @@ app.post('/likes', LikeController.create)
 
 app.post('/test/likes', LikeController.create)
 
- const RecoverPasswordController = require("./controllers/RecoverPassword");
+const RecoverPasswordController = require("./controllers/RecoverPassword");
 
- app.post('/recover', RecoverPasswordController.sendRecoveryEmail);
- app.post('/recover/verify', RecoverPasswordController.verifyRecoveryCode);
+app.post('/recover', RecoverPasswordController.sendRecoveryEmail);
+app.post('/recover/verify', RecoverPasswordController.verifyRecoveryCode);
 
 
 
@@ -170,12 +170,22 @@ module.exports.determineTestAndAuth = (req) => {
     let test = false
     if (req.originalUrl.slice(1, 5) == 'test') {
         test = true
-        return { test, isAuthorized: true }
+        return {
+            test,
+            isAuthorized: true
+        }
     }
 
     const jwt = req.get('jwt');
-    const { isAuthorized, token } = Auth.AuthorizeUser(jwt);
-    return { test, isAuthorized, token }
+    const {
+        isAuthorized,
+        token
+    } = Auth.AuthorizeUser(jwt);
+    return {
+        test,
+        isAuthorized,
+        token
+    }
 }
 
 let port = 8000;

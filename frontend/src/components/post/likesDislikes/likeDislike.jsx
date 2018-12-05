@@ -19,7 +19,36 @@ class LikeDislike extends Component {
   }
 
   componentDidMount() {
-    //TODO: looks at your jwt email, if it is inside any likelist/dislikelist, put like or unlike
+    this.loadWhoLikedAndDisliked(); //shows if you already liked/disliked or not
+  }
+
+  loadWhoLikedAndDisliked() {
+    //for likes
+    for (var i = 0; i < this.props.posts[this.props.id].likeList.length; i++) {
+      if (
+        this.props.email ===
+        this.props.posts[this.props.id].likeList.map(item => item.author_email)[
+          i
+        ]
+      ) {
+        this.setState({ liked: !this.state.liked });
+      }
+    }
+    //for dislikes
+    for (
+      var j = 0;
+      i < this.props.posts[this.props.id].dislikeList.length;
+      j++
+    ) {
+      if (
+        this.props.email ===
+        this.props.posts[this.props.id].dislikeList.map(
+          item => item.author_email
+        )[j]
+      ) {
+        this.setState({ disliked: !this.state.disliked });
+      }
+    }
   }
 
   handleLike = (email, postId) => {
@@ -195,7 +224,7 @@ class LikeDislike extends Component {
   }
 
   showDislikeCounter() {
-    const label2 = this.state.disliked ? "Undislike" : "Dislike";
+    const label = this.state.disliked ? "Undislike" : "Dislike";
     return (
       <div>
         {this.showPopUpDislike()}
@@ -206,7 +235,7 @@ class LikeDislike extends Component {
           }
           disabled={this.state.isDislikeButtonDisabled}
         >
-          {label2}
+          {label}
         </button>
       </div>
     );

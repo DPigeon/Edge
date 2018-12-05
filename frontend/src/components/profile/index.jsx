@@ -25,7 +25,7 @@ export default class Profile extends Component {
       arrayComments: [],
       arrayLikes: [],
       arrayDislikes: [],
-      fileProfile: ""
+      fileProfile: null
     };
   }
 
@@ -212,8 +212,10 @@ export default class Profile extends Component {
     return newArray;
   }
 
-  handleUploadProfile = image => {
-    let data = new FormData();
+  handleUploadProfile = () => {
+    console.log(this.state.fileProfile);
+    let image = this.state.fileProfile;
+    const data = new FormData();
     data.append("myimage", image);
     console.log(data);
     fetch("http://localhost:8000/images", {
@@ -221,23 +223,22 @@ export default class Profile extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        jwt: localStorage.getItem("jwt"),
-        profile_pic: true
+        profile_pic: true,
+        jwt: localStorage.getItem("jwt")
+      },
+      onUploadProgress: progressEvent => {
+        console.log(
+          "Upload Progress: " + progressEvent.loaded / progressEvent.total
+        );
       },
       body: data
+    }).then(res => {
+      console.log(res);
     });
   };
 
   handleProfilePic = event => {
-    event.preventDefault();
-    let reader = new FileReader();
-    let file = event.target.files[0];
-    reader.onloadend = () => {
-      this.setState({
-        fileProfile: file
-      });
-    };
-    reader.readAsDataURL(file);
+    this.setState({ fileProfile: event.target.files[0] });
   };
 
   handleUploadCover = image => {
@@ -380,30 +381,28 @@ export default class Profile extends Component {
                   >
                     Update Informations
                   </button>
+
                   <br />
-                  <div className="imageedit">
-                    <b>Profile Picture</b>
-                    <input
-                      type="file"
-                      name="profile_pic"
-                      id="fileId1"
-                      onChange={event => this.handleProfilePic(event)}
-                    />
-                    <label for="fileId1" className="choosebutton">
-                      Choose a File...
-                    </label>
-                  </div>
-                  <br />
-                  <br />
-                  <br />
-                  <button
-                    className="uploadbutton"
-                    onClick={() =>
-                      this.handleUploadProfile(this.state.fileProfile)
-                    }
-                  >
-                    Update Profile Picture
-                  </button>
+                  <form onSubmit={this.handleUploadProfile}>
+                    <div className="imageedit">
+                      <b>Profile Picture</b>
+                      <input
+                        type="file"
+                        name="profile_pic"
+                        id="fileId1"
+                        onChange={this.handleProfilePic}
+                      />
+                      <label for="fileId1" className="choosebutton">
+                        Choose a File...
+                      </label>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <button className="uploadbutton" type="submit">
+                      Update Profile Picture
+                    </button>
+                  </form>
                   <br />
                   <div className="imageedit">
                     <b>Banner Picture</b>
