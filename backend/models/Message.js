@@ -31,15 +31,21 @@ class Message {
         return { success: true, message: message };
     }
 
-    static getById(messageId) {
+    static getById(messageId, test) {
 
         let message = null;
 
         console.log('Getting message with id : ', messageId);
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE id = ${messageId}`);
-            message = queryResult[0];
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM messages WHERE id = ${messageId}`);
+                message = queryResult[0];
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE id = ${messageId}`);
+                message = queryResult[0];
+            }
+
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);

@@ -12,14 +12,19 @@ class User {
         this.cover_pic = cover_pic
     }
 
-    static getAll() {
+    static getAll(test) {
         let users = null;
 
         console.log('Getting all users');
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM user`);
-            users = queryResult;
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM user`);
+                users = queryResult;
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM user`);
+                users = queryResult;
+            }
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);
@@ -35,12 +40,16 @@ class User {
         return { success: true, users: users };
     }
 
-    static modifyPassword(userId, newPassword) {
+    static modifyPassword(userId, newPassword, test) {
 
         console.log('Modifying password for : ', userId);
 
         try {
-            const queryResult = db.SyncConn.query(`UPDATE user SET password = '${newPassword}' WHERE email = '${userId}'`);
+            if (test) {
+                const queryResult = db.TestSynConn.query(`UPDATE user SET password = '${newPassword}' WHERE email = '${userId}'`);
+            } else {
+                const queryResult = db.SyncConn.query(`UPDATE user SET password = '${newPassword}' WHERE email = '${userId}'`);
+            }
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);
@@ -50,11 +59,15 @@ class User {
         return { success: true };
     }
 
-    static update(userId, firstname, lastname) {
+    static update(userId, firstname, lastname, test) {
         console.log('Updating user : ', userId);
 
         try {
-            const queryResult = db.SyncConn.query(`UPDATE user SET firstname = '${firstname}', lastname = '${lastname}' WHERE email = '${userId}'`);
+            if (test) {
+                const queryResult = db.TestSynConn.query(`UPDATE user SET firstname = '${firstname}', lastname = '${lastname}' WHERE email = '${userId}'`);
+            } else {
+                const queryResult = db.SyncConn.query(`UPDATE user SET firstname = '${firstname}', lastname = '${lastname}' WHERE email = '${userId}'`);
+            }
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);

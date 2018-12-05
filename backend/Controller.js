@@ -130,6 +130,18 @@ app.get("/test/posts", PostController.retrieveAll);
 
 // gets all posts written by one user in the shared dashboard
 app.get("/test/posts/:author_email", PostController.retrieveByUser);
+
+app.get("/test/users", UserController.getAll);
+app.post("/test/user", UserController.update);
+app.post("/test/users/password", UserController.modifyPassword);
+app.get("/test/groups", GroupController.getAll);
+app.get("/test/groups/:groupId", GroupController.getById);
+app.get("/test/groups/:groupId/members", GroupController.getMembers);
+app.get("/test/messages/:messageId", MessageController.getById);
+app.get("/test/threads/:threadId/messages", ThreadController.getAllMessagesById);
+
+
+
 // ------------------------------------------------------------------
 
 const NotificationController = require("./controllers/Notification");
