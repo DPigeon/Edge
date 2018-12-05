@@ -76,15 +76,21 @@ class Thread {
 
     }
 
-    static getAllMessagesById(threadId) {
+    static getAllMessagesById(threadId, test) {
 
         let messages = null;
 
         console.log('Getting all messages for thread of id : ', threadId);
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE thread_id = ${threadId}`);
-            messages = queryResult;
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM messages WHERE thread_id = ${threadId}`);
+                messages = queryResult;
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM messages WHERE thread_id = ${threadId}`);
+                messages = queryResult;
+            }
+
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);

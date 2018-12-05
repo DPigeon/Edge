@@ -29,15 +29,20 @@ class Group {
         return { success: true, group: group };
     }
 
-    static getById(groupId) {
+    static getById(groupId, test) {
 
         let group = null;
 
         console.log('Getting group with id : ', groupId);
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM groups WHERE id = ${groupId}`);
-            group = queryResult[0];
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM groups WHERE id = ${groupId}`);
+                group = queryResult[0];
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM groups WHERE id = ${groupId}`);
+                group = queryResult[0];
+            }
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);
@@ -49,14 +54,20 @@ class Group {
         return { success: true, group: group };
     }
 
-    static getAll() {
+    static getAll(test) {
         let groups = null;
 
         console.log('Getting all groups');
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM groups`);
-            groups = queryResult;
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM groups`);
+                groups = queryResult;
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM groups`);
+                groups = queryResult;
+            }
+
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);
@@ -86,17 +97,25 @@ class Group {
         return { success: true };
     }
 
-    static getMembers(groupId) {
+    static getMembers(groupId, test) {
 
         let members = [];
 
         console.log('Getting all members for group with id : ', groupId);
 
         try {
-            const queryResult = db.SyncConn.query(`SELECT * FROM user_groups WHERE group_id = ${groupId}`);
-            queryResult.forEach((association) => {
-                members.push({user_id: association.user_id, admin: !!association.admin});
-            })
+            if (test) {
+                const queryResult = db.TestSynConn.query(`SELECT * FROM user_groups WHERE group_id = ${groupId}`);
+                queryResult.forEach((association) => {
+                    members.push({user_id: association.user_id, admin: !!association.admin});
+                })
+            } else {
+                const queryResult = db.SyncConn.query(`SELECT * FROM user_groups WHERE group_id = ${groupId}`);
+                queryResult.forEach((association) => {
+                    members.push({user_id: association.user_id, admin: !!association.admin});
+                })
+            }
+
         } catch (error) {
             console.log('Error : ', error);
             console.log('Error code : ', error.code);

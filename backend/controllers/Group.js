@@ -20,11 +20,17 @@ class GroupController {
     }
 
     static getById(req, res) {
+
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.params.groupId) {
             return res.status(400).json({error: "Please provide a valid group id in the route"});
         }
 
-        let query = Group.getById(req.params.groupId);
+        let query = Group.getById(req.params.groupId, test);
 
         if (!query.success) {
             return res.send(query.error);
@@ -34,7 +40,13 @@ class GroupController {
     }
 
     static getAll(req, res) {
-        let query = Group.getAll();
+
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
+        let query = Group.getAll(test);
 
         if (!query.success) {
             return res.send(query.error);
@@ -62,11 +74,17 @@ class GroupController {
     }
 
     static getMembers(req, res) {
+
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.params.groupId) {
             return res.status(400).json({error: "Please provide a valid group id in the route"});
         }
 
-        let query = Group.getMembers(req.params.groupId);
+        let query = Group.getMembers(req.params.groupId, test);
 
         if (!query.success) {
             return res.send(query.error);

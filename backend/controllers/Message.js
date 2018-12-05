@@ -20,11 +20,17 @@ class MessageController {
     }
 
     static getById(req, res) {
+
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.params.messageId) {
             return res.status(400).json({error: "Please provide a message id in the route"});
         }
 
-        let query = Message.getById(req.params.messageId);
+        let query = Message.getById(req.params.messageId, test);
 
         if (!query.success) {
             return res.send(query.error);

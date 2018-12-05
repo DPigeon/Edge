@@ -54,7 +54,12 @@ class UserController {
 
     static getAll(req, res) {
 
-        let query = User.getAll();
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
+        let query = User.getAll(test);
 
         if (!query.success) {
             return res.send(query.error);
@@ -65,11 +70,16 @@ class UserController {
 
     static modifyPassword(req, res) {
 
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.body.email || !req.body.password) {
             return res.status(400).json({ error: "Please provide the user email and new password" });
         }
 
-        let query = User.modifyPassword(req.body.email, req.body.password);
+        let query = User.modifyPassword(req.body.email, req.body.password, test);
 
         if (!query.success) {
             return res.send(query.error);
@@ -80,11 +90,16 @@ class UserController {
 
     static update(req, res) {
 
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.body.email || !req.body.firstname || !req.body.lastname) {
             return res.status(400).json({ error: "Please provide the user email and his name/lastname" });
         }
 
-        let query = User.update(req.body.email, req.body.firstname, req.body.lastname);
+        let query = User.update(req.body.email, req.body.firstname, req.body.lastname, test);
 
         if (!query.success) {
             return res.send(query.error);
