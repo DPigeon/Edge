@@ -71,13 +71,19 @@ class ThreadController {
     }
 
     static getAllMessagesById(req, res) {
+
+        let test = false;
+        if (req.originalUrl.slice(1, 5) == 'test') {
+            test = true;
+        }
+
         if (!req.params.threadId) {
             return res.status(400).json({
                 error: "Please provide a valid thread id in the route"
             });
         }
 
-        let query = Thread.getAllMessagesById(req.params.threadId);
+        let query = Thread.getAllMessagesById(req.params.threadId, test);
 
         if (!query.success) {
             return res.send(query.error);
