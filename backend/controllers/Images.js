@@ -49,7 +49,7 @@ module.exports.saveImage = (req, res) => {
 
 
     // An image can either be the profile_pic of a user, or the cover_pic
-    // of a user, or inside of a post. If the post_id is given, then the image
+    // of a user, or the picture attribute of a post. If the post_id is given, then the image
     // is assumed to be inside of a post, otherwise it should be one of profile_pic
     // or cover_pic (which are both just boolean value).
 
