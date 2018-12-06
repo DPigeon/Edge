@@ -144,6 +144,10 @@ app.post('/likes', LikeController.create)
 
 app.post('/test/likes', LikeController.create)
 
+const RecoverPasswordController = require("./controllers/RecoverPassword");
+
+app.post('/sendRecoverEmail', RecoverPasswordController.sendRecoverEmail);
+
 
 module.exports.determineTestAndAuth = (req) => {
     let test = false
@@ -151,16 +155,15 @@ module.exports.determineTestAndAuth = (req) => {
         test = true
     }
 
+    const jwt = req.get('jwt');
     const {
-        jwt
-    } = req.header
-    const {
-        isAuthorized
-    } = Auth.AuthorizeUser(jwt)
+        isAuthorized,
+        token
+    } = Auth.AuthorizeUser(jwt);
     return {
         test,
         isAuthorized,
-        jwt
+        token
     }
 }
 

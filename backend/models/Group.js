@@ -2,12 +2,13 @@ const db = require('../db');
 
 class Group {
 
-    constructor(name) {
+    constructor(name, description) {
         this.name = name;
+        this.description = description;
     }
 
     static groupToQuery(group) {
-        return `'${group.name}'`;
+        return `'${group.name}', '${group.description}'`;
     }
 
     static create(group) {
@@ -15,7 +16,7 @@ class Group {
         console.log('Creating group with values : ', group);
 
         try {
-            const queryResult = db.SyncConn.query(`INSERT INTO groups (name) VALUES(${this.groupToQuery(group)})`);
+            const queryResult = db.SyncConn.query(`INSERT INTO groups (name, description) VALUES(${this.groupToQuery(group)})`);
             group.id = queryResult.insertId;
         } catch (error) {
             console.log('Error : ', error);

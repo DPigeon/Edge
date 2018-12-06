@@ -38,19 +38,21 @@ class AuthService {
     }
 
     static AuthorizeUser(token) {
-        // if (token == null || token == undefined) {
-            // return { isAuthorized: false }
-        // }
-        // try {
-            // const decoded = jwt.verify(token, superSecret)
-        // } catch (error) {
-            // return {isAuthorized:false}
-        // }
-        // return {isAuthorized: true, token: decoded}
+        let decoded = null;
+
+         if (token == null || token == undefined) {
+             return { isAuthorized: false }
+         }
+         try {
+             decoded = jwt.verify(token, superSecret)
+         } catch (error) {
+             return {isAuthorized:false}
+         }
+         return {isAuthorized: true, token: decoded}
 
 
         // for now accept all tokens in order not to break the whole API
-        return {isAuthorized: true}
+//        return {isAuthorized: true}
     }
 
 }

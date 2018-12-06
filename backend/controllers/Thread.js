@@ -1,4 +1,5 @@
 const Thread = require('../models/Thread');
+const Controller = require('../Controller');
 
 class ThreadController {
 
@@ -35,9 +36,13 @@ class ThreadController {
 
     static getAll(req, res) {
 
-        // TODO :: Filter by user id/email im headers
+        let authorization = Controller.determineTestAndAuth(req);
 
-        let query = Thread.getAll();
+        if (!authorization.isAuthorized) {
+            return res.status(400).json({error: "Wrong authentication token"})
+        }
+
+        let query = Thread.getAll(authorization.token.email);
 
         if (!query.success) {
             return res.send(query.error);

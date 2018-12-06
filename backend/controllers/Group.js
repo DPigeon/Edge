@@ -4,9 +4,9 @@ class GroupController {
 
     static create(req, res) {
 
-        let group = new Group(req.body.name);
+        let group = new Group(req.body.name, req.body.description);
 
-        if (!group.name) {
+        if (!group.name || !group.description) {
             return res.status(400).json({error: "Please provide valid data"});
         }
 
