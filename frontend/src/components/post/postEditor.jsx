@@ -28,8 +28,9 @@ class PostEditor extends Component {
   };
 
   uploadHandler = id => {
+    //how can you get the id here if you cannot get it before posting the picture ?? ;)
     if (this.state.selectedFile != null) {
-      let image = this.state.selectFile;
+      let image = this.state.selectedFile;
       const data = new FormData();
       data.append("myimage", image);
       fetch("http://localhost:8000/images", {
@@ -47,9 +48,36 @@ class PostEditor extends Component {
       }).then(res => {
         console.log(res);
       });
+      this.createPostWithImage(this.props.email, this.state.selectedFile.name);
       window.location.reload();
     }
   };
+
+  createPostWithImage(email, imageName) {
+    if (this.state.newPostBody !== "") {
+      //if the post is not empty
+      //gets all posts
+      this.props.addPost(this.state.newPostBody);
+      this.setState({
+        newPostBody: ""
+      });
+      fetch("http://localhost:8000/posts", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          author_email: email,
+          data: this.state.newPostBody,
+          picture: imageName
+        })
+      });
+      //sends a tag notif if any tags in the post
+      this.sendTagNotification(email, this.state.userTagged);
+    }
+  }
 
   handlePostChange = event => {
     this.setState({
