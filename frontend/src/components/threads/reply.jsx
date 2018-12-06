@@ -76,7 +76,7 @@ class Reply extends Component {
     return (
       <div>
         <div className="panel panel-default messager-editor">
-          <div className="card-title">Reply to The Message</div>
+          <div className="card-title">Reply to the message</div>
           <div className="panel">
             <textarea
               className="form-control messager-editor-input"
