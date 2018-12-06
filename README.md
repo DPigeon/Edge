@@ -2,6 +2,8 @@
 
 ## Edge - A Web Application
 
+Our full website with pictures here: [Edge Web-App](https://github.com/DPigeon/SOEN341-Project/wiki/Overview-of-Sprint-6)
+
 Build Test on Master Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341-Project.svg?token=SsQtsx7cgdy816iVVj6c&branch=master)](https://travis-ci.com/DPigeon/SOEN341-Project)
 
 Build Test on Dev Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341-Project.svg?token=SsQtsx7cgdy816iVVj6c&branch=dev)](https://travis-ci.com/DPigeon/SOEN341-Project)
