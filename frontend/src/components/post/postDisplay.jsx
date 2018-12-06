@@ -24,6 +24,7 @@ class PostDisplay extends Component {
             addPost={this.addPost}
             email={this.props.email}
             users={this.props.users}
+            id={this.props.posts.id}
           />
         </div>
 

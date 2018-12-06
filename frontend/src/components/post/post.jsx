@@ -36,6 +36,23 @@ class Post extends Component {
     //}
   }
 
+  showUploadedPicture() {
+    //shows a picture if posted a picture
+    if (this.props.posts[this.props.id].picture != null) {
+      return (
+        <div>
+          <img
+            src={`http://localhost:8000/images/${
+              this.props.posts[this.props.id].picture
+            }`}
+            alt=""
+            className=""
+          />{" "}
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="card">
@@ -44,6 +61,7 @@ class Post extends Component {
             Post by <a href={"/user/" + this.props.by}>{this.props.by}</a>
           </h6>
           {this.replaceByMention()}
+          {this.showUploadedPicture()}
         </div>
         <LikeDislike
           id={this.props.id}
