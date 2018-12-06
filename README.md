@@ -10,12 +10,18 @@ Build Test on Dev Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341
 
 Unit Tests on Tests Branch: [![Build Status](https://travis-ci.com/DPigeon/SOEN341-Project.svg?token=SsQtsx7cgdy816iVVj6c&branch=tests)](https://travis-ci.com/DPigeon/SOEN341-Project)
 
-Unit tests on Tests Branch for:
+Unit tests for:
 - Posts
 - Comments
 - Likes
 - Dislikes
 - Route "/"
+- Groups
+- Users
+- Messages
+- Threads
+### You can have a look at the tests [here](https://travis-ci.com/DPigeon/SOEN341-Project/builds/93747374) (lastest dev branch).
+
 
 Our team project is a web-base application. 
 The goal of this project is to allow parents to communicate with teachers and vice-versa.
