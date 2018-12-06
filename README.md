@@ -24,7 +24,7 @@ Unit tests for:
 
 
 Our team project is a web-base application. 
-The goal of this project is to allow parents to communicate with teachers and vice-versa.
+The goal of this project is to allow parents to communicate with teachers and vice-versa. The requirements changed and we had to do a website like Facebook.
 
 Team members:
 
