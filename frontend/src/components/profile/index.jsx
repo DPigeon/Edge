@@ -7,6 +7,7 @@ import Parser from "html-react-parser";
 import "./styles/profile.css";
 
 //your profile page
+
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,8 @@ export default class Profile extends Component {
       arrayComments: [],
       arrayLikes: [],
       arrayDislikes: [],
-      fileProfile: null
+      fileProfile: null,
+      fileCover: null
     };
   }
 
@@ -110,22 +112,6 @@ export default class Profile extends Component {
       );
     }
   }
-
-  fileChangedHandler = event => {
-    this.setState({ selectedFile: event.target.files[0] });
-  };
-
-  uploadHandler = () => {
-    console.log(this.state.selectedFile);
-  };
-
-  fileChangedHandler = event => {
-    this.setState({ selectedFile: event.target.files[0] });
-  };
-
-  uploadHandler = () => {
-    console.log(this.state.selectedFile);
-  };
 
   decodeJwtToken() {
     try {
@@ -213,49 +199,59 @@ export default class Profile extends Component {
   }
 
   handleUploadProfile = () => {
-    console.log(this.state.fileProfile);
-    let image = this.state.fileProfile;
-    const data = new FormData();
-    data.append("myimage", image);
-    console.log(data);
-    fetch("http://localhost:8000/images", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        profile_pic: true,
-        jwt: localStorage.getItem("jwt")
-      },
-      onUploadProgress: progressEvent => {
-        console.log(
-          "Upload Progress: " + progressEvent.loaded / progressEvent.total
-        );
-      },
-      body: data
-    }).then(res => {
-      console.log(res);
-    });
+    if (this.state.fileProfile != null) {
+      let imageProfile = this.state.fileProfile;
+      const data = new FormData();
+      data.append("myimage", imageProfile);
+      fetch("http://localhost:8000/images", {
+        method: "POST",
+        headers: {
+          profile_pic: true,
+          jwt: localStorage.getItem("jwt")
+        },
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " + progressEvent.loaded / progressEvent.total
+          );
+        },
+        body: data
+      }).then(res => {
+        console.log(res);
+      });
+      window.location.reload();
+    }
   };
 
   handleProfilePic = event => {
     this.setState({ fileProfile: event.target.files[0] });
   };
 
-  handleUploadCover = image => {
-    if (this.findTheUserToShow().profile_pic != null) {
-      let data = new FormData();
-      data.append("myimage", image);
+  handleUploadCover = () => {
+    if (this.state.fileCover != null) {
+      let imageCover = this.state.fileCover;
+      const data = new FormData();
+      data.append("myimage", imageCover);
       fetch("http://localhost:8000/images", {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          jwt: localStorage.getItem("jwt"),
-          cover_pic: true
+          cover_pic: true,
+          jwt: localStorage.getItem("jwt")
+        },
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " + progressEvent.loaded / progressEvent.total
+          );
         },
         body: data
+      }).then(res => {
+        console.log(res);
       });
+      window.location.reload();
     }
+  };
+
+  handleCoverPic = event => {
+    this.setState({ fileCover: event.target.files[0] });
   };
 
   showProfilePic() {
@@ -263,9 +259,9 @@ export default class Profile extends Component {
       return (
         <div>
           <img
-            src={require(`../../../../backend/images/${
+            src={`http://localhost:8000/images/${
               this.findTheUserToShow().profile_pic
-            }`)}
+            }`}
             alt="profile"
             className="pp"
           />
@@ -289,9 +285,9 @@ export default class Profile extends Component {
       return (
         <div>
           <img
-            src={require(`../../../../backend/images/${
+            src={`http://localhost:8000/images/${
               this.findTheUserToShow().cover_pic
-            }`)}
+            }`}
             alt="Welcome"
             className="banner"
           />
@@ -383,26 +379,29 @@ export default class Profile extends Component {
                   </button>
 
                   <br />
-                  <form onSubmit={this.handleUploadProfile}>
-                    <div className="imageedit">
-                      <b>Profile Picture</b>
-                      <input
-                        type="file"
-                        name="profile_pic"
-                        id="fileId1"
-                        onChange={this.handleProfilePic}
-                      />
-                      <label for="fileId1" className="choosebutton">
-                        Choose a File...
-                      </label>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <button className="uploadbutton" type="submit">
-                      Update Profile Picture
-                    </button>
-                  </form>
+
+                  <div className="imageedit">
+                    <b>Profile Picture</b>
+                    <input
+                      type="file"
+                      name="profile_pic"
+                      id="fileId1"
+                      onChange={this.handleProfilePic}
+                    />
+                    <label for="fileId1" className="choosebutton">
+                      Choose a File...
+                    </label>
+                  </div>
+                  <br />
+                  <br />
+                  <br />
+                  <button
+                    className="uploadbutton"
+                    onClick={this.handleUploadProfile}
+                  >
+                    Update Profile Picture
+                  </button>
+
                   <br />
                   <div className="imageedit">
                     <b>Banner Picture</b>
@@ -410,10 +409,10 @@ export default class Profile extends Component {
                     <input
                       type="file"
                       name="cover_pic"
-                      id="fileId1"
+                      id="fileId2"
                       onChange={this.handleCoverPic}
                     />
-                    <label for="fileId1" className="choosebutton">
+                    <label for="fileId2" className="choosebutton">
                       Choose a File...
                     </label>
                     <br />
@@ -422,7 +421,7 @@ export default class Profile extends Component {
                   <br />
                   <button
                     className="uploadbutton"
-                    onClick={() => this.handleUploadBanner()}
+                    onClick={this.handleUploadCover}
                   >
                     Update Banner
                   </button>

@@ -35,7 +35,7 @@ class LikeDislike extends Component {
       }
     }
     //for dislikes
-    for (
+    /*for (
       var j = 0;
       i < this.props.posts[this.props.id].dislikeList.length;
       j++
@@ -48,7 +48,7 @@ class LikeDislike extends Component {
       ) {
         this.setState({ disliked: !this.state.disliked });
       }
-    }
+    }*/
   }
 
   handleLike = (email, postId) => {
