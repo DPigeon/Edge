@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import decode from "jwt-decode";
 import SearchGroup from "./searchGroup";
+import Popup from "reactjs-popup";
+import CreateGroup from "./createGroup";
 
 class GroupList extends Component {
   constructor(props) {
@@ -93,6 +95,10 @@ class GroupList extends Component {
   }
 
   groupList() {
+    const modalStyle = {
+      width: "500px",
+      backgroundColor: "rgba(255, 255, 255, .9)"
+    };
     //decodes the jwt
     var { isLoaded, groupList } = this.state;
     if (!isLoaded) {
@@ -101,40 +107,85 @@ class GroupList extends Component {
       return (
         <div>
           <center>
-            <a href={"/creategroup"}>
-              <button className=" btn-dark">Create Group</button>
-            </a>
+            <br />
+            <br />
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/add.png")}
+                    alt="add group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <CreateGroup />
+            </Popup>
+
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/search.png")}
+                    alt="search group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <SearchGroup />
+            </Popup>
+            <Popup
+              contentStyle={modalStyle}
+              trigger={
+                <button className="creategrp">
+                  <img
+                    src={require("./styles/list.png")}
+                    alt="search group"
+                    className="addgrp"
+                  />
+                </button>
+              }
+              modal
+              closeOnDocumentClick
+            >
+              <div>
+                <center>
+                  {groupList.map(item => (
+                    <div key={item.id}>
+                      <ul>
+                        <li>
+                          <a href={"/group/" + item.id}>
+                            Group Name: {item.name}
+                            <br />
+                          </a>
+                          <button
+                            className="btn-success"
+                            onClick={() =>
+                              this.joinGroup(
+                                item.id,
+                                this.state.userProfile.email,
+                                item.name
+                              )
+                            }
+                          >
+                            Join Group
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  ))}
+                </center>
+              </div>
+            </Popup>
           </center>
-          <br />
-          <SearchGroup />
-          <div>
-            <center>
-              {groupList.map(item => (
-                <div key={item.id}>
-                  <ul>
-                    <li>
-                      <a href={"/group/" + item.id}>
-                        Group Name: {item.name}
-                        <br />
-                      </a>
-                      <button
-                        className="btn-success"
-                        onClick={() =>
-                          this.joinGroup(
-                            item.id,
-                            this.state.userProfile.email,
-                            item.name
-                          )
-                        }
-                      >
-                        Join Group
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              ))}
-            </center>
-          </div>
         </div>
       );
     }

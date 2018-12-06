@@ -1,33 +1,76 @@
-.App {
+body {
+  margin: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.topnav {
+  list-style-type: none;
+  margin: 0 0 15px 0;
+  padding: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: #4caf50;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  z-index: 10;
 }
-.logo {
-  width: 90px;
-  height: 50px;
+
+.homez {
+  float: left;
 }
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+.homez a {
+  padding: 8px 15px 8px 15px;
+}
+
+.navel {
+  float: left;
+}
+
+.topnav li a:not(.active) {
+  display: block;
   color: white;
+  text-align: center;
+  padding: 16px 20px 16px 20px;
+  text-decoration: none;
+}
+
+.topnav li a:hover:not(.active) {
+  background-color: rgb(119, 116, 116);
+}
+
+ul.topnav li a.active {
+  background-color: #4caf50;
+}
+
+ul.topnav li.right {
+  float: right;
+}
+
+@media screen and (max-width: 600px) {
+
+  ul.topnav li.right,
+  ul.topnav li {
+    float: none;
+  }
+}
+
+.logooo {
+  width: 100%;
+  color: rgb(60, 194, 55);
+}
+
+.logoo {
+  width: 600px;
+  height: 160px;
+  margin-top: 30px;
 }
 
 .logo {
-
-  width: 90px;
-  height: 70px;
-}
-
-.App-link {
-  color: #61dafb;
+  padding: 0;
+  margin: 0;
+  width: 100px;
+  height: 40px;
 }
 
 @keyframes App-logo-spin {
@@ -38,4 +81,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.out {
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #d80c2e;
+  text-align: center;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+  margin: 10px 15px 0 0;
+  float: right;
+}
+
+.out:hover {
+  background-color: #fb052e;
 }

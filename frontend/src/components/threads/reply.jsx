@@ -47,7 +47,7 @@ class Reply extends Component {
           ); //Makes a POST request to the database to send new notification to a user with proper threadid
         });
     });
-    // window.location.reload();
+    window.location.reload();
   };
 
   sendNotification(email, threadId) {

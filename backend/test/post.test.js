@@ -2,15 +2,9 @@ const { POST } = require('./CreateTest')
 
 
 
-const samplePost =
-{
+const samplePost ={
     author_email: "ribal@aladeeb.com",
     data: "testing posts from within node test"
-}
-const sampleComment ={
-    author_email: "ribal@aladeeb.com",
-    data: "testing a comment from within node js",
-    post_id: 6
 }
 
 POST('/test/posts', 'testing post persistence', samplePost,({ expect, res }) => {

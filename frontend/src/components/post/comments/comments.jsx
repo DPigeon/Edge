@@ -1,16 +1,14 @@
 import React from "react";
-import "../styles/post.css";
+import "./style/comment.css";
 
 const Comments = props => (
-  <div className="aComment">
-    <div className="card">
-      <h5>
-        Comment by <a href={"/user/" + props.by}>{props.by}</a>
-      </h5>
-      {props.commentBody}
-      <br />
-      <br />
-    </div>
+  <div className="commentcard">
+    <h8 className="commentname">
+      Comment by <a href={"/user/" + this.props.by}>{this.props.by}</a>
+    </h8>
+    <br />
+
+    {props.commentBody}
   </div>
 );
 

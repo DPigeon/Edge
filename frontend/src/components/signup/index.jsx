@@ -99,58 +99,58 @@ export default class Login extends Component {
       <div className="modal-login">
         <h1>Register now !</h1>
         <form id="FormRegister" onSubmit={this.handleSubmit} novalidate>
-          <div class="form-group">
+          <div className="form-group">
             <input
               type="firstname"
               value={this.state.firstname}
               onChange={this.handleFirstnameChange}
-              class="form-control"
+              className="form-control"
               placeholder="First Name"
             />
-            <small id="HelpBlockFirstName" class="form-text text-muted">
+            <small id="HelpBlockFirstName" className="form-text text-muted">
               Please enter your first name.
             </small>
             <input
               type="lastname"
               value={this.state.lastname}
               onChange={this.handleLastnameChange}
-              class="form-control"
+              className="form-control"
               placeholder="Last Name"
             />
-            <small id="HelpBlockLastName" class="form-text text-muted">
+            <small id="HelpBlockLastName" className="form-text text-muted">
               Please enter your last name.
             </small>
             <input
               type="email"
               value={this.state.email}
               onChange={this.handleEmailChange}
-              class="form-control"
+              className="form-control"
               placeholder="Email"
             />
-            <small id="HelpBlockEmail" class="form-text text-muted">
+            <small id="HelpBlockEmail" className="form-text text-muted">
               Please enter a valid email.
             </small>
             <input
               type="password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
-              class="form-control"
+              className="form-control"
               placeholder="Password"
             />
-            <small id="HelpBlockPassword" class="form-text text-muted">
+            <small id="HelpBlockPassword" className="form-text text-muted">
               Please enter your password. It must be 8 to 20 characters long.
             </small>
           </div>
-          <div class="form-group form-check">
+          <div className="form-group form-check">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value=""
               id="CheckBoxTeacher"
               defaultChecked={this.state.isTeacher}
               onChange={this.handleChangeCheckBox}
             />
-            <label class="form-check-label" for="CheckBoxTeacher">
+            <label className="form-check-label" for="CheckBoxTeacher">
               Are you a teacher ?
             </label>
           </div>

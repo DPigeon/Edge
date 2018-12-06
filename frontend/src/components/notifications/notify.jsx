@@ -21,16 +21,17 @@ class Notify extends Component {
     if (jwt === undefined || jwt === null) {
       //if the user not logged in
       this.props.history.replace("/login"); //go login
+    } else {
+      fetch(`http://localhost:8000/notifications/${profile.email}`, {
+        method: "GET"
+      })
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            items: json
+          });
+        });
     }
-    fetch(`http://localhost:8000/notifications/${profile.email}`, {
-      method: "GET"
-    });
-    this.then(res => res.json());
-    this.then(json => {
-      this.setState({
-        items: json
-      });
-    });
   }
 
   dismissNotification = (notificationId, email) => {
@@ -63,7 +64,7 @@ class Notify extends Component {
     //we can map an array of notifications coming from the backend so that we see all of them on hover
     //this is a simple notification example with messages, wall posts and group request
     return (
-      <span className="navbar-text float-xs-right ml-auto">
+      <div className="navbar-text float-xs-right ml-auto">
         <div className="dropdown">
           <button className="btn btn-success dropdown-toggle dropbtn">
             {this.state.items.length}
@@ -75,7 +76,7 @@ class Notify extends Component {
                 )
                 <br />
                 <button
-                  className="btn btn-success"
+                  className="btn btn-danger"
                   onClick={() =>
                     this.dismissNotification(item.id, item.user_id)
                   }
@@ -86,7 +87,7 @@ class Notify extends Component {
             </div>
           ))}
         </div>
-      </span>
+      </div>
     );
   }
 }
