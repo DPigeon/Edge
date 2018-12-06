@@ -20,7 +20,11 @@ class PostDisplay extends Component {
     return (
       <React.Fragment>
         <div className="card">
-          <PostEditor addPost={this.addPost} email={this.props.email} />
+          <PostEditor
+            addPost={this.addPost}
+            email={this.props.email}
+            users={this.props.users}
+          />
         </div>
 
         <div className="postEdit">
@@ -34,6 +38,7 @@ class PostDisplay extends Component {
                 postId={item.id}
                 by={item.author_email}
                 emailOfPost={this.props.email}
+                users={this.props.users}
               />
             );
           })}

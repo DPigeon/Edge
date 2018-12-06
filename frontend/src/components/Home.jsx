@@ -10,7 +10,8 @@ class Home extends Component {
     super(props);
     this.state = {
       userProfile: [],
-      items: []
+      items: [],
+      users: []
     };
   }
 
@@ -59,6 +60,24 @@ class Home extends Component {
           items: json.postList.reverse() //reversing the array of posts
         });
       });
+    fetch("http://localhost:8000/users", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          users: json
+        });
+      });
+  }
+
+  getUserList() {
+    return this.state.users;
   }
 
   getPostList() {
@@ -110,6 +129,7 @@ class Home extends Component {
           <PostDisplay
             email={this.state.userProfile.email}
             posts={this.getPostList()}
+            users={this.getUserList()}
           />
         </div>
       </div>

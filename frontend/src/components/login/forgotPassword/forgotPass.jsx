@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import EnterCode from "./enterCode";
 //David frontend, Anas backend
 
 class ForgotPassword extends Component {

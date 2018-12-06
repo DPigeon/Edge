@@ -4,25 +4,20 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.1",
-    "json-server": "^0.14.0",
+    "html-react-parser": "^0.4.7",
     "jwt-decode": "^2.2.0",
-    "mysql": "^2.16.0",
     "react": "^16.6.3",
     "react-calendar": "^2.17.5",
-    "react-chat-awesome": "^1.0.1",
     "react-clock": "^2.3.0",
     "react-dom": "^16.5.2",
-    "react-image": "^1.5.1",
     "react-images-upload": "^1.2.3",
+    "react-input-trigger": "^1.1.2",
     "react-live-clock": "^3.0.0",
     "react-native-calendars": "^1.21.0",
-    "react-open-weather": "^0.4.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
-    "react-snake-game": "^1.0.9",
     "react-weather": "^0.1.3",
-    "reactjs-popup": "^1.3.1",
-    "sync-mysql": "^3.0.1"
+    "reactjs-popup": "^1.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

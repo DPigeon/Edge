@@ -66,7 +66,8 @@ class Reply extends Component {
       },
       body: JSON.stringify({
         user_id: email,
-        thread_id: threadId
+        thread_id: threadId,
+        tag_id: null
       })
     });
   }

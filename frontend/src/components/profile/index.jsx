@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Home from "../Home";
 import Popup from "reactjs-popup";
 import decode from "jwt-decode";
-import "./styles/profile.css";
 import PostDisplay from "../post/postDisplay";
+import Parser from "html-react-parser";
+import "./styles/profile.css";
 
 //your profile page
 export default class Profile extends Component {
@@ -55,8 +56,18 @@ export default class Profile extends Component {
         this.setState({
           users: json //stores the user info of that page url into an array to get the info easily
         });
+        this.loadMembers(json);
       });
-    fetch(`http://localhost:8000/posts/${this.props.match.params.email}`, {
+  }
+
+  loadMembers(users) {
+    var newArray = [];
+    for (var i = 0; i < users.length; i++) {
+      if (this.props.match.params.email === users[i].email) {
+        newArray = users[i];
+      }
+    }
+    fetch(`http://localhost:8000/posts/${newArray.email}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -70,6 +81,33 @@ export default class Profile extends Component {
           posts: json //stores the user info of that page url into an array to get the info easily
         });
       });
+  }
+
+  showPostsByUser() {
+    if (this.state.posts.postList !== undefined) {
+      return (
+        <div className="card">
+          <div className="posttext">
+            {this.state.posts.postList.reverse().map((item, id) => (
+              <div className="cardmessage" key={id}>
+                <h5>
+                  <div className="messagefrom">
+                    Post of
+                    <a href={"/user/" + item.author_email}>
+                      {" "}
+                      {item.author_email}
+                    </a>
+                  </div>
+                </h5>
+                <div className="itemmsg">
+                  <p className="mess">{Parser(item.data)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
   }
 
   fileChangedHandler = event => {
@@ -174,27 +212,9 @@ export default class Profile extends Component {
   }
 
   render() {
-    /*{this.state.posts.map((item, id) => (
-            <div className="cardmessage" key={id}>
-              <li key={item.id}>
-                <h5>
-                  <div className="messagefrom">
-                    Post from
-                    <a href={"/user/" + item.author_email}>
-                      {item.author_email}
-                    </a>
-                  </div>
-                </h5>
-                <div className="itemmsg">
-                  <p className="mess">{item.data}</p>
-                </div>
-              </li>
-            </div>
-          ))}*/
     const modalStyle = {
       width: "500px"
     };
-    //console.log(this.findTheUserToShow());
     return (
       <React.Fragment>
         <div className="profilecontainer">
@@ -349,6 +369,7 @@ export default class Profile extends Component {
             />
           </div>
           <br />
+          {this.showPostsByUser()}
         </div>
       </React.Fragment>
     );

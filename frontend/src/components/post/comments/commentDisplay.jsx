@@ -24,6 +24,7 @@ class CommentDisplay extends Component {
             addComment={this.addComment}
             email={this.props.email}
             postId={this.props.postId}
+            users={this.props.users}
           />
           <div className="">
             {this.props.posts[this.props.id].commentList.map((item, id) => (
