@@ -5,6 +5,7 @@ const User = require("./models/User");
 const UserController = require("./controllers/User");
 const Auth = require("./Auth");
 
+
 // ============ Allow Requests from a Browser ==========
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
@@ -14,7 +15,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
+        "Origin, X-Requested-With, Content-Type, Accept, jwt"
     );
     next();
 });
@@ -75,6 +76,8 @@ app.post("/login", (req, res) => {
 const MessageController = require("./controllers/Message");
 
 app.get("/users", UserController.getAll);
+app.post("/user", UserController.update);
+app.post("/users/password", UserController.modifyPassword);
 
 app.post("/messages", MessageController.create);
 app.get("/messages/:messageId", MessageController.getById);
@@ -144,10 +147,18 @@ app.post('/likes', LikeController.create)
 
 app.post('/test/likes', LikeController.create)
 
-const RecoverPasswordController = require("./controllers/RecoverPassword");
+ const RecoverPasswordController = require("./controllers/RecoverPassword");
 
-app.post('/sendRecoverEmail', RecoverPasswordController.sendRecoverEmail);
+ app.post('/recover', RecoverPasswordController.sendRecoveryEmail);
+ app.post('/recover/verify', RecoverPasswordController.verifyRecoveryCode);
 
+
+
+
+
+// uploading Images
+const ImageController = require('./controllers/Images')
+app.post("/images", ImageController.saveImage)
 
 module.exports.determineTestAndAuth = (req) => {
     let test = false
@@ -156,15 +167,8 @@ module.exports.determineTestAndAuth = (req) => {
     }
 
     const jwt = req.get('jwt');
-    const {
-        isAuthorized,
-        token
-    } = Auth.AuthorizeUser(jwt);
-    return {
-        test,
-        isAuthorized,
-        token
-    }
+    const { isAuthorized, token } = Auth.AuthorizeUser(jwt);
+    return { test, isAuthorized, token }
 }
 
 let port = 8000;

@@ -1,27 +1,36 @@
 import React, { Component } from "react";
-import EnterCode from "./enterCode";
-//David frontend, Anas backend
 
-class ForgotPassword extends Component {
+class ChangePassword extends Component {
   state = {
+    password: "",
     email: ""
   };
 
   componentDidMount() {
     if (localStorage.getItem("jwt") !== null) {
       window.location.replace("/"); //go back to the dashboard
+    } else {
+      const { emailName } = this.props.match.params; //gets the username from the url
+      this.setState({
+        email: emailName
+      });
     }
+  }
+
+  hasAccessToThePage() {
+    //looks if the user is logout and has access (TODO)
+    var access = false;
   }
 
   handleChange = event => {
     this.setState({
-      email: event.target.value
+      password: event.target.value
     });
   };
 
-  sendEmail = email => {
-    if (this.state.email !== "") {
-      fetch("http://localhost:8000/recover", {
+  ProcessNewPassword = password => {
+    if (password !== "") {
+      fetch("http://localhost:8000/users/password", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -29,17 +38,18 @@ class ForgotPassword extends Component {
           //no jwt token needed here
         },
         body: JSON.stringify({
-          email: email
+          email: this.props.match.params.email,
+          password: password
         })
       })
         .then(response => response.json())
         .then(data => {
           if (data.success === true) {
             //if response is success
-            alert("An email was sent to " + email);
-            window.location.replace(`code/${email}`);
+            window.location.replace("/login");
+            alert("You successfully changed your password !");
           } else {
-            alert("Error, please enter a proper email");
+            alert("Error, please enter a proper password");
           }
         })
         .catch(error => {
@@ -48,7 +58,7 @@ class ForgotPassword extends Component {
           }
         });
     } else {
-      alert("Enter an email!");
+      alert("Type a proper password !");
     }
   };
 
@@ -57,24 +67,20 @@ class ForgotPassword extends Component {
       <div>
         <center>
           <br />
-          <h3>
-            Enter your email to retrieve your password.
-            <br />
-            An email will be sent to you afterwards to reset your password.
-          </h3>
+          <h3>Think of a good better password !</h3>
           <br />
-          Type in your email address:
+          Type in your new password:
           <br />
           <input
-            placeholder="Email"
-            type="email"
-            value={this.state.email}
+            placeholder="Password"
+            type="password"
+            value={this.state.password}
             onChange={this.handleChange}
           />
           <br />
           <br />
-          <button onClick={() => this.sendEmail(this.state.email)}>
-            Send Email
+          <button onClick={() => this.ProcessNewPassword(this.state.password)}>
+            Change Password
           </button>
         </center>
         <br />
@@ -83,4 +89,4 @@ class ForgotPassword extends Component {
   }
 }
 
-export default ForgotPassword;
+export default ChangePassword;

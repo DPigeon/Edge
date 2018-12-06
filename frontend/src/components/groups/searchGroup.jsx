@@ -10,7 +10,14 @@ class SearchGroup extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/groups")
+    fetch("http://localhost:8000/groups", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -27,17 +34,15 @@ class SearchGroup extends Component {
       });
       return (
         <ul>
-          {filteredSearch.map(item => (
-            <div className="searchresult">
+          {filteredSearch.map((item, id) => (
+            <div className="searchresult" key={id}>
               <li key={item.id}>
                 <h5>
                   <div className="grptitle">
                     <a href={"/group/" + item.id}>{item.name}</a>
                   </div>
                 </h5>
-                <h10>
-                  <div className="grpdescription">{item.description}</div>
-                </h10>
+                <div className="grpdescription">{item.description}</div>
               </li>
             </div>
           ))}
@@ -52,7 +57,7 @@ class SearchGroup extends Component {
 
   render() {
     return (
-      <div>
+      <div className="grpsearch">
         <center>
           <h4>Group Search</h4>
           <input

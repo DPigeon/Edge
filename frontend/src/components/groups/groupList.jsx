@@ -31,7 +31,12 @@ class GroupList extends Component {
       this.props.history.replace("/login"); //go login
     }
     fetch("http://localhost:8000/groups", {
-      method: "GET"
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
     })
       .then(res => res.json())
       .then(json => {
@@ -51,7 +56,14 @@ class GroupList extends Component {
 
   joinGroup = (id, email, name) => {
     //make it so if user already exists in the group, alert(You cannot join cause you are already inside this group)
-    fetch(`http://localhost:8000/groups/${id}/members`) //gets all the members inside the group
+    fetch(`http://localhost:8000/groups/${id}/members`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    }) //gets all the members inside the group
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -78,7 +90,8 @@ class GroupList extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: email
@@ -97,7 +110,9 @@ class GroupList extends Component {
   groupList() {
     const modalStyle = {
       width: "500px",
-      backgroundColor: "rgba(255, 255, 255, .9)"
+      maxHeight: "600px",
+      backgroundColor: "rgba(255, 255, 255, .9)",
+      overflow: "auto"
     };
     //decodes the jwt
     var { isLoaded, groupList } = this.state;
@@ -165,6 +180,7 @@ class GroupList extends Component {
                           <a href={"/group/" + item.id}>
                             Group Name: {item.name}
                             <br />
+                            <u>Description:</u> {item.description}
                           </a>
                           <button
                             className="btn-success"
@@ -185,6 +201,12 @@ class GroupList extends Component {
                 </center>
               </div>
             </Popup>
+
+            <div className="grpins">
+              Welcome to the edge group page. <br />
+              Please choose one of the three options to create, search or access
+              the list of the groups
+            </div>
           </center>
         </div>
       );

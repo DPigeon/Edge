@@ -20,6 +20,7 @@ export default class Profile extends Component {
       isTeacher: false,
       selectedFile: null,
       items: [],
+      posts: [],
       arrayComments: [],
       arrayLikes: [],
       arrayDislikes: []
@@ -41,13 +42,34 @@ export default class Profile extends Component {
     }
     //To finish profiles, we need the backend now to GET /signup or /users or whatever to be able to show any profiles
 
-    /*fetch(`http://localhost:8000/user/${this.props.match.params.email}`) 
+    fetch(`http://localhost:8000/users`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
       .then(res => res.json())
       .then(json => {
         this.setState({
-          user: json //stores the user info of that page url into an array to get the info easily
+          users: json //stores the user info of that page url into an array to get the info easily
         });
-      });*/
+      });
+    fetch(`http://localhost:8000/posts/${this.props.match.params.email}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          posts: json //stores the user info of that page url into an array to get the info easily
+        });
+      });
   }
 
   fileChangedHandler = event => {
@@ -89,35 +111,46 @@ export default class Profile extends Component {
   }
 
   getTeacher() {
-    if (this.state.userProfile.is_teacher === 0)
+    var labelTeacher = "";
+    if (this.findTheUserToShow().is_teacher === 0) {
       //if it is not a teacher
-      this.setState({
-        isTeacher: false
-      });
-    else
-      this.setState({
-        isTeacher: true
-      });
+      labelTeacher = "Parent";
+    } else {
+      labelTeacher = "Teacher";
+    }
+    return labelTeacher;
   }
 
-  change = e => {
+  changeFirstName = event => {
     this.setState({
-      [e.target.name]: e.target.value
+      firstName: event.target.value
     });
-  };
-  onSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    console.log(this.state);
   };
 
-  onEdit = e => {
+  changeLastName = event => {
     this.setState({
-      firstName: e.target.value,
-      lastName: "",
-      email: "",
-      password: ""
+      lastName: event.target.value
     });
+  };
+  onSubmit = (firstname, lastname, email) => {
+    if (firstname !== "" && lastname !== "") {
+      fetch("http://localhost:8000/user", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          email: email,
+          firstname: firstname,
+          lastname: lastname
+        })
+      });
+      window.location.reload();
+    } else {
+      alert("Fill in the fields please.");
+    }
   };
 
   showUpdateInfoButton() {
@@ -134,17 +167,34 @@ export default class Profile extends Component {
     var newArray = [];
     for (var i = 0; i < this.state.users.length; i++) {
       if (this.props.match.params.email === this.state.users[i].email) {
-        newArray = this.state.user[i];
+        newArray = this.state.users[i];
       }
     }
     return newArray;
   }
 
   render() {
-    const labelTeacher = this.state.isTeacher ? "Parent" : "Teacher";
+    /*{this.state.posts.map((item, id) => (
+            <div className="cardmessage" key={id}>
+              <li key={item.id}>
+                <h5>
+                  <div className="messagefrom">
+                    Post from
+                    <a href={"/user/" + item.author_email}>
+                      {item.author_email}
+                    </a>
+                  </div>
+                </h5>
+                <div className="itemmsg">
+                  <p className="mess">{item.data}</p>
+                </div>
+              </li>
+            </div>
+          ))}*/
     const modalStyle = {
       width: "500px"
     };
+    //console.log(this.findTheUserToShow());
     return (
       <React.Fragment>
         <div className="profilecontainer">
@@ -166,96 +216,92 @@ export default class Profile extends Component {
                     <b>Edit your profile</b>
                   </h4>
                   <br />
-
-                  <form>
-                    <div className="mod">
-                      <b>First Name</b> <br />
-                      <input
-                        name="firstName"
-                        placeholder="First Name"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
+                  <div className="mod">
+                    <b>First Name</b> <br />
+                    <input
+                      id="firstname"
+                      name="firstname"
+                      value={this.state.firstName}
+                      placeholder="First Name"
+                      onChange={this.changeFirstName}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <div className="mod">
+                    <b> Last Name </b> <br />
+                    <input
+                      id="lastname"
+                      className=""
+                      name="lastname"
+                      value={this.state.lastName}
+                      placeholder="Last Name"
+                      onChange={this.changeLastName}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <div className="mod">
+                    <b>Email </b>
+                    <br />
+                    <input
+                      id="email"
+                      className=""
+                      name="email"
+                      placeholder="Email"
+                      value={this.state.userProfile.email}
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <button
+                    className="uploadbutton"
+                    onClick={() =>
+                      this.onSubmit(
+                        this.state.firstName,
+                        this.state.lastName,
+                        this.state.userProfile.email
+                      )
+                    }
+                  >
+                    Update Informations
+                  </button>
+                  <br />
+                  <div className="imageedit">
+                    <b>Profile Picture</b>
+                    <br />
+                    <input
+                      type="file"
+                      name="profile"
+                      className=""
+                      accept="image/png, image/jpeg"
+                    />
+                  </div>
+                  <br />
+                  <br />
+                  <br />
+                  <div className="imageedit">
+                    <b>Banner Picture</b>
+                    <br />
+                    <input
+                      type="file"
+                      name="banner"
+                      className="hi"
+                      accept="image/png, image/jpeg"
+                    />
                     <br />
                     <br />
-
-                    <div className="mod">
-                      <b> Last Name </b> <br />
-                      <input
-                        className=""
-                        name="lastName"
-                        placeholder="Last Name"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-
-                    <div className="mod">
-                      <b>Email </b>
-                      <br />
-                      <input
-                        className=""
-                        name="email"
-                        placeholder="Email"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-
-                    <div className="mod">
-                      <b> Password </b>
-                      <br />
-                      <input
-                        className=""
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={e => this.change(e)}
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Profile Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="profile"
-                        className=""
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div className="imageedit">
-                      <b>Banner Picture</b>
-                      <br />
-                      <input
-                        type="file"
-                        name="banner"
-                        className="hi"
-                        accept="image/png, image/jpeg"
-                      />
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-
-                    <button className="uploadbutton">
-                      Update informations
-                    </button>
-                  </form>
+                  </div>
+                  <br />
+                  <button className="uploadbutton">Update Pictures</button>
                 </div>
               </div>
             </Popup>
             <h3>
-              {this.state.userProfile.firstname}{" "}
-              {this.state.userProfile.lastname}
+              {this.findTheUserToShow().firstname}{" "}
+              {this.findTheUserToShow().lastname}
               <br />
-              <h5> {labelTeacher}</h5>
+              <h5>{this.getTeacher()}</h5>
               <h6>
                 <a href={"/threads?toMsg=" + this.props.match.params.email}>
                   {this.props.match.params.email}

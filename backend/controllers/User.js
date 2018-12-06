@@ -8,7 +8,8 @@ class UserController {
         // Try to enter a new record in the database.
         try {
             const queryResult = db.SyncConn.query(
-                `INSERT INTO user VALUES( ${this.userToQuery(user)} )`)
+                `INSERT INTO user (firstname,lastname,email,password,is_teacher) ` +
+                `VALUES( ${this.userToQuery(user)} )`)
             console.log(queryResult);
         } catch (error) {
             console.log("error => \n" + error);
@@ -30,13 +31,13 @@ class UserController {
             console.log("storedUser =>", storedUser[0])
         } catch (error) {
             console.log(error)
-            return {error,success:false}
+            return { error, success: false }
         }
         if (storedUser[0] == null) {
             return { success: false, message: "The email/password combination is incorrect" }
         }
         // else, the user must exist
-        return{success: true, user : storedUser[0]}
+        return { success: true, user: storedUser[0] }
 
     }
 
@@ -45,7 +46,7 @@ class UserController {
     // This string should be passed in the values() of an sql query.
     static userToQuery(user) {
         let isTeacher = 0
-        if (user.is_teacher == true){
+        if (user.is_teacher == true) {
             isTeacher = 1
         }
         return `'${user.firstname}','${user.lastname}','${user.email}','${user.password}',${isTeacher}`
@@ -60,6 +61,37 @@ class UserController {
         }
 
         res.json(query.users);
+    }
+
+    static modifyPassword(req, res) {
+
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({ error: "Please provide the user email and new password" });
+        }
+
+        let query = User.modifyPassword(req.body.email, req.body.password);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json({ success: true });
+    }
+
+    static update(req, res) {
+
+        if (!req.body.email || !req.body.firstname || !req.body.lastname) {
+            return res.status(400).json({ error: "Please provide the user email and his name/lastname" });
+        }
+
+        let query = User.update(req.body.email, req.body.firstname, req.body.lastname);
+
+        if (!query.success) {
+            return res.send(query.error);
+        }
+
+        res.json({ success: true });
+
     }
 
 }

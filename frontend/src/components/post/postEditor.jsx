@@ -5,9 +5,39 @@ class PostEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPostBody: ""
+      newPostBody: "",
+      selectedFile: null
     };
   }
+
+  fileChangedHandler = event => {
+    this.setState({ selectedFile: event.target.files[0] });
+  };
+
+  uploadHandler = () => {
+    console.log(this.state.selectedFile);
+    const formData = new FormData();
+    formData.append(
+      "myFile",
+      this.state.selectedFile,
+      this.state.selectedFile.name
+    );
+    //axios.post("my-domain.com/file-upload", formData);
+    const h = {};
+
+    fetch("http://localhost:8000/images", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json" //profile_pic:true
+        //cover_pic:true
+        //post_id:true
+      },
+      body: formData
+    })
+      .then(response => {})
+      .catch(err => {});
+  };
 
   handlePostChange = event => {
     this.setState({
@@ -27,7 +57,8 @@ class PostEditor extends Component {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
         },
         body: JSON.stringify({
           author_email: email,
@@ -48,8 +79,13 @@ class PostEditor extends Component {
             placeholder="Post something here.."
             onChange={this.handlePostChange}
           />
+          <label class="ibtn">
+            <input type="file" onChange={this.fileChangedHandler} />
+            Upload Image
+          </label>
           <button
             className="btnn"
+            onClick={this.uploadHandler}
             onClick={() => this.createPost(this.props.email)}
             type="button"
           >

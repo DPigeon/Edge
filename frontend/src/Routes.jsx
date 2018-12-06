@@ -9,6 +9,8 @@ import Profile from "./components/profile/index";
 import GroupList from "./components/groups/groupList";
 import CreateGroup from "./components/groups/createGroup";
 import ForgotPassword from "./components/login/forgotPassword/forgotPass";
+import EnterCode from "./components/login/forgotPassword/enterCode";
+import NewPassword from "./components/login/forgotPassword/changePassword";
 import IndividualGroup from "./components/groups/individualGroup";
 import NotFound from "./components/other/notfound";
 
@@ -24,6 +26,8 @@ export default () => (
       <Route path="/groups" component={GroupList} />
       <Route path="/creategroup" component={CreateGroup} />
       <Route path="/forgotpassword" component={ForgotPassword} />
+      <Route path="/code/:email" component={EnterCode} />
+      <Route path="/newpassword/:email" component={NewPassword} />
       <Route path="/group/:groupId" component={IndividualGroup} />
       <Route component={NotFound} />
     </Switch>

@@ -22,32 +22,37 @@ class Reply extends Component {
   };
 
   addMessage = (id, from, to, message) => {
-    fetch(`http://localhost:8000/messages`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        thread_id: id,
-        sender: from,
-        receiver: to,
-        data: message
-      })
-    }).then(res => {
-      res
-        .json()
-        .then(data => ({
-          aNotification: data
-        }))
-        .then(res => {
-          this.sendNotification(
-            res.aNotification.receiver,
-            res.aNotification.thread_id
-          ); //Makes a POST request to the database to send new notification to a user with proper threadid
-        });
-    });
-    window.location.reload();
+    if (message !== "") {
+      fetch(`http://localhost:8000/messages`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          jwt: localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          thread_id: id,
+          sender: from,
+          receiver: to,
+          data: message
+        })
+      }).then(res => {
+        res
+          .json()
+          .then(data => ({
+            aNotification: data
+          }))
+          .then(res => {
+            this.sendNotification(
+              res.aNotification.receiver,
+              res.aNotification.thread_id
+            ); //Makes a POST request to the database to send new notification to a user with proper threadid
+          });
+      });
+      this.props.updateOnReply();
+    } else {
+      alert("Enter a message !");
+    }
   };
 
   sendNotification(email, threadId) {
@@ -56,7 +61,8 @@ class Reply extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: email,

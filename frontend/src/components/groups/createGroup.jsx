@@ -35,16 +35,18 @@ class CreateGroup extends Component {
     this.setState({ members: event.target.value });
   };
 
-  createNewGroup = (title, user) => {
+  createNewGroup = (title, user, description) => {
     //makes a new group
     fetch("http://localhost:8000/groups", {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
-        name: title
+        name: title,
+        description: description
       })
     }).then(res => {
       res
@@ -64,7 +66,8 @@ class CreateGroup extends Component {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        jwt: localStorage.getItem("jwt")
       },
       body: JSON.stringify({
         user_id: user,
@@ -84,7 +87,7 @@ class CreateGroup extends Component {
           <h6>Group Name:</h6>
           <input
             className="grpn"
-            placeHolder="Groupe Name"
+            placeholder="Groupe Name"
             value={this.state.title}
             onChange={this.handleTitleChange}
           />
@@ -106,7 +109,8 @@ class CreateGroup extends Component {
             onClick={() =>
               this.createNewGroup(
                 this.state.title,
-                this.state.userProfile.email
+                this.state.userProfile.email,
+                this.state.description
               )
             }
           >
