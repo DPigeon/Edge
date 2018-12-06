@@ -20,7 +20,7 @@ Unit tests for:
 - Users
 - Messages
 - Threads
-You can have a look at the tests [here](https://travis-ci.com/DPigeon/SOEN341-Project/builds/93747374) (lastest dev branch).
+### You can have a look at the tests [here](https://travis-ci.com/DPigeon/SOEN341-Project/builds/93747374) (lastest dev branch).
 
 
 Our team project is a web-base application. 
